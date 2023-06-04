@@ -2,15 +2,10 @@ import org.json.JSONArray;
 import java.io.FileWriter;
 import org.json.JSONObject;
 import org.json.JSONException;
-
-import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-
-
-
-public class App {
+public class GetNumTechniquesForEachTactics {
     public static void main(String[] args) {
         try {
             String[] tacticsList =  {"collection","command-and-control","credential-access","defense-evasion","discovery","execution","exfiltration","impact","initial-access","lateral-movement","persistence","privilege-escalation","reconnaissance","resource-development"};
