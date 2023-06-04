@@ -1,0 +1,14 @@
+- collection: 17
+- command-and-control: 16
+- credential-access: 17
+- defense-evasion: 42
+- discovery: 31
+- execution: 14
+- exfiltration: 9
+- impact: 13
+- initial-access: 9
+- lateral-movement: 9
+- persistence: 19
+- privilege-escalation: 13
+- reconnaissance: 10
+- resource-development: 8
