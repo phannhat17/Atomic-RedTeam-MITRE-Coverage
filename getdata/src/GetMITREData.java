@@ -12,9 +12,13 @@ public class GetMITREData {
         File directory = new File(downloadPath);
         if (!directory.exists()) {
             directory.mkdirs();
-        } 
+        }
         String downloadUrl = "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/";
-        String [] filesPath = {"enterprise-attack/enterprise-attack.json", "mobile-attack/mobile-attack.json", "ics-attack/ics-attack.json"};
+        String[] filesPath = { 
+                "enterprise-attack/enterprise-attack.json", 
+                "mobile-attack/mobile-attack.json",
+                "ics-attack/ics-attack.json" 
+            };
         for (String path : filesPath) {
             try {
                 String fileName = path.substring(path.lastIndexOf('/') + 1);
@@ -34,8 +38,7 @@ public class GetMITREData {
         fos.close();
         rbc.close();
         long stop = System.currentTimeMillis();
-        System.out.println("Run time: " + (stop-start));
-
+        System.out.println("Run time: " + (stop - start));
     }
 
 }
