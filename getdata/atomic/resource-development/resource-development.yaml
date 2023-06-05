@@ -1,0 +1,2645 @@
+resource-development:
+  T1583:
+    technique:
+      modified: '2023-03-02T21:34:46.139Z'
+      name: Acquire Infrastructure
+      description: |-
+        Adversaries may buy, lease, or rent infrastructure that can be used during targeting. A wide variety of infrastructure exists for hosting and orchestrating adversary operations. Infrastructure solutions include physical or cloud servers, domains, and third-party web services.(Citation: TrendmicroHideoutsLease) Additionally, botnets are available for rent or purchase.
+
+        Use of these infrastructure solutions allows adversaries to stage, launch, and execute operations. Solutions may help adversary operations blend in with traffic that is seen as normal, such as contacting third-party web services or acquiring infrastructure to support [Proxy](https://attack.mitre.org/techniques/T1090).(Citation: amnesty_nso_pegasus) Depending on the implementation, adversaries may use infrastructure that makes it difficult to physically tie back to them as well as utilize infrastructure that can be rapidly provisioned, modified, and shut down.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: "Consider use of services that may aid in tracking of newly
+        acquired infrastructure, such as WHOIS databases for domain registration information.
+        \n\nOnce adversaries have provisioned infrastructure (ex: a server for use
+        in command and control), internet scans may help proactively discover adversary
+        acquired infrastructure. Consider looking for identifiable patterns such as
+        services listening, certificates in use, SSL/TLS negotiation features, or
+        other response artifacts associated with adversary C2 software.(Citation:
+        ThreatConnect Infrastructure Dec 2020)(Citation: Mandiant SCANdalous Jul 2020)(Citation:
+        Koczwara Beacon Hunting Sep 2021)\n\nDetection efforts may be focused on related
+        stages of the adversary lifecycle, such as during Command and Control."
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: false
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.2'
+      x_mitre_contributors:
+      - Shailesh Tiwary (Indian Army)
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Metadata'
+      - 'Domain Name: Active DNS'
+      - 'Internet Scan: Response Content'
+      - 'Domain Name: Domain Registration'
+      - 'Domain Name: Passive DNS'
+      type: attack-pattern
+      id: attack-pattern--0458aab9-ad42-4eac-9e22-706a95bafee2
+      created: '2020-09-30T16:37:40.271Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1583
+        external_id: T1583
+      - source_name: amnesty_nso_pegasus
+        description: 'Amnesty International Security Lab. (2021, July 18). Forensic
+          Methodology Report: How to catch NSO Group’s Pegasus. Retrieved February
+          22, 2022.'
+        url: https://www.amnesty.org/en/latest/research/2021/07/forensic-methodology-report-how-to-catch-nso-groups-pegasus/
+      - source_name: Koczwara Beacon Hunting Sep 2021
+        description: Koczwara, M. (2021, September 7). Hunting Cobalt Strike C2 with
+          Shodan. Retrieved October 12, 2021.
+        url: https://michaelkoczwara.medium.com/cobalt-strike-c2-hunting-with-shodan-c448d501a6e2
+      - source_name: TrendmicroHideoutsLease
+        description: 'Max Goncharov. (2015, July 15). Criminal Hideouts for Lease:
+          Bulletproof Hosting Services. Retrieved March 6, 2017.'
+        url: https://documents.trendmicro.com/assets/wp/wp-criminal-hideouts-for-lease.pdf
+      - source_name: Mandiant SCANdalous Jul 2020
+        description: Stephens, A. (2020, July 13). SCANdalous! (External Detection
+          Using Network Scan Data and Automation). Retrieved October 12, 2021.
+        url: https://www.mandiant.com/resources/scandalous-external-detection-using-network-scan-data-and-automation
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1583.007:
+    technique:
+      modified: '2022-10-20T21:20:22.578Z'
+      name: Serverless
+      description: |-
+        Adversaries may purchase and configure serverless cloud infrastructure, such as Cloudflare Workers or AWS Lambda functions, that can be used during targeting. By utilizing serverless infrastructure, adversaries can make it more difficult to attribute infrastructure used during operations back to them.
+
+        Once acquired, the serverless runtime environment can be leveraged to either respond directly to infected machines or to [Proxy](https://attack.mitre.org/techniques/T1090) traffic to an adversary-owned command and control server.(Citation: BlackWater Malware Cloudflare Workers)(Citation: AWS Lambda Redirector) As traffic generated by these functions will appear to come from subdomains of common cloud providers, it may be difficult to distinguish from ordinary traffic to these providers.(Citation: Detecting Command & Control in the Cloud)(Citation: BlackWater Malware Cloudflare Workers)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: ''
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.0'
+      x_mitre_contributors:
+      - Awake Security
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--04a5a8ab-3bc8-4c83-95c9-55274a89786d
+      created: '2022-07-08T12:39:29.684Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1583/007
+        external_id: T1583.007
+      - source_name: AWS Lambda Redirector
+        description: Adam Chester. (2020, February 25). AWS Lambda Redirector. Retrieved
+          July 8, 2022.
+        url: https://blog.xpnsec.com/aws-lambda-redirector/
+      - source_name: Detecting Command & Control in the Cloud
+        description: 'Gary Golomb. (n.d.). Threat Hunting Series: Detecting Command
+          & Control in the Cloud. Retrieved July 8, 2022.'
+        url: https://awakesecurity.com/blog/threat-hunting-series-detecting-command-control-in-the-cloud/
+      - source_name: BlackWater Malware Cloudflare Workers
+        description: Lawrence Abrams. (2020, March 14). BlackWater Malware Abuses
+          Cloudflare Workers for C2 Communication. Retrieved July 8, 2022.
+        url: https://www.bleepingcomputer.com/news/security/blackwater-malware-abuses-cloudflare-workers-for-c2-communication/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1583.008:
+    technique:
+      modified: '2023-04-17T15:32:39.470Z'
+      name: Malvertising
+      description: "Adversaries may purchase online advertisements that can be abused
+        to distribute malware to victims. Ads can be purchased to plant as well as
+        favorably position artifacts in specific locations  online, such as prominently
+        placed within search engine results. These ads may make it more difficult
+        for users to distinguish between actual search results and advertisements.(Citation:
+        spamhaus-malvertising) Purchased ads may also target specific audiences using
+        the advertising network’s capabilities, potentially further taking advantage
+        of the trust inherently given to search engines and popular websites. \n\nAdversaries
+        may purchase ads and other resources to help distribute artifacts containing
+        malicious code to victims. Purchased ads may attempt to impersonate or spoof
+        well-known brands. For example, these spoofed ads may trick victims into clicking
+        the ad which could then send them to a malicious domain that may be a clone
+        of official websites containing trojanized versions of the advertised software.(Citation:
+        Masquerads-Guardio)(Citation: FBI-search) Adversary’s efforts to create malicious
+        domains and purchase advertisements may also be automated at scale to better
+        resist cleanup efforts.(Citation: sentinelone-malvertising) \n\nMalvertising
+        may be used to support [Drive-by Target](https://attack.mitre.org/techniques/T1608/004)
+        and [Drive-by Compromise](https://attack.mitre.org/techniques/T1189), potentially
+        requiring limited interaction from the user if the ad contains code/exploits
+        that infect the target system's web browser.(Citation: BBC-malvertising)\n\nAdversaries
+        may also employ several techniques to evade detection by the advertising network.
+        For example, adversaries may dynamically route ad clicks to send automated
+        crawler/policy enforcer traffic to benign sites while validating potential
+        targets then sending victims referred from real ad clicks to malicious pages.
+        This infection vector may therefore remain hidden from the ad network as well
+        as any visitor not reaching the malicious sites with a valid identifier from
+        clicking on the advertisement.(Citation: Masquerads-Guardio) Other tricks,
+        such as intentional typos to avoid brand reputation monitoring, may also be
+        used to evade automated detection.(Citation: spamhaus-malvertising) "
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Tom Hegel
+      - Goldstein Menachem
+      - Hiroki Nagahama, NEC Corporation
+      - Manikantan Srinivasan, NEC Corporation India
+      - Pooja Natarajan, NEC Corporation India
+      - Juan Carlos Campuzano - Mnemo-CERT
+      x_mitre_deprecated: false
+      x_mitre_detection: ''
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.0'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--155207c0-7f53-4f13-a06b-0a9907ef5096
+      created: '2023-02-21T20:46:57.170Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1583/008
+        external_id: T1583.008
+      - source_name: BBC-malvertising
+        description: BBC. (2011, March 29). Spotify ads hit by malware attack. Retrieved
+          February 21, 2023.
+        url: https://www.bbc.com/news/technology-12891182
+      - source_name: FBI-search
+        description: FBI. (2022, December 21). Cyber Criminals Impersonating Brands
+          Using Search Engine Advertisement Services to Defraud Users. Retrieved February
+          21, 2023.
+        url: https://www.ic3.gov/Media/Y2022/PSA221221
+      - source_name: sentinelone-malvertising
+        description: Hegel, Tom. (2023, January 19). Breaking Down the SEO Poisoning
+          Attack | How Attackers Are Hijacking Search Results. Retrieved February
+          21, 2023.
+        url: https://www.sentinelone.com/blog/breaking-down-the-seo-poisoning-attack-how-attackers-are-hijacking-search-results/
+      - source_name: spamhaus-malvertising
+        description: Miller, Sarah. (2023, February 2). A surge of malvertising across
+          Google Ads is distributing dangerous malware. Retrieved February 21, 2023.
+        url: https://www.spamhaus.com/resource-center/a-surge-of-malvertising-across-google-ads-is-distributing-dangerous-malware/
+      - source_name: Masquerads-Guardio
+        description: Tal, Nati. (2022, December 28). “MasquerAds�? — Google’s Ad-Words
+          Massively Abused by Threat Actors, Targeting Organizations, GPUs and Crypto
+          Wallets. Retrieved February 21, 2023.
+        url: https://labs.guard.io/masquerads-googles-ad-words-massively-abused-by-threat-actors-targeting-organizations-gpus-42ae73ee8a1e
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1588.004:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--19401639-28d0-4c3c-adcc-bc2ba22f6421
+      type: attack-pattern
+      created: '2020-10-01T02:14:18.044Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1588.004
+        url: https://attack.mitre.org/techniques/T1588/004
+      - description: Fisher, D. (2012, October 31). Final Report on DigiNotar Hack
+          Shows Total Compromise of CA Servers. Retrieved March 6, 2017.
+        source_name: DiginotarCompromise
+        url: https://threatpost.com/final-report-diginotar-hack-shows-total-compromise-ca-servers-103112/77170/
+      - source_name: Let's Encrypt FAQ
+        url: https://letsencrypt.org/docs/faq/
+        description: Let's Encrypt. (2020, April 23). Let's Encrypt FAQ. Retrieved
+          October 15, 2020.
+      - source_name: Splunk Kovar Certificates 2017
+        url: https://www.splunk.com/en_us/blog/security/tall-tales-of-hunting-with-tls-ssl-certificates.html
+        description: Kovar, R. (2017, December 11). Tall Tales of Hunting with TLS/SSL
+          Certificates. Retrieved October 16, 2020.
+      - source_name: Recorded Future Beacon Certificates
+        url: https://www.recordedfuture.com/cobalt-strike-servers/
+        description: Insikt Group. (2019, June 18). A Multi-Method Approach to Identifying
+          Rogue Cobalt Strike Servers. Retrieved October 16, 2020.
+      modified: '2021-10-16T17:44:09.486Z'
+      name: Digital Certificates
+      description: |-
+        Adversaries may buy and/or steal SSL/TLS certificates that can be used during targeting. SSL/TLS certificates are designed to instill trust. They include information about the key, information about its owner's identity, and the digital signature of an entity that has verified the certificate's contents are correct. If the signature is valid, and the person examining the certificate trusts the signer, then they know they can use that key to communicate with its owner.
+
+        Adversaries may purchase or steal SSL/TLS certificates to further their operations, such as encrypting C2 traffic (ex: [Asymmetric Cryptography](https://attack.mitre.org/techniques/T1573/002) with [Web Protocols](https://attack.mitre.org/techniques/T1071/001)) or even enabling [Adversary-in-the-Middle](https://attack.mitre.org/techniques/T1557) if the certificate is trusted or otherwise added to the root of trust (i.e. [Install Root Certificate](https://attack.mitre.org/techniques/T1553/004)). The purchase of digital certificates may be done using a front organization or using information stolen from a previously compromised entity that allows the adversary to validate to a certificate provider as that entity. Adversaries may also steal certificate materials directly from a compromised third-party, including from certificate authorities.(Citation: DiginotarCompromise) Adversaries may register or hijack domains that they will later purchase an SSL/TLS certificate for.
+
+        Certificate authorities exist that allow adversaries to acquire SSL/TLS certificates, such as domain validation certificates, for free.(Citation: Let's Encrypt FAQ)
+
+        After obtaining a digital certificate, an adversary may then install that certificate (see [Install Digital Certificate](https://attack.mitre.org/techniques/T1608/003)) on infrastructure under their control.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider use of services that may aid in the tracking of newly issued certificates and/or certificates in use on sites across the Internet. In some cases it may be possible to pivot on known pieces of certificate information to uncover other adversary infrastructure.(Citation: Splunk Kovar Certificates 2017) Some server-side components of adversary tools may have default values set for SSL/TLS certificates.(Citation: Recorded Future Beacon Certificates)
+
+        Detection efforts may be focused on related behaviors, such as [Web Protocols](https://attack.mitre.org/techniques/T1071/001), [Asymmetric Cryptography](https://attack.mitre.org/techniques/T1573/002), and/or [Install Root Certificate](https://attack.mitre.org/techniques/T1553/004).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.2'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Certificate: Certificate Registration'
+      - 'Internet Scan: Response Content'
+    atomic_tests: []
+  T1583.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--197ef1b9-e764-46c3-b96c-23f77985dc81
+      type: attack-pattern
+      created: '2020-10-01T00:40:45.279Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1583.002
+        url: https://attack.mitre.org/techniques/T1583/002
+      - source_name: Unit42 DNS Mar 2019
+        url: https://unit42.paloaltonetworks.com/dns-tunneling-how-dns-can-be-abused-by-malicious-actors/
+        description: 'Hinchliffe, A. (2019, March 15). DNS Tunneling: how DNS can
+          be (ab)used by malicious actors. Retrieved October 3, 2020.'
+      modified: '2021-04-15T02:49:49.702Z'
+      name: DNS Server
+      description: |-
+        Adversaries may set up their own Domain Name System (DNS) servers that can be used during targeting. During post-compromise activity, adversaries may utilize DNS traffic for various tasks, including for Command and Control (ex: [Application Layer Protocol](https://attack.mitre.org/techniques/T1071)). Instead of hijacking existing DNS servers, adversaries may opt to configure and run their own DNS servers in support of operations.
+
+        By running their own DNS servers, adversaries can have more control over how they administer server-side DNS C2 traffic ([DNS](https://attack.mitre.org/techniques/T1071/004)). With control over a DNS server, adversaries can configure DNS applications to provide conditional responses to malware and, generally, have more flexibility in the structure of the DNS-based C2 channel.(Citation: Unit42 DNS Mar 2019)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: Much of this activity will take place outside the visibility
+        of the target organization, making detection of this behavior difficult. Detection
+        efforts may be focused on related stages of the adversary lifecycle, such
+        as during Command and Control.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1587.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--1cec9319-743b-4840-bb65-431547bce82a
+      type: attack-pattern
+      created: '2020-10-01T01:42:24.974Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1587.003
+        url: https://attack.mitre.org/techniques/T1587/003
+      - source_name: Splunk Kovar Certificates 2017
+        url: https://www.splunk.com/en_us/blog/security/tall-tales-of-hunting-with-tls-ssl-certificates.html
+        description: Kovar, R. (2017, December 11). Tall Tales of Hunting with TLS/SSL
+          Certificates. Retrieved October 16, 2020.
+      modified: '2021-10-16T17:32:34.604Z'
+      name: Digital Certificates
+      description: |-
+        Adversaries may create self-signed SSL/TLS certificates that can be used during targeting. SSL/TLS certificates are designed to instill trust. They include information about the key, information about its owner's identity, and the digital signature of an entity that has verified the certificate's contents are correct. If the signature is valid, and the person examining the certificate trusts the signer, then they know they can use that key to communicate with its owner. In the case of self-signing, digital certificates will lack the element of trust associated with the signature of a third-party certificate authority (CA).
+
+        Adversaries may create self-signed SSL/TLS certificates that can be used to further their operations, such as encrypting C2 traffic (ex: [Asymmetric Cryptography](https://attack.mitre.org/techniques/T1573/002) with [Web Protocols](https://attack.mitre.org/techniques/T1071/001)) or even enabling [Adversary-in-the-Middle](https://attack.mitre.org/techniques/T1557) if added to the root of trust (i.e. [Install Root Certificate](https://attack.mitre.org/techniques/T1553/004)).
+
+        After creating a digital certificate, an adversary may then install that certificate (see [Install Digital Certificate](https://attack.mitre.org/techniques/T1608/003)) on infrastructure under their control.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider use of services that may aid in the tracking of certificates in use on sites across the Internet. In some cases it may be possible to pivot on known pieces of certificate information to uncover other adversary infrastructure.(Citation: Splunk Kovar Certificates 2017)
+
+        Detection efforts may be focused on related behaviors, such as [Web Protocols](https://attack.mitre.org/techniques/T1071/001), [Asymmetric Cryptography](https://attack.mitre.org/techniques/T1573/002), and/or [Install Root Certificate](https://attack.mitre.org/techniques/T1553/004).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.2'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+    atomic_tests: []
+  T1587.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--212306d8-efa4-44c9-8c2d-ed3d2e224aa0
+      type: attack-pattern
+      created: '2020-10-01T01:33:01.433Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1587.001
+        url: https://attack.mitre.org/techniques/T1587/001
+      - url: https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/mandiant-apt1-report.pdf
+        description: Mandiant. (n.d.). APT1 Exposing One of China’s Cyber Espionage
+          Units. Retrieved July 18, 2016.
+        source_name: Mandiant APT1
+      - source_name: Kaspersky Sofacy
+        description: Kaspersky Lab's Global Research and Analysis Team. (2015, December
+          4). Sofacy APT hits high profile targets with updated toolset. Retrieved
+          December 10, 2015.
+        url: https://securelist.com/sofacy-apt-hits-high-profile-targets-with-updated-toolset/72924/
+      - source_name: ActiveMalwareEnergy
+        description: Dan Goodin. (2014, June 30). Active malware operation let attackers
+          sabotage US energy industry. Retrieved March 9, 2017.
+        url: https://arstechnica.com/information-technology/2014/06/active-malware-operation-let-attackers-sabotage-us-energy-industry/
+      - source_name: FBI Flash FIN7 USB
+        url: https://therecord.media/fbi-fin7-hackers-target-us-companies-with-badusb-devices-to-install-ransomware/
+        description: 'The Record. (2022, January 7). FBI: FIN7 hackers target US companies
+          with BadUSB devices to install ransomware. Retrieved January 14, 2022.'
+      - source_name: FireEye APT29
+        description: 'FireEye Labs. (2015, July). HAMMERTOSS: Stealthy Tactics Define
+          a Russian Cyber Threat Group. Retrieved September 17, 2015.'
+        url: https://www2.fireeye.com/rs/848-DID-242/images/rpt-apt29-hammertoss.pdf
+      modified: '2022-01-14T17:14:27.890Z'
+      name: Malware
+      description: |-
+        Adversaries may develop malware and malware components that can be used during targeting. Building malicious software can include the development of payloads, droppers, post-compromise tools, backdoors (including backdoored images), packers, C2 protocols, and the creation of infected removable media. Adversaries may develop malware to support their operations, creating a means for maintaining control of remote machines, evading defenses, and executing post-compromise behaviors.(Citation: Mandiant APT1)(Citation: Kaspersky Sofacy)(Citation: ActiveMalwareEnergy)(Citation: FBI Flash FIN7 USB)
+
+        As with legitimate development efforts, different skill sets may be required for developing malware. The skills needed may be located in-house, or may need to be contracted out. Use of a contractor may be considered an extension of that adversary's malware development capabilities, provided the adversary plays a role in shaping requirements and maintains a degree of exclusivity to the malware.
+
+        Some aspects of malware development, such as C2 protocol development, may require adversaries to obtain additional infrastructure. For example, malware developed that will communicate with Twitter for C2, may require use of [Web Services](https://attack.mitre.org/techniques/T1583/006).(Citation: FireEye APT29)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider analyzing malware for features that may be associated with the adversary and/or their developers, such as compiler used, debugging artifacts, or code similarities. Malware repositories can also be used to identify additional samples associated with the adversary and identify development patterns over time.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on post-compromise phases of the adversary lifecycle.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.2'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Malware Repository: Malware Metadata'
+      - 'Malware Repository: Malware Content'
+    atomic_tests: []
+  T1586.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--274770e0-2612-4ccf-a678-ef8e7bad365d
+      type: attack-pattern
+      created: '2020-10-01T01:18:35.535Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1586.001
+        url: https://attack.mitre.org/techniques/T1586/001
+      - source_name: AnonHBGary
+        description: 'Bright, P. (2011, February 15). Anonymous speaks: the inside
+          story of the HBGary hack. Retrieved March 9, 2017.'
+        url: https://arstechnica.com/tech-policy/2011/02/anonymous-speaks-the-inside-story-of-the-hbgary-hack/
+      - source_name: NEWSCASTER2014
+        description: Lennon, M. (2014, May 29). Iranian Hackers Targeted US Officials
+          in Elaborate Social Media Attack Operation. Retrieved March 1, 2017.
+        url: https://www.securityweek.com/iranian-hackers-targeted-us-officials-elaborate-social-media-attack-operation
+      - source_name: BlackHatRobinSage
+        description: Ryan, T. (2010). “Getting In Bed with Robin Sage.�?. Retrieved
+          March 6, 2017.
+        url: http://media.blackhat.com/bh-us-10/whitepapers/Ryan/BlackHat-USA-2010-Ryan-Getting-In-Bed-With-Robin-Sage-v1.0.pdf
+      modified: '2021-10-16T17:15:12.169Z'
+      name: Social Media Accounts
+      description: "Adversaries may compromise social media accounts that can be used
+        during targeting. For operations incorporating social engineering, the utilization
+        of an online persona may be important. Rather than creating and cultivating
+        social media profiles (i.e. [Social Media Accounts](https://attack.mitre.org/techniques/T1585/001)),
+        adversaries may compromise existing social media accounts. Utilizing an existing
+        persona may engender a level of trust in a potential victim if they have a
+        relationship, or knowledge of, the compromised persona. \n\nA variety of methods
+        exist for compromising social media accounts, such as gathering credentials
+        via [Phishing for Information](https://attack.mitre.org/techniques/T1598),
+        purchasing credentials from third-party sites, or by brute forcing credentials
+        (ex: password reuse from breach credential dumps).(Citation: AnonHBGary) Prior
+        to compromising social media accounts, adversaries may conduct Reconnaissance
+        to inform decisions about which accounts to compromise to further their operation.\n\nPersonas
+        may exist on a single site or across multiple sites (ex: Facebook, LinkedIn,
+        Twitter, etc.). Compromised social media accounts may require additional development,
+        this could include filling out or modifying profile information, further developing
+        social networks, or incorporating photos.\n\nAdversaries can use a compromised
+        social media profile to create new, or hijack existing, connections to targets
+        of interest. These connections may be direct or may include trying to connect
+        through others.(Citation: NEWSCASTER2014)(Citation: BlackHatRobinSage) Compromised
+        profiles may be leveraged during other phases of the adversary lifecycle,
+        such as during Initial Access (ex: [Spearphishing via Service](https://attack.mitre.org/techniques/T1566/003))."
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider monitoring social media activity related to your organization. Suspicious activity may include personas claiming to work for your organization or recently modified accounts making numerous connection requests to accounts affiliated with your organization.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access (ex: [Spearphishing via Service](https://attack.mitre.org/techniques/T1566/003)).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Persona: Social Media'
+      - 'Network Traffic: Network Traffic Content'
+    atomic_tests: []
+  T1588.006:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--2b5aa86b-a0df-4382-848d-30abea443327
+      type: attack-pattern
+      created: '2020-10-15T02:59:38.628Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1588.006
+        url: https://attack.mitre.org/techniques/T1588/006
+      - source_name: National Vulnerability Database
+        url: https://nvd.nist.gov/
+        description: National Vulnerability Database. (n.d.). National Vulnerability
+          Database. Retrieved October 15, 2020.
+      modified: '2021-04-15T03:16:32.119Z'
+      name: Vulnerabilities
+      description: |-
+        Adversaries may acquire information about vulnerabilities that can be used during targeting. A vulnerability is a weakness in computer hardware or software that can, potentially, be exploited by an adversary to cause unintended or unanticipated behavior to occur. Adversaries may find vulnerability information by searching open databases or gaining access to closed vulnerability databases.(Citation: National Vulnerability Database)
+
+        An adversary may monitor vulnerability disclosures/databases to understand the state of existing, as well as newly discovered, vulnerabilities. There is usually a delay between when a vulnerability is discovered and when it is made public. An adversary may target the systems of those known to conduct vulnerability research (including commercial vendors). Knowledge of a vulnerability may cause an adversary to search for an existing exploit (i.e. [Exploits](https://attack.mitre.org/techniques/T1588/005)) or to attempt to develop one themselves (i.e. [Exploits](https://attack.mitre.org/techniques/T1587/004)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: Much of this activity will take place outside the visibility
+        of the target organization, making detection of this behavior difficult. Detection
+        efforts may be focused on behaviors relating to the potential use of exploits
+        for vulnerabilities (i.e. [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190),
+        [Exploitation for Client Execution](https://attack.mitre.org/techniques/T1203),
+        [Exploitation for Privilege Escalation](https://attack.mitre.org/techniques/T1068),
+        [Exploitation for Defense Evasion](https://attack.mitre.org/techniques/T1211),
+        [Exploitation for Credential Access](https://attack.mitre.org/techniques/T1212),
+        [Exploitation of Remote Services](https://attack.mitre.org/techniques/T1210),
+        and [Application or System Exploitation](https://attack.mitre.org/techniques/T1499/004)).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1583.005:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--31225cd3-cd46-4575-b287-c2c14011c074
+      type: attack-pattern
+      created: '2020-10-01T00:49:05.467Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1583.005
+        url: https://attack.mitre.org/techniques/T1583/005
+      - source_name: Norton Botnet
+        url: https://us.norton.com/internetsecurity-malware-what-is-a-botnet.html
+        description: Norton. (n.d.). What is a botnet?. Retrieved October 4, 2020.
+      - source_name: Imperva DDoS for Hire
+        url: https://www.imperva.com/learn/ddos/booters-stressers-ddosers/
+        description: Imperva. (n.d.). Booters, Stressers and DDoSers. Retrieved October
+          4, 2020.
+      - source_name: Krebs-Anna
+        description: Brian Krebs. (2017, January 18). Who is Anna-Senpai, the Mirai
+          Worm Author?. Retrieved May 15, 2017.
+        url: https://krebsonsecurity.com/2017/01/who-is-anna-senpai-the-mirai-worm-author/
+      - source_name: Krebs-Bazaar
+        description: Brian Krebs. (2016, October 31). Hackforums Shutters Booter Service
+          Bazaar. Retrieved May 15, 2017.
+        url: https://krebsonsecurity.com/2016/10/hackforums-shutters-booter-service-bazaar/
+      - source_name: Krebs-Booter
+        description: Brian Krebs. (2016, October 27). Are the Days of “Booter�? Services
+          Numbered?. Retrieved May 15, 2017.
+        url: https://krebsonsecurity.com/2016/10/are-the-days-of-booter-services-numbered/
+      modified: '2021-04-15T02:49:14.664Z'
+      name: Botnet
+      description: 'Adversaries may buy, lease, or rent a network of compromised systems that
+        can be used during targeting. A botnet is a network of compromised systems
+        that can be instructed to perform coordinated tasks.(Citation: Norton Botnet)
+        Adversaries may purchase a subscription to use an existing botnet from a booter/stresser
+        service. With a botnet at their disposal, adversaries may perform follow-on
+        activity such as large-scale [Phishing](https://attack.mitre.org/techniques/T1566)
+        or Distributed Denial of Service (DDoS).(Citation: Imperva DDoS for Hire)(Citation:
+        Krebs-Anna)(Citation: Krebs-Bazaar)(Citation: Krebs-Booter)'
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: Much of this activity will take place outside the visibility
+        of the target organization, making detection of this behavior difficult. Detection
+        efforts may be focused on related stages of the adversary lifecycle, such
+        as during [Phishing](https://attack.mitre.org/techniques/T1566), [Endpoint
+        Denial of Service](https://attack.mitre.org/techniques/T1499), or [Network
+        Denial of Service](https://attack.mitre.org/techniques/T1498).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1608.004:
+    technique:
+      modified: '2023-04-15T00:21:55.791Z'
+      name: Drive-by Target
+      description: |-
+        Adversaries may prepare an operational environment to infect systems that visit a website over the normal course of browsing. Endpoint systems may be compromised through browsing to adversary controlled sites, as in [Drive-by Compromise](https://attack.mitre.org/techniques/T1189). In such cases, the user's web browser is typically targeted for exploitation (often not requiring any extra user interaction once landing on the site), but adversaries may also set up websites for non-exploitation behavior such as [Application Access Token](https://attack.mitre.org/techniques/T1550/001). Prior to [Drive-by Compromise](https://attack.mitre.org/techniques/T1189), adversaries must stage resources needed to deliver that exploit to users who browse to an adversary controlled site. Drive-by content can be staged on adversary controlled infrastructure that has been acquired ([Acquire Infrastructure](https://attack.mitre.org/techniques/T1583)) or previously compromised ([Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)).
+
+        Adversaries may upload or inject malicious web content, such as [JavaScript](https://attack.mitre.org/techniques/T1059/007), into websites.(Citation: FireEye CFR Watering Hole 2012)(Citation: Gallagher 2015) This may be done in a number of ways, including:
+
+        * Inserting malicious scripts into web pages or other user controllable web content such as forum posts
+        * Modifying script files served to websites from publicly writeable cloud storage buckets
+        * Crafting malicious web advertisements and purchasing ad space on a website through legitimate ad providers (i.e., [Malvertising](https://attack.mitre.org/techniques/T1583/008))
+
+        In addition to staging content to exploit a user's web browser, adversaries may also stage scripting content to profile the user's browser (as in [Gather Victim Host Information](https://attack.mitre.org/techniques/T1592)) to ensure it is vulnerable prior to attempting exploitation.(Citation: ATT ScanBox)
+
+        Websites compromised by an adversary and used to stage a drive-by may be ones visited by a specific community, such as government, a particular industry, or region, where the goal is to compromise a specific user or set of users based on a shared interest. This kind of targeted campaign is referred to a strategic web compromise or watering hole attack.
+
+        Adversaries may purchase domains similar to legitimate domains (ex: homoglyphs, typosquatting, different top-level domain, etc.) during acquisition of infrastructure ([Domains](https://attack.mitre.org/techniques/T1583/001)) to help facilitate [Drive-by Compromise](https://attack.mitre.org/techniques/T1189).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        If infrastructure or patterns in the malicious web content utilized to deliver a [Drive-by Compromise](https://attack.mitre.org/techniques/T1189) have been previously identified, internet scanning may uncover when an adversary has staged web content for use in a strategic web compromise.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on other phases of the adversary lifecycle, such as [Drive-by Compromise](https://attack.mitre.org/techniques/T1189) or [Exploitation for Client Execution](https://attack.mitre.org/techniques/T1203).
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.3'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--31fe0ba2-62fd-4fd9-9293-4043d84f7fe9
+      created: '2021-03-17T20:33:20.127Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1608/004
+        external_id: T1608.004
+      - source_name: ATT ScanBox
+        description: 'Blasco, J. (2014, August 28). Scanbox: A Reconnaissance Framework
+          Used with Watering Hole Attacks. Retrieved October 19, 2020.'
+        url: https://cybersecurity.att.com/blogs/labs-research/scanbox-a-reconnaissance-framework-used-on-watering-hole-attacks
+      - source_name: Gallagher 2015
+        description: Gallagher, S.. (2015, August 5). Newly discovered Chinese hacking
+          group hacked 100+ websites to use as “watering holes�?. Retrieved January
+          25, 2016.
+        url: http://arstechnica.com/security/2015/08/newly-discovered-chinese-hacking-group-hacked-100-websites-to-use-as-watering-holes/
+      - source_name: FireEye CFR Watering Hole 2012
+        description: Kindlund, D. (2012, December 30). CFR Watering Hole Attack Details.
+          Retrieved December 18, 2020.
+        url: https://www.fireeye.com/blog/threat-research/2012/12/council-foreign-relations-water-hole-attack-details.html
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1587.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--34b3f738-bd64-40e5-a112-29b0542bc8bf
+      type: attack-pattern
+      created: '2020-10-01T01:41:08.652Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1587.002
+        url: https://attack.mitre.org/techniques/T1587/002
+      - url: https://en.wikipedia.org/wiki/Code_signing
+        description: Wikipedia. (2015, November 10). Code Signing. Retrieved March
+          31, 2016.
+        source_name: Wikipedia Code Signing
+      modified: '2021-10-17T16:07:08.549Z'
+      name: Code Signing Certificates
+      description: |-
+        Adversaries may create self-signed code signing certificates that can be used during targeting. Code signing is the process of digitally signing executables and scripts to confirm the software author and guarantee that the code has not been altered or corrupted. Code signing provides a level of authenticity for a program from the developer and a guarantee that the program has not been tampered with.(Citation: Wikipedia Code Signing) Users and/or security tools may trust a signed piece of code more than an unsigned piece of code even if they don't know who issued the certificate or who the author is.
+
+        Prior to [Code Signing](https://attack.mitre.org/techniques/T1553/002), adversaries may develop self-signed code signing certificates for use in operations.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider analyzing self-signed code signing certificates for features that may be associated with the adversary and/or their developers, such as the thumbprint, algorithm used, validity period, and common name. Malware repositories can also be used to identify additional samples associated with the adversary and identify patterns an adversary has used in crafting self-signed code signing certificates.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related follow-on behavior, such as [Code Signing](https://attack.mitre.org/techniques/T1553/002) or [Install Root Certificate](https://attack.mitre.org/techniques/T1553/004).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Malware Repository: Malware Metadata'
+    atomic_tests: []
+  T1584.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--39cc9f64-cf74-4a48-a4d8-fe98c54a02e0
+      type: attack-pattern
+      created: '2020-10-01T00:55:17.771Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1584.003
+        url: https://attack.mitre.org/techniques/T1584/003
+      - source_name: NSA NCSC Turla OilRig
+        url: https://media.defense.gov/2019/Oct/18/2002197242/-1/-1/0/NSA_CSA_Turla_20191021%20ver%204%20-%20nsa.gov.pdf
+        description: 'NSA/NCSC. (2019, October 21). Cybersecurity Advisory: Turla
+          Group Exploits Iranian APT To Expand Coverage Of Victims. Retrieved October
+          16, 2020.'
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+      - source_name: Mandiant SCANdalous Jul 2020
+        url: https://www.mandiant.com/resources/scandalous-external-detection-using-network-scan-data-and-automation
+        description: Stephens, A. (2020, July 13). SCANdalous! (External Detection
+          Using Network Scan Data and Automation). Retrieved October 12, 2021.
+      - source_name: Koczwara Beacon Hunting Sep 2021
+        url: https://michaelkoczwara.medium.com/cobalt-strike-c2-hunting-with-shodan-c448d501a6e2
+        description: Koczwara, M. (2021, September 7). Hunting Cobalt Strike C2 with
+          Shodan. Retrieved October 12, 2021.
+      modified: '2021-10-17T15:59:02.770Z'
+      name: Virtual Private Server
+      description: |-
+        Adversaries may compromise third-party Virtual Private Servers (VPSs) that can be used during targeting. There exist a variety of cloud service providers that will sell virtual machines/containers as a service. Adversaries may compromise VPSs purchased by third-party entities. By compromising a VPS to use as infrastructure, adversaries can make it difficult to physically tie back operations to themselves.(Citation: NSA NCSC Turla OilRig)
+
+        Compromising a VPS for use in later stages of the adversary lifecycle, such as Command and Control, can allow adversaries to benefit from the ubiquity and trust associated with higher reputation cloud service providers as well as that added by the compromised third-party.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Once adversaries have provisioned software on a compromised VPS (ex: for use as a command and control server), internet scans may reveal VPSs that adversaries have compromised. Consider looking for identifiable patterns such as services listening, certificates in use, SSL/TLS negotiation features, or other response artifacts associated with adversary C2 software.(Citation: ThreatConnect Infrastructure Dec 2020)(Citation: Mandiant SCANdalous Jul 2020)(Citation: Koczwara Beacon Hunting Sep 2021)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Command and Control.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Metadata'
+      - 'Internet Scan: Response Content'
+    atomic_tests: []
+  T1586.003:
+    technique:
+      modified: '2022-10-21T14:21:57.991Z'
+      name: Cloud Accounts
+      description: |-
+        Adversaries may compromise cloud accounts that can be used during targeting. Adversaries can use compromised cloud accounts to further their operations, including leveraging cloud storage services such as Dropbox, Microsoft OneDrive, or AWS S3 buckets for [Exfiltration to Cloud Storage](https://attack.mitre.org/techniques/T1567/002) or to [Upload Tool](https://attack.mitre.org/techniques/T1608/002)s. Cloud accounts can also be used in the acquisition of infrastructure, such as [Virtual Private Server](https://attack.mitre.org/techniques/T1583/003)s or [Serverless](https://attack.mitre.org/techniques/T1583/007) infrastructure. Compromising cloud accounts may allow adversaries to develop sophisticated capabilities without managing their own servers.(Citation: Awake Security C2 Cloud)
+
+        A variety of methods exist for compromising cloud accounts, such as gathering credentials via [Phishing for Information](https://attack.mitre.org/techniques/T1598), purchasing credentials from third-party sites, conducting [Password Spraying](https://attack.mitre.org/techniques/T1110/003) attacks, or attempting to [Steal Application Access Token](https://attack.mitre.org/techniques/T1528)s.(Citation: MSTIC Nobelium Oct 2021) Prior to compromising cloud accounts, adversaries may conduct Reconnaissance to inform decisions about which accounts to compromise to further their operation. In some cases, adversaries may target privileged service provider accounts with the intent of leveraging a [Trusted Relationship](https://attack.mitre.org/techniques/T1199) between service providers and their customers.(Citation: MSTIC Nobelium Oct 2021)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: 'Much of this activity will take place outside the visibility
+        of the target organization, making detection of this behavior difficult. Detection
+        efforts may be focused on related stages of the adversary lifecycle, such
+        as during exfiltration (ex: [Transfer Data to Cloud Account](https://attack.mitre.org/techniques/T1537)).'
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.0'
+      x_mitre_contributors:
+      - Francesco Bigarella
+      type: attack-pattern
+      id: attack-pattern--3d52e51e-f6db-4719-813c-48002a99f43a
+      created: '2022-05-27T14:30:01.904Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1586/003
+        external_id: T1586.003
+      - source_name: Awake Security C2 Cloud
+        description: 'Gary Golomb and Tory Kei. (n.d.). Threat Hunting Series: Detecting
+          Command & Control in the Cloud. Retrieved May 27, 2022.'
+        url: https://awakesecurity.com/blog/threat-hunting-series-detecting-command-control-in-the-cloud/
+      - source_name: MSTIC Nobelium Oct 2021
+        description: Microsoft Threat Intelligence Center. (2021, October 25). NOBELIUM
+          targeting delegated administrative privileges to facilitate broader attacks.
+          Retrieved March 25, 2022.
+        url: https://www.microsoft.com/security/blog/2021/10/25/nobelium-targeting-delegated-administrative-privileges-to-facilitate-broader-attacks/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1586.002:
+    technique:
+      modified: '2023-04-11T01:07:48.218Z'
+      name: Email Accounts
+      description: |-
+        Adversaries may compromise email accounts that can be used during targeting. Adversaries can use compromised email accounts to further their operations, such as leveraging them to conduct [Phishing for Information](https://attack.mitre.org/techniques/T1598), [Phishing](https://attack.mitre.org/techniques/T1566), or large-scale spam email campaigns. Utilizing an existing persona with a compromised email account may engender a level of trust in a potential victim if they have a relationship with, or knowledge of, the compromised persona. Compromised email accounts can also be used in the acquisition of infrastructure (ex: [Domains](https://attack.mitre.org/techniques/T1583/001)).
+
+        A variety of methods exist for compromising email accounts, such as gathering credentials via [Phishing for Information](https://attack.mitre.org/techniques/T1598), purchasing credentials from third-party sites, brute forcing credentials (ex: password reuse from breach credential dumps), or paying employees, suppliers or business partners for access to credentials.(Citation: AnonHBGary)(Citation: Microsoft DEV-0537) Prior to compromising email accounts, adversaries may conduct Reconnaissance to inform decisions about which accounts to compromise to further their operation. Adversaries may target compromising well-known email accounts or domains from which malicious spam or [Phishing](https://attack.mitre.org/techniques/T1566) emails may evade reputation-based email filtering rules.
+
+        Adversaries can use a compromised email account to hijack existing email threads with targets of interest.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Tristan Bennett, Seamless Intelligence
+      - Bryan Onel
+      x_mitre_deprecated: false
+      x_mitre_detection: 'Much of this activity will take place outside the visibility
+        of the target organization, making detection of this behavior difficult. Detection
+        efforts may be focused on related stages of the adversary lifecycle, such
+        as during Initial Access (ex: [Phishing](https://attack.mitre.org/techniques/T1566)).'
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.1'
+      type: attack-pattern
+      id: attack-pattern--3dc8c101-d4db-4f4d-8150-1b5a76ca5f1b
+      created: '2020-10-01T01:20:53.104Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1586/002
+        external_id: T1586.002
+      - source_name: AnonHBGary
+        description: 'Bright, P. (2011, February 15). Anonymous speaks: the inside
+          story of the HBGary hack. Retrieved March 9, 2017.'
+        url: https://arstechnica.com/tech-policy/2011/02/anonymous-speaks-the-inside-story-of-the-hbgary-hack/
+      - source_name: Microsoft DEV-0537
+        description: Microsoft. (2022, March 22). DEV-0537 criminal actor targeting
+          organizations for data exfiltration and destruction. Retrieved March 23,
+          2022.
+        url: https://www.microsoft.com/security/blog/2022/03/22/dev-0537-criminal-actor-targeting-organizations-for-data-exfiltration-and-destruction/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1608.001:
+    technique:
+      modified: '2023-04-11T23:22:49.534Z'
+      name: Upload Malware
+      description: |-
+        Adversaries may upload malware to third-party or adversary controlled infrastructure to make it accessible during targeting. Malicious software can include payloads, droppers, post-compromise tools, backdoors, and a variety of other malicious content. Adversaries may upload malware to support their operations, such as making a payload available to a victim network to enable [Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105) by placing it on an Internet accessible web server.
+
+        Malware may be placed on infrastructure that was previously purchased/rented by the adversary ([Acquire Infrastructure](https://attack.mitre.org/techniques/T1583)) or was otherwise compromised by them ([Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)). Malware can also be staged on web services, such as GitHub or Pastebin, or hosted on the InterPlanetary File System (IPFS), where decentralized content storage makes the removal of malicious files difficult.(Citation: Volexity Ocean Lotus November 2020)(Citation: Talos IPFS 2022)
+
+        Adversaries may upload backdoored files, such as application binaries, virtual machine images, or container images, to third-party software stores or repositories (ex: GitHub, CNET, AWS Community AMIs, Docker Hub). By chance encounter, victims may directly download/install these backdoored files via [User Execution](https://attack.mitre.org/techniques/T1204). [Masquerading](https://attack.mitre.org/techniques/T1036) may increase the chance of users mistakenly executing these files.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Kobi Haimovich, CardinalOps
+      - Goldstein Menachem
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        If infrastructure or patterns in malware have been previously identified, internet scanning may uncover when an adversary has staged malware to make it accessible for targeting.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on post-compromise phases of the adversary lifecycle, such as [User Execution](https://attack.mitre.org/techniques/T1204) or [Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105).
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--3ee16395-03f0-4690-a32e-69ce9ada0f9e
+      created: '2021-03-17T20:09:13.222Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1608/001
+        external_id: T1608.001
+      - source_name: Volexity Ocean Lotus November 2020
+        description: 'Adair, S. and Lancaster, T. (2020, November 6). OceanLotus:
+          Extending Cyber Espionage Operations Through Fake Websites. Retrieved November
+          20, 2020.'
+        url: https://www.volexity.com/blog/2020/11/06/oceanlotus-extending-cyber-espionage-operations-through-fake-websites/
+      - source_name: Talos IPFS 2022
+        description: 'Edmund Brumaghin. (2022, November 9). Threat Spotlight: Cyber
+          Criminal Adoption of IPFS for Phishing, Malware Campaigns. Retrieved March
+          8, 2023.'
+        url: https://blog.talosintelligence.com/ipfs-abuse/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1583.001:
+    technique:
+      modified: '2023-03-30T21:01:37.379Z'
+      name: Domains
+      description: |-
+        Adversaries may acquire domains that can be used during targeting. Domain names are the human readable names used to represent one or more IP addresses. They can be purchased or, in some cases, acquired for free.
+
+        Adversaries may use acquired domains for a variety of purposes, including for [Phishing](https://attack.mitre.org/techniques/T1566), [Drive-by Compromise](https://attack.mitre.org/techniques/T1189), and Command and Control.(Citation: CISA MSS Sep 2020) Adversaries may choose domains that are similar to legitimate domains, including through use of homoglyphs or use of a different top-level domain (TLD).(Citation: FireEye APT28)(Citation: PaypalScam) Typosquatting may be used to aid in delivery of payloads via [Drive-by Compromise](https://attack.mitre.org/techniques/T1189). Adversaries may also use internationalized domain names (IDNs) and different character sets (e.g. Cyrillic, Greek, etc.) to execute "IDN homograph attacks," creating visually similar lookalike domains used to deliver malware to victim machines.(Citation: CISA IDN ST05-016)(Citation: tt_httrack_fake_domains)(Citation: tt_obliqueRAT)(Citation: httrack_unhcr)(Citation: lazgroup_idn_phishing)
+
+        Adversaries may also acquire and repurpose expired domains, which may be potentially already allowlisted/trusted by defenders based on an existing reputation/history.(Citation: Categorisation_not_boundary)(Citation: Domain_Steal_CC)(Citation: Redirectors_Domain_Fronting)(Citation: bypass_webproxy_filtering)
+
+        Domain registrars each maintain a publicly viewable database that displays contact information for every registered domain. Private WHOIS services display alternative information, such as their own company data, rather than the owner of the domain. Adversaries may use such private WHOIS services to obscure information about who owns a purchased domain. Adversaries may further interrupt efforts to track their infrastructure by using varied registration information and purchasing domains with different domain registrars.(Citation: Mandiant APT1)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_contributors:
+      - Wes Hurd
+      - Vinayak Wadhwa, Lucideus
+      - Deloitte Threat Library Team
+      - Oleg Kolesnikov, Securonix
+      - Menachem Goldstein
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Domain registration information is, by design, captured in public registration logs. Consider use of services that may aid in tracking of newly acquired domains, such as WHOIS databases and/or passive DNS. In some cases it may be possible to pivot on known pieces of domain registration information to uncover other infrastructure purchased by the adversary. Consider monitoring for domains created with a similar structure to your own, including under a different TLD. Though various tools and services exist to track, query, and monitor domain name registration information, tracking across multiple DNS infrastructures can require multiple tools/services or more advanced analytics.(Citation: ThreatConnect Infrastructure Dec 2020)
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access and Command and Control.
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Domain Name: Passive DNS'
+      - 'Domain Name: Active DNS'
+      - 'Domain Name: Domain Registration'
+      type: attack-pattern
+      id: attack-pattern--40f5caa0-4cb7-4117-89fc-d421bb493df3
+      created: '2020-09-30T17:09:31.878Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1583/001
+        external_id: T1583.001
+      - source_name: PaypalScam
+        description: Bob Sullivan. (2000, July 24). PayPal alert! Beware the 'PaypaI'
+          scam. Retrieved March 2, 2017.
+        url: https://www.zdnet.com/article/paypal-alert-beware-the-paypai-scam-5000109103/
+      - source_name: CISA IDN ST05-016
+        description: 'CISA. (2019, September 27). Security Tip (ST05-016): Understanding
+          Internationalized Domain Names. Retrieved October 20, 2020.'
+        url: https://us-cert.cisa.gov/ncas/tips/ST05-016
+      - source_name: CISA MSS Sep 2020
+        description: 'CISA. (2020, September 14). Alert (AA20-258A): Chinese Ministry
+          of State Security-Affiliated Cyber Threat Actor Activity. Retrieved October
+          1, 2020.'
+        url: https://us-cert.cisa.gov/ncas/alerts/aa20-258a
+      - source_name: bypass_webproxy_filtering
+        description: Fehrman, B. (2017, April 13). How to Bypass Web-Proxy Filtering.
+          Retrieved September 20, 2019.
+        url: https://www.blackhillsinfosec.com/bypass-web-proxy-filtering/
+      - source_name: FireEye APT28
+        description: 'FireEye. (2015). APT28: A WINDOW INTO RUSSIA’S CYBER ESPIONAGE
+          OPERATIONS?. Retrieved August 19, 2015.'
+        url: https://web.archive.org/web/20151022204649/https://www.fireeye.com/content/dam/fireeye-www/global/en/current-threats/pdfs/rpt-apt28.pdf
+      - source_name: Domain_Steal_CC
+        description: Krebs, B. (2018, November 13). That Domain You Forgot to Renew?
+          Yeah, it’s Now Stealing Credit Cards. Retrieved September 20, 2019.
+        url: https://krebsonsecurity.com/2018/11/that-domain-you-forgot-to-renew-yeah-its-now-stealing-credit-cards/
+      - source_name: tt_obliqueRAT
+        description: Malhotra, A., McKay, K. et al. (2021, May 13). Transparent Tribe
+          APT expands its Windows malware arsenal . Retrieved July 29, 2022.
+        url: https://blog.talosintelligence.com/2021/05/transparent-tribe-infra-and-targeting.html
+      - source_name: tt_httrack_fake_domains
+        description: Malhotra, A., Thattil, J. et al. (2022, March 29). Transparent
+          Tribe campaign uses new bespoke malware to target Indian government officials
+          . Retrieved September 6, 2022.
+        url: https://blog.talosintelligence.com/2022/03/transparent-tribe-new-campaign.html
+      - source_name: Mandiant APT1
+        description: Mandiant. (n.d.). APT1 Exposing One of China’s Cyber Espionage
+          Units. Retrieved July 18, 2016.
+        url: https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/mandiant-apt1-report.pdf
+      - source_name: Categorisation_not_boundary
+        description: MDSec Research. (2017, July). Categorisation is not a Security
+          Boundary. Retrieved September 20, 2019.
+        url: https://www.mdsec.co.uk/2017/07/categorisation-is-not-a-security-boundary/
+      - source_name: Redirectors_Domain_Fronting
+        description: Mudge, R. (2017, February 6). High-reputation Redirectors and
+          Domain Fronting. Retrieved July 11, 2022.
+        url: https://www.cobaltstrike.com/blog/high-reputation-redirectors-and-domain-fronting/
+      - source_name: lazgroup_idn_phishing
+        description: 'RISKIQ. (2017, December 20). Mining Insights: Infrastructure
+          Analysis of Lazarus Group Cyber Attacks on the Cryptocurrency Industry.
+          Retrieved July 29, 2022.'
+        url: https://web.archive.org/web/20171223000420/https://www.riskiq.com/blog/labs/lazarus-group-cryptocurrency/
+      - source_name: httrack_unhcr
+        description: 'RISKIQ. (2022, March 15). RiskIQ Threat Intelligence Roundup:
+          Campaigns Targeting Ukraine and Global Malware Infrastructure. Retrieved
+          July 29, 2022.'
+        url: https://web.archive.org/web/20220527112908/https://www.riskiq.com/blog/labs/ukraine-malware-infrastructure/
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+    atomic_tests: []
+  T1608.002:
+    technique:
+      modified: '2022-10-20T20:16:32.599Z'
+      name: Upload Tool
+      description: |-
+        Adversaries may upload tools to third-party or adversary controlled infrastructure to make it accessible during targeting. Tools can be open or closed source, free or commercial. Tools can be used for malicious purposes by an adversary, but (unlike malware) were not intended to be used for those purposes (ex: [PsExec](https://attack.mitre.org/software/S0029)). Adversaries may upload tools to support their operations, such as making a tool available to a victim network to enable [Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105) by placing it on an Internet accessible web server.
+
+        Tools may be placed on infrastructure that was previously purchased/rented by the adversary ([Acquire Infrastructure](https://attack.mitre.org/techniques/T1583)) or was otherwise compromised by them ([Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)).(Citation: Dell TG-3390) Tools can also be staged on web services, such as an adversary controlled GitHub repo, or on Platform-as-a-Service offerings that enable users to easily provision applications.(Citation: Dragos Heroku Watering Hole)(Citation: Malwarebytes Heroku Skimmers)(Citation: Intezer App Service Phishing)
+
+        Adversaries can avoid the need to upload a tool by having compromised victim machines download the tool directly from a third-party hosting location (ex: a non-adversary controlled GitHub repo), including the original hosting site of the tool.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        If infrastructure or patterns in tooling have been previously identified, internet scanning may uncover when an adversary has staged tools to make them accessible for targeting.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on post-compromise phases of the adversary lifecycle, such as [Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105).
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--506f6f49-7045-4156-9007-7474cb44ad6d
+      created: '2021-03-17T20:31:07.828Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1608/002
+        external_id: T1608.002
+      - source_name: Dell TG-3390
+        description: Dell SecureWorks Counter Threat Unit Threat Intelligence. (2015,
+          August 5). Threat Group-3390 Targets Organizations for Cyberespionage. Retrieved
+          August 18, 2018.
+        url: https://www.secureworks.com/research/threat-group-3390-targets-organizations-for-cyberespionage
+      - source_name: Malwarebytes Heroku Skimmers
+        description: 'Jérôme Segura. (2019, December 4). There''s an app for that:
+          web skimmers found on PaaS Heroku. Retrieved August 18, 2022.'
+        url: https://www.malwarebytes.com/blog/news/2019/12/theres-an-app-for-that-web-skimmers-found-on-paas-heroku
+      - source_name: Dragos Heroku Watering Hole
+        description: 'Kent Backman. (2021, May 18). When Intrusions Don’t Align: A
+          New Water Watering Hole and Oldsmar. Retrieved August 18, 2022.'
+        url: https://www.dragos.com/blog/industry-news/a-new-water-watering-hole/
+      - source_name: Intezer App Service Phishing
+        description: Paul Litvak. (2020, October 8). Kud I Enter Your Server? New
+          Vulnerabilities in Microsoft Azure. Retrieved August 18, 2022.
+        url: https://www.intezer.com/blog/malware-analysis/kud-i-enter-your-server-new-vulnerabilities-in-microsoft-azure/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1583.004:
+    technique:
+      modified: '2023-04-12T20:18:42.003Z'
+      name: Server
+      description: |-
+        Adversaries may buy, lease, or rent physical servers that can be used during targeting. Use of servers allows an adversary to stage, launch, and execute an operation. During post-compromise activity, adversaries may utilize servers for various tasks, including for Command and Control. Adversaries may use web servers to support support watering hole operations, as in [Drive-by Compromise](https://attack.mitre.org/techniques/T1189), or email servers to support [Phishing](https://attack.mitre.org/techniques/T1566) operations. Instead of compromising a third-party [Server](https://attack.mitre.org/techniques/T1584/004) or renting a [Virtual Private Server](https://attack.mitre.org/techniques/T1583/003), adversaries may opt to configure and run their own servers in support of operations.
+
+        Adversaries may only need a lightweight setup if most of their activities will take place using online infrastructure. Or, they may need to build extensive infrastructure if they want to test, communicate, and control other aspects of their activities on their own systems.(Citation: NYTStuxnet)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Dor Edry, Microsoft
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Once adversaries have provisioned a server (ex: for use as a command and control server), internet scans may reveal servers that adversaries have acquired. Consider looking for identifiable patterns such as services listening, certificates in use, SSL/TLS negotiation features, or other response artifacts associated with adversary C2 software.(Citation: ThreatConnect Infrastructure Dec 2020)(Citation: Mandiant SCANdalous Jul 2020)(Citation: Koczwara Beacon Hunting Sep 2021)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Command and Control.
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      - 'Internet Scan: Response Metadata'
+      type: attack-pattern
+      id: attack-pattern--60c4b628-4807-4b0b-bbf5-fdac8643c337
+      created: '2020-10-01T00:48:09.578Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1583/004
+        external_id: T1583.004
+      - source_name: Koczwara Beacon Hunting Sep 2021
+        description: Koczwara, M. (2021, September 7). Hunting Cobalt Strike C2 with
+          Shodan. Retrieved October 12, 2021.
+        url: https://michaelkoczwara.medium.com/cobalt-strike-c2-hunting-with-shodan-c448d501a6e2
+      - source_name: Mandiant SCANdalous Jul 2020
+        description: Stephens, A. (2020, July 13). SCANdalous! (External Detection
+          Using Network Scan Data and Automation). Retrieved October 12, 2021.
+        url: https://www.mandiant.com/resources/scandalous-external-detection-using-network-scan-data-and-automation
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+      - source_name: NYTStuxnet
+        description: William J. Broad, John Markoff, and David E. Sanger. (2011, January
+          15). Israeli Test on Worm Called Crucial in Iran Nuclear Delay. Retrieved
+          March 1, 2017.
+        url: https://www.nytimes.com/2011/01/16/world/middleeast/16stuxnet.html
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1585.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--65013dd2-bc61-43e3-afb5-a14c4fa7437a
+      type: attack-pattern
+      created: '2020-10-01T01:09:53.217Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1585.002
+        url: https://attack.mitre.org/techniques/T1585/002
+      - url: https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/mandiant-apt1-report.pdf
+        description: Mandiant. (n.d.). APT1 Exposing One of China’s Cyber Espionage
+          Units. Retrieved July 18, 2016.
+        source_name: Mandiant APT1
+      - source_name: Trend Micro R980 2016
+        url: https://blog.trendmicro.com/trendlabs-security-intelligence/r980-ransomware-disposable-email-service/
+        description: Antazo, F. and Yambao, M. (2016, August 10). R980 Ransomware
+          Found Abusing Disposable Email Address Service. Retrieved October 13, 2020.
+      modified: '2021-04-15T03:09:59.862Z'
+      name: Email Accounts
+      description: |-
+        Adversaries may create email accounts that can be used during targeting. Adversaries can use accounts created with email providers to further their operations, such as leveraging them to conduct [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Phishing](https://attack.mitre.org/techniques/T1566).(Citation: Mandiant APT1) Adversaries may also take steps to cultivate a persona around the email account, such as through use of [Social Media Accounts](https://attack.mitre.org/techniques/T1585/001), to increase the chance of success of follow-on behaviors. Created email accounts can also be used in the acquisition of infrastructure (ex: [Domains](https://attack.mitre.org/techniques/T1583/001)).(Citation: Mandiant APT1)
+
+        To decrease the chance of physically tying back operations to themselves, adversaries may make use of disposable email services.(Citation: Trend Micro R980 2016)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: 'Much of this activity will take place outside the visibility
+        of the target organization, making detection of this behavior difficult. Detection
+        efforts may be focused on related stages of the adversary lifecycle, such
+        as during Initial Access (ex: [Phishing](https://attack.mitre.org/techniques/T1566)).'
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1588.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--7807d3a4-a885-4639-a786-c1ed41484970
+      type: attack-pattern
+      created: '2020-10-01T02:06:11.499Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1588.001
+        url: https://attack.mitre.org/techniques/T1588/001
+      - source_name: FireEyeSupplyChain
+        description: 'FireEye. (2014). SUPPLY CHAIN ANALYSIS: From Quartermaster to
+          SunshopFireEye. Retrieved March 6, 2017.'
+        url: https://www.mandiant.com/resources/supply-chain-analysis-from-quartermaster-to-sunshop
+      modified: '2021-10-17T16:15:52.805Z'
+      name: Malware
+      description: |-
+        Adversaries may buy, steal, or download malware that can be used during targeting. Malicious software can include payloads, droppers, post-compromise tools, backdoors, packers, and C2 protocols. Adversaries may acquire malware to support their operations, obtaining a means for maintaining control of remote machines, evading defenses, and executing post-compromise behaviors.
+
+        In addition to downloading free malware from the internet, adversaries may purchase these capabilities from third-party entities. Third-party entities can include technology companies that specialize in malware development, criminal marketplaces (including Malware-as-a-Service, or MaaS), or from individuals. In addition to purchasing malware, adversaries may steal and repurpose malware from third-party entities (including other adversaries).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider analyzing malware for features that may be associated with malware providers, such as compiler used, debugging artifacts, code similarities, or even group identifiers associated with specific MaaS offerings. Malware repositories can also be used to identify additional samples associated with the developers and the adversary utilizing their services. Identifying overlaps in malware use by different adversaries may indicate malware was obtained by the adversary rather than developed by them. In some cases, identifying overlapping characteristics in malware used by different adversaries may point to a shared quartermaster.(Citation: FireEyeSupplyChain)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on post-compromise phases of the adversary lifecycle.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Malware Repository: Malware Content'
+      - 'Malware Repository: Malware Metadata'
+    atomic_tests: []
+  T1583.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--79da0971-3147-4af6-a4f5-e8cd447cd795
+      type: attack-pattern
+      created: '2020-10-01T00:44:23.935Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1583.003
+        url: https://attack.mitre.org/techniques/T1583/003
+      - source_name: TrendmicroHideoutsLease
+        description: 'Max Goncharov. (2015, July 15). Criminal Hideouts for Lease:
+          Bulletproof Hosting Services. Retrieved March 6, 2017.'
+        url: https://documents.trendmicro.com/assets/wp/wp-criminal-hideouts-for-lease.pdf
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+      - source_name: Mandiant SCANdalous Jul 2020
+        url: https://www.mandiant.com/resources/scandalous-external-detection-using-network-scan-data-and-automation
+        description: Stephens, A. (2020, July 13). SCANdalous! (External Detection
+          Using Network Scan Data and Automation). Retrieved October 12, 2021.
+      - source_name: Koczwara Beacon Hunting Sep 2021
+        url: https://michaelkoczwara.medium.com/cobalt-strike-c2-hunting-with-shodan-c448d501a6e2
+        description: Koczwara, M. (2021, September 7). Hunting Cobalt Strike C2 with
+          Shodan. Retrieved October 12, 2021.
+      modified: '2021-10-17T15:36:59.315Z'
+      name: Virtual Private Server
+      description: |-
+        Adversaries may rent Virtual Private Servers (VPSs) that can be used during targeting. There exist a variety of cloud service providers that will sell virtual machines/containers as a service. By utilizing a VPS, adversaries can make it difficult to physically tie back operations to them. The use of cloud infrastructure can also make it easier for adversaries to rapidly provision, modify, and shut down their infrastructure.
+
+        Acquiring a VPS for use in later stages of the adversary lifecycle, such as Command and Control, can allow adversaries to benefit from the ubiquity and trust associated with higher reputation cloud service providers. Adversaries may also acquire infrastructure from VPS service providers that are known for renting VPSs with minimal registration information, allowing for more anonymous acquisitions of infrastructure.(Citation: TrendmicroHideoutsLease)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Once adversaries have provisioned a VPS (ex: for use as a command and control server), internet scans may reveal servers that adversaries have acquired. Consider looking for identifiable patterns such as services listening, certificates in use, SSL/TLS negotiation features, or other response artifacts associated with adversary C2 software.(Citation: ThreatConnect Infrastructure Dec 2020)(Citation: Mandiant SCANdalous Jul 2020)(Citation: Koczwara Beacon Hunting Sep 2021)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Command and Control.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      - 'Internet Scan: Response Metadata'
+    atomic_tests: []
+  T1584:
+    technique:
+      modified: '2023-04-12T13:32:15.704Z'
+      name: Compromise Infrastructure
+      description: |-
+        Adversaries may compromise third-party infrastructure that can be used during targeting. Infrastructure solutions include physical or cloud servers, domains, and third-party web and DNS services. Instead of buying, leasing, or renting infrastructure an adversary may compromise infrastructure and use it during other phases of the adversary lifecycle.(Citation: Mandiant APT1)(Citation: ICANNDomainNameHijacking)(Citation: Talos DNSpionage Nov 2018)(Citation: FireEye EPS Awakens Part 2) Additionally, adversaries may compromise numerous machines to form a botnet they can leverage.
+
+        Use of compromised infrastructure allows adversaries to stage, launch, and execute operations. Compromised infrastructure can help adversary operations blend in with traffic that is seen as normal, such as contact with high reputation or trusted sites. For example, adversaries may leverage compromised infrastructure (potentially also in conjunction with [Digital Certificates](https://attack.mitre.org/techniques/T1588/004)) to further blend in and support staged information gathering and/or [Phishing](https://attack.mitre.org/techniques/T1566) campaigns.(Citation: FireEye DNS Hijack 2019) Additionally, adversaries may also compromise infrastructure to support [Proxy](https://attack.mitre.org/techniques/T1090).(Citation: amnesty_nso_pegasus)
+
+        By using compromised infrastructure, adversaries may make it difficult to tie their actions back to them. Prior to targeting, adversaries may compromise the infrastructure of other adversaries.(Citation: NSA NCSC Turla OilRig)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Jeremy Galloway
+      - Shailesh Tiwary (Indian Army)
+      x_mitre_deprecated: false
+      x_mitre_detection: "Consider monitoring for anomalous changes to domain registrant
+        information and/or domain resolution information that may indicate the compromise
+        of a domain. Efforts may need to be tailored to specific domains of interest
+        as benign registration and resolution changes are a common occurrence on the
+        internet. \n\nOnce adversaries have provisioned compromised infrastructure
+        (ex: a server for use in command and control), internet scans may help proactively
+        discover compromised infrastructure. Consider looking for identifiable patterns
+        such as services listening, certificates in use, SSL/TLS negotiation features,
+        or other response artifacts associated with adversary C2 software.(Citation:
+        ThreatConnect Infrastructure Dec 2020)(Citation: Mandiant SCANdalous Jul 2020)(Citation:
+        Koczwara Beacon Hunting Sep 2021)\n\nDetection efforts may be focused on related
+        stages of the adversary lifecycle, such as during Command and Control."
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: false
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.3'
+      x_mitre_data_sources:
+      - 'Domain Name: Active DNS'
+      - 'Domain Name: Passive DNS'
+      - 'Internet Scan: Response Metadata'
+      - 'Domain Name: Domain Registration'
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--7e3beebd-8bfe-4e7b-a892-e44ab06a75f9
+      created: '2020-10-01T00:36:30.759Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1584
+        external_id: T1584
+      - source_name: amnesty_nso_pegasus
+        description: 'Amnesty International Security Lab. (2021, July 18). Forensic
+          Methodology Report: How to catch NSO Group’s Pegasus. Retrieved February
+          22, 2022.'
+        url: https://www.amnesty.org/en/latest/research/2021/07/forensic-methodology-report-how-to-catch-nso-groups-pegasus/
+      - source_name: FireEye DNS Hijack 2019
+        description: 'Hirani, M., Jones, S., Read, B. (2019, January 10). Global DNS
+          Hijacking Campaign: DNS Record Manipulation at Scale. Retrieved October
+          9, 2020.'
+        url: https://www.fireeye.com/blog/threat-research/2019/01/global-dns-hijacking-campaign-dns-record-manipulation-at-scale.html
+      - source_name: ICANNDomainNameHijacking
+        description: 'ICANN Security and Stability Advisory Committee. (2005, July
+          12). Domain Name Hijacking: Incidents, Threats, Risks and Remediation. Retrieved
+          March 6, 2017.'
+        url: https://www.icann.org/groups/ssac/documents/sac-007-en
+      - source_name: Koczwara Beacon Hunting Sep 2021
+        description: Koczwara, M. (2021, September 7). Hunting Cobalt Strike C2 with
+          Shodan. Retrieved October 12, 2021.
+        url: https://michaelkoczwara.medium.com/cobalt-strike-c2-hunting-with-shodan-c448d501a6e2
+      - source_name: Mandiant APT1
+        description: Mandiant. (n.d.). APT1 Exposing One of China’s Cyber Espionage
+          Units. Retrieved July 18, 2016.
+        url: https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/mandiant-apt1-report.pdf
+      - source_name: Talos DNSpionage Nov 2018
+        description: Mercer, W., Rascagneres, P. (2018, November 27). DNSpionage Campaign
+          Targets Middle East. Retrieved October 9, 2020.
+        url: https://blog.talosintelligence.com/2018/11/dnspionage-campaign-targets-middle-east.html
+      - source_name: NSA NCSC Turla OilRig
+        description: 'NSA/NCSC. (2019, October 21). Cybersecurity Advisory: Turla
+          Group Exploits Iranian APT To Expand Coverage Of Victims. Retrieved October
+          16, 2020.'
+        url: https://media.defense.gov/2019/Oct/18/2002197242/-1/-1/0/NSA_CSA_Turla_20191021%20ver%204%20-%20nsa.gov.pdf
+      - source_name: Mandiant SCANdalous Jul 2020
+        description: Stephens, A. (2020, July 13). SCANdalous! (External Detection
+          Using Network Scan Data and Automation). Retrieved October 12, 2021.
+        url: https://www.mandiant.com/resources/scandalous-external-detection-using-network-scan-data-and-automation
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+      - source_name: FireEye EPS Awakens Part 2
+        description: Winters, R. (2015, December 20). The EPS Awakens - Part 2. Retrieved
+          January 22, 2016.
+        url: https://web.archive.org/web/20151226205946/https://www.fireeye.com/blog/threat-research/2015/12/the-eps-awakens-part-two.html
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1586:
+    technique:
+      modified: '2023-04-11T01:08:56.774Z'
+      name: Compromise Accounts
+      description: "Adversaries may compromise accounts with services that can be
+        used during targeting. For operations incorporating social engineering, the
+        utilization of an online persona may be important. Rather than creating and
+        cultivating accounts (i.e. [Establish Accounts](https://attack.mitre.org/techniques/T1585)),
+        adversaries may compromise existing accounts. Utilizing an existing persona
+        may engender a level of trust in a potential victim if they have a relationship,
+        or knowledge of, the compromised persona. \n\nA variety of methods exist for
+        compromising accounts, such as gathering credentials via [Phishing for Information](https://attack.mitre.org/techniques/T1598),
+        purchasing credentials from third-party sites, brute forcing credentials (ex:
+        password reuse from breach credential dumps), or paying employees, suppliers
+        or business partners for access to credentials.(Citation: AnonHBGary)(Citation:
+        Microsoft DEV-0537) Prior to compromising accounts, adversaries may conduct
+        Reconnaissance to inform decisions about which accounts to compromise to further
+        their operation.\n\nPersonas may exist on a single site or across multiple
+        sites (ex: Facebook, LinkedIn, Twitter, Google, etc.). Compromised accounts
+        may require additional development, this could include filling out or modifying
+        profile information, further developing social networks, or incorporating
+        photos.\n\nAdversaries may directly leverage compromised email accounts for
+        [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Phishing](https://attack.mitre.org/techniques/T1566)."
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Consider monitoring social media activity related to your organization. Suspicious activity may include personas claiming to work for your organization or recently modified accounts making numerous connection requests to accounts affiliated with your organization.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access (ex: [Phishing](https://attack.mitre.org/techniques/T1566)).
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: false
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Persona: Social Media'
+      - 'Network Traffic: Network Traffic Content'
+      type: attack-pattern
+      id: attack-pattern--81033c3b-16a4-46e4-8fed-9b030dd03c4a
+      created: '2020-10-01T01:17:15.965Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1586
+        external_id: T1586
+      - source_name: AnonHBGary
+        description: 'Bright, P. (2011, February 15). Anonymous speaks: the inside
+          story of the HBGary hack. Retrieved March 9, 2017.'
+        url: https://arstechnica.com/tech-policy/2011/02/anonymous-speaks-the-inside-story-of-the-hbgary-hack/
+      - source_name: Microsoft DEV-0537
+        description: Microsoft. (2022, March 22). DEV-0537 criminal actor targeting
+          organizations for data exfiltration and destruction. Retrieved March 23,
+          2022.
+        url: https://www.microsoft.com/security/blog/2022/03/22/dev-0537-criminal-actor-targeting-organizations-for-data-exfiltration-and-destruction/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1584.005:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      type: attack-pattern
+      id: attack-pattern--810d8072-afb6-4a56-9ee7-86379ac4a6f3
+      created: '2020-10-01T00:58:35.269Z'
+      x_mitre_version: '1.0'
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1584.005
+        url: https://attack.mitre.org/techniques/T1584/005
+      - source_name: Dell Dridex Oct 2015
+        url: https://www.secureworks.com/research/dridex-bugat-v5-botnet-takeover-operation
+        description: Dell SecureWorks Counter Threat Unit Threat Intelligence. (2015,
+          October 13). Dridex (Bugat v5) Botnet Takeover Operation. Retrieved May
+          31, 2019.
+      - source_name: Imperva DDoS for Hire
+        url: https://www.imperva.com/learn/ddos/booters-stressers-ddosers/
+        description: Imperva. (n.d.). Booters, Stressers and DDoSers. Retrieved October
+          4, 2020.
+      - source_name: Norton Botnet
+        url: https://us.norton.com/internetsecurity-malware-what-is-a-botnet.html
+        description: Norton. (n.d.). What is a botnet?. Retrieved October 4, 2020.
+      x_mitre_deprecated: false
+      revoked: false
+      description: 'Adversaries may compromise numerous third-party systems to form
+        a botnet that can be used during targeting. A botnet is a network of compromised
+        systems that can be instructed to perform coordinated tasks.(Citation: Norton
+        Botnet) Instead of purchasing/renting a botnet from a booter/stresser service,
+        adversaries may build their own botnet by compromising numerous third-party
+        systems.(Citation: Imperva DDoS for Hire) Adversaries may also conduct a takeover
+        of an existing botnet, such as redirecting bots to adversary-controlled C2
+        servers.(Citation: Dell Dridex Oct 2015) With a botnet at their disposal,
+        adversaries may perform follow-on activity such as large-scale [Phishing](https://attack.mitre.org/techniques/T1566)
+        or Distributed Denial of Service (DDoS).'
+      modified: '2022-04-19T15:55:58.319Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      name: Botnet
+      x_mitre_detection: Much of this activity will take place outside the visibility
+        of the target organization, making detection of this behavior difficult. Detection
+        efforts may be focused on related stages of the adversary lifecycle, such
+        as during [Phishing](https://attack.mitre.org/techniques/T1566), [Endpoint
+        Denial of Service](https://attack.mitre.org/techniques/T1499), or [Network
+        Denial of Service](https://attack.mitre.org/techniques/T1498).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_is_subtechnique: true
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1608:
+    technique:
+      modified: '2022-10-19T22:01:05.551Z'
+      name: Stage Capabilities
+      description: |-
+        Adversaries may upload, install, or otherwise set up capabilities that can be used during targeting. To support their operations, an adversary may need to take capabilities they developed ([Develop Capabilities](https://attack.mitre.org/techniques/T1587)) or obtained ([Obtain Capabilities](https://attack.mitre.org/techniques/T1588)) and stage them on infrastructure under their control. These capabilities may be staged on infrastructure that was previously purchased/rented by the adversary ([Acquire Infrastructure](https://attack.mitre.org/techniques/T1583)) or was otherwise compromised by them ([Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)). Capabilities may also be staged on web services, such as GitHub or Pastebin, or on Platform-as-a-Service (PaaS) offerings that enable users to easily provision applications.(Citation: Volexity Ocean Lotus November 2020)(Citation: Dragos Heroku Watering Hole)(Citation: Malwarebytes Heroku Skimmers)(Citation: Netskope GCP Redirection)(Citation: Netskope Cloud Phishing)
+
+        Staging of capabilities can aid the adversary in a number of initial access and post-compromise behaviors, including (but not limited to):
+
+        * Staging web resources necessary to conduct [Drive-by Compromise](https://attack.mitre.org/techniques/T1189) when a user browses to a site.(Citation: FireEye CFR Watering Hole 2012)(Citation: Gallagher 2015)(Citation: ATT ScanBox)
+        * Staging web resources for a link target to be used with spearphishing.(Citation: Malwarebytes Silent Librarian October 2020)(Citation: Proofpoint TA407 September 2019)
+        * Uploading malware or tools to a location accessible to a victim network to enable [Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105).(Citation: Volexity Ocean Lotus November 2020)
+        * Installing a previously acquired SSL/TLS certificate to use to encrypt command and control traffic (ex: [Asymmetric Cryptography](https://attack.mitre.org/techniques/T1573/002) with [Web Protocols](https://attack.mitre.org/techniques/T1071/001)).(Citation: DigiCert Install SSL Cert)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        If infrastructure or patterns in malware, tooling, certificates, or malicious web content have been previously identified, internet scanning may uncover when an adversary has staged their capabilities.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as initial access and post-compromise behaviors.
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: false
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--84771bc3-f6a0-403e-b144-01af70e5fda0
+      created: '2021-03-17T20:04:09.331Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1608
+        external_id: T1608
+      - source_name: Volexity Ocean Lotus November 2020
+        description: 'Adair, S. and Lancaster, T. (2020, November 6). OceanLotus:
+          Extending Cyber Espionage Operations Through Fake Websites. Retrieved November
+          20, 2020.'
+        url: https://www.volexity.com/blog/2020/11/06/oceanlotus-extending-cyber-espionage-operations-through-fake-websites/
+      - source_name: Netskope GCP Redirection
+        description: Ashwin Vamshi. (2019, January 24). Targeted Attacks Abusing Google
+          Cloud Platform Open Redirection. Retrieved August 18, 2022.
+        url: https://www.netskope.com/blog/targeted-attacks-abusing-google-cloud-platform-open-redirection
+      - source_name: Netskope Cloud Phishing
+        description: 'Ashwin Vamshi. (2020, August 12). A Big Catch: Cloud Phishing
+          from Google App Engine and Azure App Service. Retrieved August 18, 2022.'
+        url: https://www.netskope.com/blog/a-big-catch-cloud-phishing-from-google-app-engine-and-azure-app-service
+      - source_name: ATT ScanBox
+        description: 'Blasco, J. (2014, August 28). Scanbox: A Reconnaissance Framework
+          Used with Watering Hole Attacks. Retrieved October 19, 2020.'
+        url: https://cybersecurity.att.com/blogs/labs-research/scanbox-a-reconnaissance-framework-used-on-watering-hole-attacks
+      - source_name: DigiCert Install SSL Cert
+        description: DigiCert. (n.d.). How to Install an SSL Certificate. Retrieved
+          April 19, 2021.
+        url: https://www.digicert.com/kb/ssl-certificate-installation.htm
+      - source_name: Gallagher 2015
+        description: Gallagher, S.. (2015, August 5). Newly discovered Chinese hacking
+          group hacked 100+ websites to use as “watering holes�?. Retrieved January
+          25, 2016.
+        url: http://arstechnica.com/security/2015/08/newly-discovered-chinese-hacking-group-hacked-100-websites-to-use-as-watering-holes/
+      - source_name: Malwarebytes Heroku Skimmers
+        description: 'Jérôme Segura. (2019, December 4). There''s an app for that:
+          web skimmers found on PaaS Heroku. Retrieved August 18, 2022.'
+        url: https://www.malwarebytes.com/blog/news/2019/12/theres-an-app-for-that-web-skimmers-found-on-paas-heroku
+      - source_name: Dragos Heroku Watering Hole
+        description: 'Kent Backman. (2021, May 18). When Intrusions Don’t Align: A
+          New Water Watering Hole and Oldsmar. Retrieved August 18, 2022.'
+        url: https://www.dragos.com/blog/industry-news/a-new-water-watering-hole/
+      - source_name: FireEye CFR Watering Hole 2012
+        description: Kindlund, D. (2012, December 30). CFR Watering Hole Attack Details.
+          Retrieved December 18, 2020.
+        url: https://www.fireeye.com/blog/threat-research/2012/12/council-foreign-relations-water-hole-attack-details.html
+      - source_name: Malwarebytes Silent Librarian October 2020
+        description: Malwarebytes Threat Intelligence Team. (2020, October 14). Silent
+          Librarian APT right on schedule for 20/21 academic year. Retrieved February
+          3, 2021.
+        url: https://blog.malwarebytes.com/malwarebytes-news/2020/10/silent-librarian-apt-phishing-attack/
+      - source_name: Proofpoint TA407 September 2019
+        description: 'Proofpoint Threat Insight Team. (2019, September 5). Threat
+          Actor Profile: TA407, the Silent Librarian. Retrieved February 3, 2021.'
+        url: https://www.proofpoint.com/us/threat-insight/post/threat-actor-profile-ta407-silent-librarian
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1608.005:
+    technique:
+      modified: '2023-04-11T23:20:48.603Z'
+      name: Link Target
+      description: "Adversaries may put in place resources that are referenced by
+        a link that can be used during targeting. An adversary may rely upon a user
+        clicking a malicious link in order to divulge information (including credentials)
+        or to gain execution, as in [Malicious Link](https://attack.mitre.org/techniques/T1204/001).
+        Links can be used for spearphishing, such as sending an email accompanied
+        by social engineering text to coax the user to actively click or copy and
+        paste a URL into a browser. Prior to a phish for information (as in [Spearphishing
+        Link](https://attack.mitre.org/techniques/T1598/003)) or a phish to gain initial
+        access to a system (as in [Spearphishing Link](https://attack.mitre.org/techniques/T1566/002)),
+        an adversary must set up the resources for a link target for the spearphishing
+        link. \n\nTypically, the resources for a link target will be an HTML page
+        that may include some client-side script such as [JavaScript](https://attack.mitre.org/techniques/T1059/007)
+        to decide what content to serve to the user. Adversaries may clone legitimate
+        sites to serve as the link target, this can include cloning of login pages
+        of legitimate web services or organization login pages in an effort to harvest
+        credentials during [Spearphishing Link](https://attack.mitre.org/techniques/T1598/003).(Citation:
+        Malwarebytes Silent Librarian October 2020)(Citation: Proofpoint TA407 September
+        2019) Adversaries may also [Upload Malware](https://attack.mitre.org/techniques/T1608/001)
+        and have the link target point to malware for download/execution by the user.\n\nAdversaries
+        may purchase domains similar to legitimate domains (ex: homoglyphs, typosquatting,
+        different top-level domain, etc.) during acquisition of infrastructure ([Domains](https://attack.mitre.org/techniques/T1583/001))
+        to help facilitate [Malicious Link](https://attack.mitre.org/techniques/T1204/001).
+        Link shortening services can also be employed. Adversaries may also use free
+        or paid accounts on Platform-as-a-Service providers to host link targets while
+        taking advantage of the widely trusted domains of those providers to avoid
+        being blocked.(Citation: Netskope GCP Redirection)(Citation: Netskope Cloud
+        Phishing)(Citation: Intezer App Service Phishing) Finally, adversaries may
+        take advantage of the decentralized nature of the InterPlanetary File System
+        (IPFS) to host link targets that are difficult to remove.(Citation: Talos
+        IPFS 2022)"
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Goldstein Menachem
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        If infrastructure or patterns in malicious web content have been previously identified, internet scanning may uncover when an adversary has staged web content to make it accessible for targeting.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on other phases of the adversary lifecycle, such as during [Spearphishing Link](https://attack.mitre.org/techniques/T1598/003), [Spearphishing Link](https://attack.mitre.org/techniques/T1566/002), or [Malicious Link](https://attack.mitre.org/techniques/T1204/001).
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.3'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--84ae8255-b4f4-4237-b5c5-e717405a9701
+      created: '2021-03-17T20:35:08.429Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1608/005
+        external_id: T1608.005
+      - source_name: Netskope GCP Redirection
+        description: Ashwin Vamshi. (2019, January 24). Targeted Attacks Abusing Google
+          Cloud Platform Open Redirection. Retrieved August 18, 2022.
+        url: https://www.netskope.com/blog/targeted-attacks-abusing-google-cloud-platform-open-redirection
+      - source_name: Netskope Cloud Phishing
+        description: 'Ashwin Vamshi. (2020, August 12). A Big Catch: Cloud Phishing
+          from Google App Engine and Azure App Service. Retrieved August 18, 2022.'
+        url: https://www.netskope.com/blog/a-big-catch-cloud-phishing-from-google-app-engine-and-azure-app-service
+      - source_name: Talos IPFS 2022
+        description: 'Edmund Brumaghin. (2022, November 9). Threat Spotlight: Cyber
+          Criminal Adoption of IPFS for Phishing, Malware Campaigns. Retrieved March
+          8, 2023.'
+        url: https://blog.talosintelligence.com/ipfs-abuse/
+      - source_name: Malwarebytes Silent Librarian October 2020
+        description: Malwarebytes Threat Intelligence Team. (2020, October 14). Silent
+          Librarian APT right on schedule for 20/21 academic year. Retrieved February
+          3, 2021.
+        url: https://blog.malwarebytes.com/malwarebytes-news/2020/10/silent-librarian-apt-phishing-attack/
+      - source_name: Intezer App Service Phishing
+        description: Paul Litvak. (2020, October 8). Kud I Enter Your Server? New
+          Vulnerabilities in Microsoft Azure. Retrieved August 18, 2022.
+        url: https://www.intezer.com/blog/malware-analysis/kud-i-enter-your-server-new-vulnerabilities-in-microsoft-azure/
+      - source_name: Proofpoint TA407 September 2019
+        description: 'Proofpoint Threat Insight Team. (2019, September 5). Threat
+          Actor Profile: TA407, the Silent Librarian. Retrieved February 3, 2021.'
+        url: https://www.proofpoint.com/us/threat-insight/post/threat-actor-profile-ta407-silent-librarian
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1583.006:
+    technique:
+      modified: '2023-04-12T20:19:07.916Z'
+      name: Web Services
+      description: Adversaries may register for web services that can be used during
+        targeting. A variety of popular websites exist for adversaries to register
+        for a web-based service that can be abused during later stages of the adversary
+        lifecycle, such as during Command and Control ([Web Service](https://attack.mitre.org/techniques/T1102)),
+        [Exfiltration Over Web Service](https://attack.mitre.org/techniques/T1567),
+        or [Phishing](https://attack.mitre.org/techniques/T1566). Using common services,
+        such as those offered by Google or Twitter, makes it easier for adversaries
+        to hide in expected noise. By utilizing a web service, adversaries can make
+        it difficult to physically tie back operations to them.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Dor Edry, Microsoft
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Once adversaries leverage the web service as infrastructure (ex: for command and control), it may be possible to look for unique characteristics associated with adversary software, if known.(Citation: ThreatConnect Infrastructure Dec 2020)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Command and Control ([Web Service](https://attack.mitre.org/techniques/T1102)) or [Exfiltration Over Web Service](https://attack.mitre.org/techniques/T1567).
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--88d31120-5bc7-4ce3-a9c0-7cf147be8e54
+      created: '2020-10-01T00:50:29.936Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1583/006
+        external_id: T1583.006
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1585.003:
+    technique:
+      modified: '2022-10-25T15:49:14.785Z'
+      name: Cloud Accounts
+      description: "Adversaries may create accounts with cloud providers that can
+        be used during targeting. Adversaries can use cloud accounts to further their
+        operations, including leveraging cloud storage services such as Dropbox, MEGA,
+        Microsoft OneDrive, or AWS S3 buckets for [Exfiltration to Cloud Storage](https://attack.mitre.org/techniques/T1567/002)
+        or to [Upload Tool](https://attack.mitre.org/techniques/T1608/002)s. Cloud
+        accounts can also be used in the acquisition of infrastructure, such as [Virtual
+        Private Server](https://attack.mitre.org/techniques/T1583/003)s or [Serverless](https://attack.mitre.org/techniques/T1583/007)
+        infrastructure. Establishing cloud accounts may allow adversaries to develop
+        sophisticated capabilities without managing their own servers.(Citation: Awake
+        Security C2 Cloud)\n\nCreating [Cloud Accounts](https://attack.mitre.org/techniques/T1585/003)
+        may also require adversaries to establish [Email Accounts](https://attack.mitre.org/techniques/T1585/002)
+        to register with the cloud provider. "
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: 'Much of this activity will take place outside the visibility
+        of the target organization, making detection of this behavior difficult. Detection
+        efforts may be focused on related stages of the adversary lifecycle, such
+        as during exfiltration (ex: [Transfer Data to Cloud Account](https://attack.mitre.org/techniques/T1537)).'
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.1'
+      x_mitre_contributors:
+      - Francesco Bigarella
+      type: attack-pattern
+      id: attack-pattern--926d8cfd-1d0d-4da2-ab49-3ca10ec3f3b5
+      created: '2022-05-27T14:06:05.130Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1585/003
+        external_id: T1585.003
+      - source_name: Awake Security C2 Cloud
+        description: 'Gary Golomb and Tory Kei. (n.d.). Threat Hunting Series: Detecting
+          Command & Control in the Cloud. Retrieved May 27, 2022.'
+        url: https://awakesecurity.com/blog/threat-hunting-series-detecting-command-control-in-the-cloud/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.0.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1588.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_contributors:
+      - SOCCRATES
+      - Mnemonic AS
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--a2fdce72-04b2-409a-ac10-cc1695f4fce0
+      type: attack-pattern
+      created: '2020-10-01T02:08:33.977Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1588.002
+        url: https://attack.mitre.org/techniques/T1588/002
+      - source_name: Recorded Future Beacon 2019
+        url: https://www.recordedfuture.com/identifying-cobalt-strike-servers/
+        description: 'Recorded Future. (2019, June 20). Out of the Blue: How Recorded
+          Future Identified Rogue Cobalt Strike Servers. Retrieved October 16, 2020.'
+      - source_name: Analyzing CS Dec 2020
+        url: https://www.randhome.io/blog/2020/12/20/analyzing-cobalt-strike-for-fun-and-profit/
+        description: Maynier, E. (2020, December 20). Analyzing Cobalt Strike for
+          Fun and Profit. Retrieved October 12, 2021.
+      modified: '2021-10-17T16:17:55.499Z'
+      name: Tool
+      description: |-
+        Adversaries may buy, steal, or download software tools that can be used during targeting. Tools can be open or closed source, free or commercial. A tool can be used for malicious purposes by an adversary, but (unlike malware) were not intended to be used for those purposes (ex: [PsExec](https://attack.mitre.org/software/S0029)). Tool acquisition can involve the procurement of commercial software licenses, including for red teaming tools such as [Cobalt Strike](https://attack.mitre.org/software/S0154). Commercial software may be obtained through purchase, stealing licenses (or licensed copies of the software), or cracking trial versions.(Citation: Recorded Future Beacon 2019)
+
+        Adversaries may obtain tools to support their operations, including to support execution of post-compromise behaviors. In addition to freely downloading or purchasing software, adversaries may steal software and/or software licenses from third-party entities (including other adversaries).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        In some cases, malware repositories can also be used to identify features of tool use associated with an adversary, such as watermarks in [Cobalt Strike](https://attack.mitre.org/software/S0154) payloads.(Citation: Analyzing CS Dec 2020)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on post-compromise phases of the adversary lifecycle.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Malware Repository: Malware Metadata'
+    atomic_tests: []
+  T1584.006:
+    technique:
+      modified: '2023-04-12T20:19:21.620Z'
+      name: Web Services
+      description: 'Adversaries may compromise access to third-party web services that
+        can be used during targeting. A variety of popular websites exist for legitimate
+        users to register for web-based services, such as GitHub, Twitter, Dropbox,
+        Google, SendGrid, etc. Adversaries may try to take ownership of a legitimate
+        user''s access to a web service and use that web service as infrastructure
+        in support of cyber operations. Such web services can be abused during later
+        stages of the adversary lifecycle, such as during Command and Control ([Web
+        Service](https://attack.mitre.org/techniques/T1102)), [Exfiltration Over Web
+        Service](https://attack.mitre.org/techniques/T1567), or [Phishing](https://attack.mitre.org/techniques/T1566).(Citation:
+        Recorded Future Turla Infra 2020) Using common services, such as those offered
+        by Google or Twitter, makes it easier for adversaries to hide in expected
+        noise. By utilizing a web service, particularly when access is stolen from
+        legitimate users, adversaries can make it difficult to physically tie back
+        operations to them. Additionally, leveraging compromised web-based email services
+        may allow adversaries to leverage the trust associated with legitimate domains.'
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Dor Edry, Microsoft
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Once adversaries leverage the abused web service as infrastructure (ex: for command and control), it may be possible to look for unique characteristics associated with adversary software, if known.(Citation: ThreatConnect Infrastructure Dec 2020)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Command and Control ([Web Service](https://attack.mitre.org/techniques/T1102)) or [Exfiltration Over Web Service](https://attack.mitre.org/techniques/T1567).
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--ae797531-3219-49a4-bccf-324ad7a4c7b2
+      created: '2020-10-01T01:01:00.176Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1584/006
+        external_id: T1584.006
+      - source_name: Recorded Future Turla Infra 2020
+        description: 'Insikt Group. (2020, March 12). Swallowing the Snake’s Tail:
+          Tracking Turla Infrastructure. Retrieved October 20, 2020.'
+        url: https://www.recordedfuture.com/turla-apt-infrastructure/
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1585.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--b1ccd744-3f78-4a0e-9bb2-2002057f7928
+      type: attack-pattern
+      created: '2020-10-01T01:08:41.124Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1585.001
+        url: https://attack.mitre.org/techniques/T1585/001
+      - source_name: NEWSCASTER2014
+        description: Lennon, M. (2014, May 29). Iranian Hackers Targeted US Officials
+          in Elaborate Social Media Attack Operation. Retrieved March 1, 2017.
+        url: https://www.securityweek.com/iranian-hackers-targeted-us-officials-elaborate-social-media-attack-operation
+      - source_name: BlackHatRobinSage
+        description: Ryan, T. (2010). “Getting In Bed with Robin Sage.�?. Retrieved
+          March 6, 2017.
+        url: http://media.blackhat.com/bh-us-10/whitepapers/Ryan/BlackHat-USA-2010-Ryan-Getting-In-Bed-With-Robin-Sage-v1.0.pdf
+      modified: '2021-10-16T17:37:34.563Z'
+      name: Social Media Accounts
+      description: "Adversaries may create and cultivate social media accounts that
+        can be used during targeting. Adversaries can create social media accounts
+        that can be used to build a persona to further operations. Persona development
+        consists of the development of public information, presence, history and appropriate
+        affiliations.(Citation: NEWSCASTER2014)(Citation: BlackHatRobinSage)\n\nFor
+        operations incorporating social engineering, the utilization of a persona
+        on social media may be important. These personas may be fictitious or impersonate
+        real people. The persona may exist on a single social media site or across
+        multiple sites (ex: Facebook, LinkedIn, Twitter, etc.). Establishing a persona
+        \ on social media may require development of additional documentation to make
+        them seem real. This could include filling out profile information, developing
+        social networks, or incorporating photos. \n\nOnce a persona has been developed
+        an adversary can use it to create connections to targets of interest. These
+        connections may be direct or may include trying to connect through others.(Citation:
+        NEWSCASTER2014)(Citation: BlackHatRobinSage) These accounts may be leveraged
+        during other phases of the adversary lifecycle, such as during Initial Access
+        (ex: [Spearphishing via Service](https://attack.mitre.org/techniques/T1566/003))."
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider monitoring social media activity related to your organization. Suspicious activity may include personas claiming to work for your organization or recently created/modified accounts making numerous connection requests to accounts affiliated with your organization.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access (ex: [Spearphishing via Service](https://attack.mitre.org/techniques/T1566/003)).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Content'
+      - 'Persona: Social Media'
+    atomic_tests: []
+  T1587.004:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--bbc3cba7-84ae-410d-b18b-16750731dfa2
+      type: attack-pattern
+      created: '2020-10-01T01:48:15.511Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1587.004
+        url: https://attack.mitre.org/techniques/T1587/004
+      - source_name: NYTStuxnet
+        description: William J. Broad, John Markoff, and David E. Sanger. (2011, January
+          15). Israeli Test on Worm Called Crucial in Iran Nuclear Delay. Retrieved
+          March 1, 2017.
+        url: https://www.nytimes.com/2011/01/16/world/middleeast/16stuxnet.html
+      - source_name: Irongeek Sims BSides 2017
+        url: https://www.irongeek.com/i.php?page=videos/bsidescharm2017/bsidescharm-2017-t111-microsoft-patch-analysis-for-exploitation-stephen-sims
+        description: Stephen Sims. (2017, April 30). Microsoft Patch Analysis for
+          Exploitation. Retrieved October 16, 2020.
+      modified: '2021-04-15T03:07:53.803Z'
+      name: Exploits
+      description: |-
+        Adversaries may develop exploits that can be used during targeting. An exploit takes advantage of a bug or vulnerability in order to cause unintended or unanticipated behavior to occur on computer hardware or software. Rather than finding/modifying exploits from online or purchasing them from exploit vendors, an adversary may develop their own exploits.(Citation: NYTStuxnet) Adversaries may use information acquired via [Vulnerabilities](https://attack.mitre.org/techniques/T1588/006) to focus exploit development efforts. As part of the exploit development process, adversaries may uncover exploitable vulnerabilities through methods such as fuzzing and patch analysis.(Citation: Irongeek Sims BSides 2017)
+
+        As with legitimate development efforts, different skill sets may be required for developing exploits. The skills needed may be located in-house, or may need to be contracted out. Use of a contractor may be considered an extension of that adversary's exploit development capabilities, provided the adversary plays a role in shaping requirements and maintains an initial degree of exclusivity to the exploit.
+
+        Adversaries may use exploits during various phases of the adversary lifecycle (i.e. [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190), [Exploitation for Client Execution](https://attack.mitre.org/techniques/T1203), [Exploitation for Privilege Escalation](https://attack.mitre.org/techniques/T1068), [Exploitation for Defense Evasion](https://attack.mitre.org/techniques/T1211), [Exploitation for Credential Access](https://attack.mitre.org/techniques/T1212), [Exploitation of Remote Services](https://attack.mitre.org/techniques/T1210), and [Application or System Exploitation](https://attack.mitre.org/techniques/T1499/004)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: Much of this activity will take place outside the visibility
+        of the target organization, making detection of this behavior difficult. Detection
+        efforts may be focused on behaviors relating to the use of exploits (i.e.
+        [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190),
+        [Exploitation for Client Execution](https://attack.mitre.org/techniques/T1203),
+        [Exploitation for Privilege Escalation](https://attack.mitre.org/techniques/T1068),
+        [Exploitation for Defense Evasion](https://attack.mitre.org/techniques/T1211),
+        [Exploitation for Credential Access](https://attack.mitre.org/techniques/T1212),
+        [Exploitation of Remote Services](https://attack.mitre.org/techniques/T1210),
+        and [Application or System Exploitation](https://attack.mitre.org/techniques/T1499/004)).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1608.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--c071d8c1-3b3a-4f22-9407-ca4e96921069
+      type: attack-pattern
+      created: '2021-03-17T20:32:13.793Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1608.003
+        url: https://attack.mitre.org/techniques/T1608/003
+      - source_name: DigiCert Install SSL Cert
+        url: https://www.digicert.com/kb/ssl-certificate-installation.htm
+        description: DigiCert. (n.d.). How to Install an SSL Certificate. Retrieved
+          April 19, 2021.
+      - source_name: Splunk Kovar Certificates 2017
+        url: https://www.splunk.com/en_us/blog/security/tall-tales-of-hunting-with-tls-ssl-certificates.html
+        description: Kovar, R. (2017, December 11). Tall Tales of Hunting with TLS/SSL
+          Certificates. Retrieved October 16, 2020.
+      modified: '2021-10-16T17:47:46.409Z'
+      name: Install Digital Certificate
+      description: "Adversaries may install SSL/TLS certificates that can be used
+        during targeting. SSL/TLS certificates are files that can be installed on
+        servers to enable secure communications between systems. Digital certificates
+        include information about the key, information about its owner's identity,
+        and the digital signature of an entity that has verified the certificate's
+        contents are correct. If the signature is valid, and the person examining
+        the certificate trusts the signer, then they know they can use that key to
+        communicate securely with its owner. Certificates can be uploaded to a server,
+        then the server can be configured to use the certificate to enable encrypted
+        communication with it.(Citation: DigiCert Install SSL Cert)\n\nAdversaries
+        may install SSL/TLS certificates that can be used to further their operations,
+        such as encrypting C2 traffic (ex: [Asymmetric Cryptography](https://attack.mitre.org/techniques/T1573/002)
+        with [Web Protocols](https://attack.mitre.org/techniques/T1071/001)) or lending
+        credibility to a credential harvesting site. Installation of digital certificates
+        may take place for a number of server types, including web servers and email
+        servers. \n\nAdversaries can obtain digital certificates (see [Digital Certificates](https://attack.mitre.org/techniques/T1588/004))
+        or create self-signed certificates (see [Digital Certificates](https://attack.mitre.org/techniques/T1587/003)).
+        Digital certificates can then be installed on adversary controlled infrastructure
+        that may have been acquired ([Acquire Infrastructure](https://attack.mitre.org/techniques/T1583))
+        or previously compromised ([Compromise Infrastructure](https://attack.mitre.org/techniques/T1584))."
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider use of services that may aid in the tracking of certificates in use on sites across the Internet. In some cases it may be possible to pivot on known pieces of certificate information to uncover other adversary infrastructure.(Citation: Splunk Kovar Certificates 2017)
+
+        Detection efforts may be focused on related behaviors, such as [Web Protocols](https://attack.mitre.org/techniques/T1071/001) or [Asymmetric Cryptography](https://attack.mitre.org/techniques/T1573/002).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+    atomic_tests: []
+  T1584.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_contributors:
+      - Jeremy Galloway
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      type: attack-pattern
+      id: attack-pattern--c2f59d25-87fe-44aa-8f83-e8e59d077bf5
+      created: '2020-10-01T00:54:30.869Z'
+      x_mitre_version: '1.2'
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1584.002
+        url: https://attack.mitre.org/techniques/T1584/002
+      - source_name: FireEye DNS Hijack 2019
+        url: https://www.fireeye.com/blog/threat-research/2019/01/global-dns-hijacking-campaign-dns-record-manipulation-at-scale.html
+        description: 'Hirani, M., Jones, S., Read, B. (2019, January 10). Global DNS
+          Hijacking Campaign: DNS Record Manipulation at Scale. Retrieved October
+          9, 2020.'
+      - source_name: Crowdstrike DNS Hijack 2019
+        url: https://www.crowdstrike.com/blog/widespread-dns-hijacking-activity-targets-multiple-sectors/
+        description: Matt Dahl. (2019, January 25). Widespread DNS Hijacking Activity
+          Targets Multiple Sectors. Retrieved February 14, 2022.
+      - source_name: Talos DNSpionage Nov 2018
+        url: https://blog.talosintelligence.com/2018/11/dnspionage-campaign-targets-middle-east.html
+        description: Mercer, W., Rascagneres, P. (2018, November 27). DNSpionage Campaign
+          Targets Middle East. Retrieved October 9, 2020.
+      - source_name: CiscoAngler
+        url: https://blogs.cisco.com/security/talos/angler-domain-shadowing
+        description: 'Nick Biasini. (2015, March 3). Threat Spotlight: Angler Lurking
+          in the Domain Shadows. Retrieved March 6, 2017.'
+      - source_name: Proofpoint Domain Shadowing
+        url: https://www.proofpoint.com/us/threat-insight/post/The-Shadow-Knows
+        description: 'Proofpoint Staff. (2015, December 15). The shadow knows: Malvertising
+          campaigns use domain shadowing to pull in Angler EK. Retrieved October 16,
+          2020.'
+      x_mitre_deprecated: false
+      revoked: false
+      description: |-
+        Adversaries may compromise third-party DNS servers that can be used during targeting. During post-compromise activity, adversaries may utilize DNS traffic for various tasks, including for Command and Control (ex: [Application Layer Protocol](https://attack.mitre.org/techniques/T1071)). Instead of setting up their own DNS servers, adversaries may compromise third-party DNS servers in support of operations.
+
+        By compromising DNS servers, adversaries can alter DNS records. Such control can allow for redirection of an organization's traffic, facilitating Collection and Credential Access efforts for the adversary.(Citation: Talos DNSpionage Nov 2018)(Citation: FireEye DNS Hijack 2019)  Additionally, adversaries may leverage such control in conjunction with [Digital Certificates](https://attack.mitre.org/techniques/T1588/004) to redirect traffic to adversary-controlled infrastructure, mimicking normal trusted network communications.(Citation: FireEye DNS Hijack 2019)(Citation: Crowdstrike DNS Hijack 2019) Adversaries may also be able to silently create subdomains pointed at malicious servers without tipping off the actual owner of the DNS server.(Citation: CiscoAngler)(Citation: Proofpoint Domain Shadowing)
+      modified: '2022-04-19T21:22:13.578Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      name: DNS Server
+      x_mitre_detection: |-
+        Consider monitoring for anomalous resolution changes for domain addresses. Efforts may need to be tailored to specific domains of interest as benign resolution changes are a common occurrence on the internet.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Command and Control.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_is_subtechnique: true
+      x_mitre_data_sources:
+      - 'Domain Name: Active DNS'
+      - 'Domain Name: Passive DNS'
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1585:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--cdfc5f0a-9bb9-4352-b896-553cfa2d8fd8
+      type: attack-pattern
+      created: '2020-10-01T01:05:42.216Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1585
+        url: https://attack.mitre.org/techniques/T1585
+      - source_name: NEWSCASTER2014
+        description: Lennon, M. (2014, May 29). Iranian Hackers Targeted US Officials
+          in Elaborate Social Media Attack Operation. Retrieved March 1, 2017.
+        url: https://www.securityweek.com/iranian-hackers-targeted-us-officials-elaborate-social-media-attack-operation
+      - source_name: BlackHatRobinSage
+        description: Ryan, T. (2010). “Getting In Bed with Robin Sage.�?. Retrieved
+          March 6, 2017.
+        url: http://media.blackhat.com/bh-us-10/whitepapers/Ryan/BlackHat-USA-2010-Ryan-Getting-In-Bed-With-Robin-Sage-v1.0.pdf
+      - url: https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/mandiant-apt1-report.pdf
+        description: Mandiant. (n.d.). APT1 Exposing One of China’s Cyber Espionage
+          Units. Retrieved July 18, 2016.
+        source_name: Mandiant APT1
+      modified: '2021-10-16T17:35:59.386Z'
+      name: Establish Accounts
+      description: |-
+        Adversaries may create and cultivate accounts with services that can be used during targeting. Adversaries can create accounts that can be used to build a persona to further operations. Persona development consists of the development of public information, presence, history and appropriate affiliations. This development could be applied to social media, website, or other publicly available information that could be referenced and scrutinized for legitimacy over the course of an operation using that persona or identity.(Citation: NEWSCASTER2014)(Citation: BlackHatRobinSage)
+
+        For operations incorporating social engineering, the utilization of an online persona may be important. These personas may be fictitious or impersonate real people. The persona may exist on a single site or across multiple sites (ex: Facebook, LinkedIn, Twitter, Google, GitHub, Docker Hub, etc.). Establishing a persona may require development of additional documentation to make them seem real. This could include filling out profile information, developing social networks, or incorporating photos.(Citation: NEWSCASTER2014)(Citation: BlackHatRobinSage)
+
+        Establishing accounts can also include the creation of accounts with email providers, which may be directly leveraged for [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Phishing](https://attack.mitre.org/techniques/T1566).(Citation: Mandiant APT1)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider monitoring social media activity related to your organization. Suspicious activity may include personas claiming to work for your organization or recently created/modified accounts making numerous connection requests to accounts affiliated with your organization.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access (ex: [Phishing](https://attack.mitre.org/techniques/T1566)).
+      x_mitre_version: '1.2'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Persona: Social Media'
+      - 'Network Traffic: Network Traffic Content'
+      x_mitre_is_subtechnique: false
+    atomic_tests: []
+  T1588:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--ce0687a0-e692-4b77-964a-0784a8e54ff1
+      type: attack-pattern
+      created: '2020-10-01T01:56:24.776Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1588
+        url: https://attack.mitre.org/techniques/T1588
+      - source_name: NationsBuying
+        description: Nicole Perlroth and David E. Sanger. (2013, July 12). Nations
+          Buying as Hackers Sell Flaws in Computer Code. Retrieved March 9, 2017.
+        url: https://www.nytimes.com/2013/07/14/world/europe/nations-buying-as-hackers-sell-computer-flaws.html
+      - url: https://citizenlab.ca/2016/08/million-dollar-dissident-iphone-zero-day-nso-group-uae/
+        description: 'Bill Marczak and John Scott-Railton. (2016, August 24). The
+          Million Dollar Dissident: NSO Group’s iPhone Zero-Days used against a UAE
+          Human Rights Defender. Retrieved December 12, 2016.'
+        source_name: PegasusCitizenLab
+      - description: Fisher, D. (2012, October 31). Final Report on DigiNotar Hack
+          Shows Total Compromise of CA Servers. Retrieved March 6, 2017.
+        source_name: DiginotarCompromise
+        url: https://threatpost.com/final-report-diginotar-hack-shows-total-compromise-ca-servers-103112/77170/
+      - source_name: FireEyeSupplyChain
+        description: 'FireEye. (2014). SUPPLY CHAIN ANALYSIS: From Quartermaster to
+          SunshopFireEye. Retrieved March 6, 2017.'
+        url: https://www.mandiant.com/resources/supply-chain-analysis-from-quartermaster-to-sunshop
+      - source_name: Analyzing CS Dec 2020
+        url: https://www.randhome.io/blog/2020/12/20/analyzing-cobalt-strike-for-fun-and-profit/
+        description: Maynier, E. (2020, December 20). Analyzing Cobalt Strike for
+          Fun and Profit. Retrieved October 12, 2021.
+      - source_name: Splunk Kovar Certificates 2017
+        url: https://www.splunk.com/en_us/blog/security/tall-tales-of-hunting-with-tls-ssl-certificates.html
+        description: Kovar, R. (2017, December 11). Tall Tales of Hunting with TLS/SSL
+          Certificates. Retrieved October 16, 2020.
+      - source_name: Recorded Future Beacon Certificates
+        url: https://www.recordedfuture.com/cobalt-strike-servers/
+        description: Insikt Group. (2019, June 18). A Multi-Method Approach to Identifying
+          Rogue Cobalt Strike Servers. Retrieved October 16, 2020.
+      modified: '2021-10-18T12:26:22.831Z'
+      name: Obtain Capabilities
+      description: |-
+        Adversaries may buy and/or steal capabilities that can be used during targeting. Rather than developing their own capabilities in-house, adversaries may purchase, freely download, or steal them. Activities may include the acquisition of malware, software (including licenses), exploits, certificates, and information relating to vulnerabilities. Adversaries may obtain capabilities to support their operations throughout numerous phases of the adversary lifecycle.
+
+        In addition to downloading free malware, software, and exploits from the internet, adversaries may purchase these capabilities from third-party entities. Third-party entities can include technology companies that specialize in malware and exploits, criminal marketplaces, or from individuals.(Citation: NationsBuying)(Citation: PegasusCitizenLab)
+
+        In addition to purchasing capabilities, adversaries may steal capabilities from third-party entities (including other adversaries). This can include stealing software licenses, malware, SSL/TLS and code-signing certificates, or raiding closed databases of vulnerabilities or exploits.(Citation: DiginotarCompromise)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider analyzing malware for features that may be associated with malware providers, such as compiler used, debugging artifacts, code similarities, or even group identifiers associated with specific Malware-as-a-Service (MaaS) offerings. Malware repositories can also be used to identify additional samples associated with the developers and the adversary utilizing their services. Identifying overlaps in malware use by different adversaries may indicate malware was obtained by the adversary rather than developed by them. In some cases, identifying overlapping characteristics in malware used by different adversaries may point to a shared quartermaster.(Citation: FireEyeSupplyChain) Malware repositories can also be used to identify features of tool use associated with an adversary, such as watermarks in [Cobalt Strike](https://attack.mitre.org/software/S0154) payloads.(Citation: Analyzing CS Dec 2020)
+
+        Consider use of services that may aid in the tracking of newly issued certificates and/or certificates in use on sites across the Internet. In some cases it may be possible to pivot on known pieces of certificate information to uncover other adversary infrastructure.(Citation: Splunk Kovar Certificates 2017) Some server-side components of adversary tools may have default values set for SSL/TLS certificates.(Citation: Recorded Future Beacon Certificates)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Defense Evasion or Command and Control.
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Malware Repository: Malware Metadata'
+      - 'Malware Repository: Malware Content'
+      - 'Certificate: Certificate Registration'
+      - 'Internet Scan: Response Content'
+      x_mitre_is_subtechnique: false
+    atomic_tests: []
+  T1650:
+    technique:
+      modified: '2023-04-14T20:04:42.893Z'
+      name: Acquire Access
+      description: |-
+        Adversaries may purchase or otherwise acquire an existing access to a target system or network. A variety of online services and initial access broker networks are available to sell access to previously compromised systems.(Citation: Microsoft Ransomware as a Service)(Citation: CrowdStrike Access Brokers)(Citation: Krebs Access Brokers Fortune 500) In some cases, adversary groups may form partnerships to share compromised systems with each other.(Citation: CISA Karakurt 2022)
+
+        Footholds to compromised systems may take a variety of forms, such as access to planted backdoors (e.g., [Web Shell](https://attack.mitre.org/techniques/T1505/003)) or established access via [External Remote Services](https://attack.mitre.org/techniques/T1133). In some cases, access brokers will implant compromised systems with a “load�? that can be used to install additional malware for paying customers.(Citation: Microsoft Ransomware as a Service)
+
+        By leveraging existing access broker networks rather than developing or obtaining their own initial access capabilities, an adversary can potentially reduce the resources required to gain a foothold on a target network and focus their efforts on later stages of compromise. Adversaries may prioritize acquiring access to systems that have been determined to lack security monitoring or that have high privileges, or systems that belong to organizations in a particular sector.(Citation: Microsoft Ransomware as a Service)(Citation: CrowdStrike Access Brokers)
+
+        In some cases, purchasing access to an organization in sectors such as IT contracting, software development, or telecommunications may allow an adversary to compromise additional victims via a [Trusted Relationship](https://attack.mitre.org/techniques/T1199), [Multi-Factor Authentication Interception](https://attack.mitre.org/techniques/T1111), or even [Supply Chain Compromise](https://attack.mitre.org/techniques/T1195).
+
+        **Note:** while this technique is distinct from other behaviors such as [Purchase Technical Data](https://attack.mitre.org/techniques/T1597/002) and [Credentials](https://attack.mitre.org/techniques/T1589/001), they may often be used in conjunction (especially where the acquired foothold requires [Valid Accounts](https://attack.mitre.org/techniques/T1078)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Jeremy Kennelly
+      - Jeffrey Barto
+      x_mitre_deprecated: false
+      x_mitre_detection: "Much of this takes place outside the visibility of the target
+        organization, making detection difficult for defenders. \n\nDetection efforts
+        may be focused on related stages of the adversary lifecycle, such as during
+        Initial Access. "
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: false
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.0'
+      type: attack-pattern
+      id: attack-pattern--d21bb61f-08ad-4dc1-b001-81ca6cb79954
+      created: '2023-03-10T15:37:21.782Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1650
+        external_id: T1650
+      - source_name: Krebs Access Brokers Fortune 500
+        description: Brian Krebs. (2012, October 22). Service Sells Access to Fortune
+          500 Firms. Retrieved March 10, 2023.
+        url: https://krebsonsecurity.com/2012/10/service-sells-access-to-fortune-500-firms/
+      - source_name: CrowdStrike Access Brokers
+        description: 'CrowdStrike Intelligence Team. (2022, February 23). Access Brokers:
+          Who Are the Targets, and What Are They Worth?. Retrieved March 10, 2023.'
+        url: https://www.crowdstrike.com/blog/access-brokers-targets-and-worth/
+      - source_name: CISA Karakurt 2022
+        description: Cybersecurity Infrastructure and Defense Agency. (2022, June
+          2). Karakurt Data Extortion Group. Retrieved March 10, 2023.
+        url: https://www.cisa.gov/news-events/cybersecurity-advisories/aa22-152a
+      - source_name: Microsoft Ransomware as a Service
+        description: 'Microsoft. (2022, May 9). Ransomware as a service: Understanding
+          the cybercrime gig economy and how to protect yourself. Retrieved March
+          10, 2023.'
+        url: https://www.microsoft.com/en-us/security/blog/2022/05/09/ransomware-as-a-service-understanding-the-cybercrime-gig-economy-and-how-to-protect-yourself/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1584.007:
+    technique:
+      modified: '2022-10-20T21:19:57.555Z'
+      name: Serverless
+      description: "Adversaries may compromise serverless cloud infrastructure, such
+        as Cloudflare Workers or AWS Lambda functions, that can be used during targeting.
+        By utilizing serverless infrastructure, adversaries can make it more difficult
+        to attribute infrastructure used during operations back to them. \n\nOnce
+        compromised, the serverless runtime environment can be leveraged to either
+        respond directly to infected machines or to [Proxy](https://attack.mitre.org/techniques/T1090)
+        traffic to an adversary-owned command and control server.(Citation: BlackWater
+        Malware Cloudflare Workers)(Citation: AWS Lambda Redirector) As traffic generated
+        by these functions will appear to come from subdomains of common cloud providers,
+        it may be difficult to distinguish from ordinary traffic to these providers.(Citation:
+        Detecting Command & Control in the Cloud)(Citation: BlackWater Malware Cloudflare
+        Workers)"
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: ''
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.0'
+      x_mitre_contributors:
+      - Awake Security
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--df1bc34d-1634-4c93-b89e-8120994fce77
+      created: '2022-07-08T12:46:15.450Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1584/007
+        external_id: T1584.007
+      - source_name: AWS Lambda Redirector
+        description: Adam Chester. (2020, February 25). AWS Lambda Redirector. Retrieved
+          July 8, 2022.
+        url: https://blog.xpnsec.com/aws-lambda-redirector/
+      - source_name: Detecting Command & Control in the Cloud
+        description: 'Gary Golomb. (n.d.). Threat Hunting Series: Detecting Command
+          & Control in the Cloud. Retrieved July 8, 2022.'
+        url: https://awakesecurity.com/blog/threat-hunting-series-detecting-command-control-in-the-cloud/
+      - source_name: BlackWater Malware Cloudflare Workers
+        description: Lawrence Abrams. (2020, March 14). BlackWater Malware Abuses
+          Cloudflare Workers for C2 Communication. Retrieved July 8, 2022.
+        url: https://www.bleepingcomputer.com/news/security/blackwater-malware-abuses-cloudflare-workers-for-c2-communication/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1584.004:
+    technique:
+      modified: '2023-04-13T00:00:25.676Z'
+      name: Server
+      description: |-
+        Adversaries may compromise third-party servers that can be used during targeting. Use of servers allows an adversary to stage, launch, and execute an operation. During post-compromise activity, adversaries may utilize servers for various tasks, including for Command and Control. Instead of purchasing a [Server](https://attack.mitre.org/techniques/T1583/004) or [Virtual Private Server](https://attack.mitre.org/techniques/T1583/003), adversaries may compromise third-party servers in support of operations.
+
+        Adversaries may also compromise web servers to support watering hole operations, as in [Drive-by Compromise](https://attack.mitre.org/techniques/T1189), or email servers to support [Phishing](https://attack.mitre.org/techniques/T1566) operations.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Dor Edry, Microsoft
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Once adversaries have provisioned software on a compromised server (ex: for use as a command and control server), internet scans may reveal servers that adversaries have compromised. Consider looking for identifiable patterns such as services listening, certificates in use, SSL/TLS negotiation features, or other response artifacts associated with adversary C2 software.(Citation: ThreatConnect Infrastructure Dec 2020)(Citation: Mandiant SCANdalous Jul 2020)(Citation: Koczwara Beacon Hunting Sep 2021)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Command and Control.
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      - 'Internet Scan: Response Metadata'
+      type: attack-pattern
+      id: attack-pattern--e196b5c5-8118-4a1c-ab8a-936586ce3db5
+      created: '2020-10-01T00:56:25.135Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1584/004
+        external_id: T1584.004
+      - source_name: Koczwara Beacon Hunting Sep 2021
+        description: Koczwara, M. (2021, September 7). Hunting Cobalt Strike C2 with
+          Shodan. Retrieved October 12, 2021.
+        url: https://michaelkoczwara.medium.com/cobalt-strike-c2-hunting-with-shodan-c448d501a6e2
+      - source_name: Mandiant SCANdalous Jul 2020
+        description: Stephens, A. (2020, July 13). SCANdalous! (External Detection
+          Using Network Scan Data and Automation). Retrieved October 12, 2021.
+        url: https://www.mandiant.com/resources/scandalous-external-detection-using-network-scan-data-and-automation
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1608.006:
+    technique:
+      modified: '2023-03-13T20:35:52.302Z'
+      name: SEO Poisoning
+      description: |-
+        Adversaries may poison mechanisms that influence search engine optimization (SEO) to further lure staged capabilities towards potential victims. Search engines typically display results to users based on purchased ads as well as the site’s ranking/score/reputation calculated by their web crawlers and algorithms.(Citation: Atlas SEO)(Citation: MalwareBytes SEO)
+
+        To help facilitate [Drive-by Compromise](https://attack.mitre.org/techniques/T1189), adversaries may stage content that explicitly manipulates SEO rankings in order to promote sites hosting their malicious payloads (such as [Drive-by Target](https://attack.mitre.org/techniques/T1608/004)) within search engines. Poisoning SEO rankings may involve various tricks, such as stuffing keywords (including in the form of hidden text) into compromised sites. These keywords could be related to the interests/browsing habits of the intended victim(s) as well as more broad, seasonably popular topics (e.g. elections, trending news).(Citation: ZScaler SEO)(Citation: Atlas SEO)
+
+        Adversaries may also purchase or plant incoming links to staged capabilities in order to boost the site’s calculated relevance and reputation.(Citation: MalwareBytes SEO)(Citation: DFIR Report Gootloader)
+
+        SEO poisoning may also be combined with evasive redirects and other cloaking mechanisms (such as measuring mouse movements or serving content based on browser user agents, user language/localization settings, or HTTP headers) in order to feed SEO inputs while avoiding scrutiny from defenders.(Citation: ZScaler SEO)(Citation: Sophos Gootloader)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_contributors:
+      - Goldstein Menachem
+      - Vijay Lalwani
+      - Will Thomas, Equinix Threat Analysis Center (ETAC)
+      - Will Jolliffe
+      - Hiroki Nagahama, NEC Corporation
+      - Manikantan Srinivasan, NEC Corporation India
+      - Pooja Natarajan, NEC Corporation India
+      x_mitre_deprecated: false
+      x_mitre_detection: ''
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.0'
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      type: attack-pattern
+      id: attack-pattern--e5d550f3-2202-4634-85f2-4a200a1d49b3
+      created: '2022-09-30T21:14:12.284Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1608/006
+        external_id: T1608.006
+      - source_name: MalwareBytes SEO
+        description: 'Arntz, P. (2018, May 29). SEO poisoning: Is it worth it?. Retrieved
+          September 30, 2022.'
+        url: https://www.malwarebytes.com/blog/news/2018/05/seo-poisoning-is-it-worth-it
+      - source_name: Atlas SEO
+        description: Atlas Cybersecurity. (2021, April 19). Threat Actors use Search-Engine-Optimization
+          Tactics to Redirect Traffic and Install Malware. Retrieved September 30,
+          2022.
+        url: https://atlas-cybersecurity.com/cyber-threats/threat-actors-use-search-engine-optimization-tactics-to-redirect-traffic-and-install-malware/
+      - source_name: Sophos Gootloader
+        description: Szappanos, G. & Brandt, A. (2021, March 1). “Gootloader�? expands
+          its payload delivery options. Retrieved September 30, 2022.
+        url: https://news.sophos.com/en-us/2021/03/01/gootloader-expands-its-payload-delivery-options/
+      - source_name: DFIR Report Gootloader
+        description: The DFIR Report. (2022, May 9). SEO Poisoning – A Gootloader
+          Story. Retrieved September 30, 2022.
+        url: https://thedfirreport.com/2022/05/09/seo-poisoning-a-gootloader-story/
+      - source_name: ZScaler SEO
+        description: Wang, J. (2018, October 17). Ubiquitous SEO Poisoning URLs. Retrieved
+          September 30, 2022.
+        url: https://www.zscaler.com/blogs/security-research/ubiquitous-seo-poisoning-urls-0
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1588.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--e7cbc1de-1f79-48ee-abfd-da1241c65a15
+      type: attack-pattern
+      created: '2020-10-01T02:11:47.237Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1588.003
+        url: https://attack.mitre.org/techniques/T1588/003
+      - url: https://en.wikipedia.org/wiki/Code_signing
+        description: Wikipedia. (2015, November 10). Code Signing. Retrieved March
+          31, 2016.
+        source_name: Wikipedia Code Signing
+      modified: '2021-10-17T16:19:50.018Z'
+      name: Code Signing Certificates
+      description: |-
+        Adversaries may buy and/or steal code signing certificates that can be used during targeting. Code signing is the process of digitally signing executables and scripts to confirm the software author and guarantee that the code has not been altered or corrupted. Code signing provides a level of authenticity for a program from the developer and a guarantee that the program has not been tampered with.(Citation: Wikipedia Code Signing) Users and/or security tools may trust a signed piece of code more than an unsigned piece of code even if they don't know who issued the certificate or who the author is.
+
+        Prior to [Code Signing](https://attack.mitre.org/techniques/T1553/002), adversaries may purchase or steal code signing certificates for use in operations. The purchase of code signing certificates may be done using a front organization or using information stolen from a previously compromised entity that allows the adversary to validate to a certificate provider as that entity. Adversaries may also steal code signing materials directly from a compromised third-party.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider analyzing code signing certificates for features that may be associated with the adversary and/or their developers, such as the thumbprint, algorithm used, validity period, common name, and certificate authority. Malware repositories can also be used to identify additional samples associated with the adversary and identify patterns an adversary has used in procuring code signing certificates.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related follow-on behavior, such as [Code Signing](https://attack.mitre.org/techniques/T1553/002) or [Install Root Certificate](https://attack.mitre.org/techniques/T1553/004).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Malware Repository: Malware Metadata'
+    atomic_tests: []
+  T1587:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--edadea33-549c-4ed1-9783-8f5a5853cbdf
+      type: attack-pattern
+      created: '2020-10-01T01:30:00.877Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1587
+        url: https://attack.mitre.org/techniques/T1587
+      - url: https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/mandiant-apt1-report.pdf
+        description: Mandiant. (n.d.). APT1 Exposing One of China’s Cyber Espionage
+          Units. Retrieved July 18, 2016.
+        source_name: Mandiant APT1
+      - source_name: Kaspersky Sofacy
+        description: Kaspersky Lab's Global Research and Analysis Team. (2015, December
+          4). Sofacy APT hits high profile targets with updated toolset. Retrieved
+          December 10, 2015.
+        url: https://securelist.com/sofacy-apt-hits-high-profile-targets-with-updated-toolset/72924/
+      - source_name: Bitdefender StrongPity June 2020
+        url: https://www.bitdefender.com/files/News/CaseStudies/study/353/Bitdefender-Whitepaper-StrongPity-APT.pdf
+        description: Tudorica, R. et al. (2020, June 30). StrongPity APT - Revealing
+          Trojanized Tools, Working Hours and Infrastructure. Retrieved July 20, 2020.
+      - source_name: Talos Promethium June 2020
+        url: https://blog.talosintelligence.com/2020/06/promethium-extends-with-strongpity3.html
+        description: Mercer, W. et al. (2020, June 29). PROMETHIUM extends global
+          reach with StrongPity3 APT. Retrieved July 20, 2020.
+      - source_name: Splunk Kovar Certificates 2017
+        url: https://www.splunk.com/en_us/blog/security/tall-tales-of-hunting-with-tls-ssl-certificates.html
+        description: Kovar, R. (2017, December 11). Tall Tales of Hunting with TLS/SSL
+          Certificates. Retrieved October 16, 2020.
+      modified: '2021-10-17T16:07:08.768Z'
+      name: Develop Capabilities
+      description: |-
+        Adversaries may build capabilities that can be used during targeting. Rather than purchasing, freely downloading, or stealing capabilities, adversaries may develop their own capabilities in-house. This is the process of identifying development requirements and building solutions such as malware, exploits, and self-signed certificates. Adversaries may develop capabilities to support their operations throughout numerous phases of the adversary lifecycle.(Citation: Mandiant APT1)(Citation: Kaspersky Sofacy)(Citation: Bitdefender StrongPity June 2020)(Citation: Talos Promethium June 2020)
+
+        As with legitimate development efforts, different skill sets may be required for developing capabilities. The skills needed may be located in-house, or may need to be contracted out. Use of a contractor may be considered an extension of that adversary's development capabilities, provided the adversary plays a role in shaping requirements and maintains a degree of exclusivity to the capability.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider analyzing malware for features that may be associated with the adversary and/or their developers, such as compiler used, debugging artifacts, or code similarities. Malware repositories can also be used to identify additional samples associated with the adversary and identify development patterns over time.
+
+        Consider use of services that may aid in the tracking of certificates in use on sites across the Internet. In some cases it may be possible to pivot on known pieces of certificate information to uncover other adversary infrastructure.(Citation: Splunk Kovar Certificates 2017)
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Defense Evasion or Command and Control.
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Malware Repository: Malware Content'
+      - 'Internet Scan: Response Content'
+      - 'Malware Repository: Malware Metadata'
+      x_mitre_is_subtechnique: false
+    atomic_tests: []
+  T1588.005:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--f4b843c1-7e92-4701-8fed-ce82f8be2636
+      type: attack-pattern
+      created: '2020-10-01T02:17:46.086Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1588.005
+        url: https://attack.mitre.org/techniques/T1588/005
+      - source_name: Exploit Database
+        url: https://www.exploit-db.com/
+        description: Offensive Security. (n.d.). Exploit Database. Retrieved October
+          15, 2020.
+      - source_name: TempertonDarkHotel
+        description: Temperton, J. (2015, August 10). Hacking Team zero-day used in
+          new Darkhotel attacks. Retrieved March 9, 2017.
+        url: https://www.wired.co.uk/article/darkhotel-hacking-team-cyber-espionage
+      - source_name: NationsBuying
+        description: Nicole Perlroth and David E. Sanger. (2013, July 12). Nations
+          Buying as Hackers Sell Flaws in Computer Code. Retrieved March 9, 2017.
+        url: https://www.nytimes.com/2013/07/14/world/europe/nations-buying-as-hackers-sell-computer-flaws.html
+      - url: https://citizenlab.ca/2016/08/million-dollar-dissident-iphone-zero-day-nso-group-uae/
+        description: 'Bill Marczak and John Scott-Railton. (2016, August 24). The
+          Million Dollar Dissident: NSO Group’s iPhone Zero-Days used against a UAE
+          Human Rights Defender. Retrieved December 12, 2016.'
+        source_name: PegasusCitizenLab
+      - source_name: Wired SandCat Oct 2019
+        url: https://www.vice.com/en/article/3kx5y3/uzbekistan-hacking-operations-uncovered-due-to-spectacularly-bad-opsec
+        description: Zetter, K. (2019, October 3). Researchers Say They Uncovered
+          Uzbekistan Hacking Operations Due to Spectacularly Bad OPSEC. Retrieved
+          October 15, 2020.
+      modified: '2021-04-15T03:14:01.255Z'
+      name: Exploits
+      description: |-
+        Adversaries may buy, steal, or download exploits that can be used during targeting. An exploit takes advantage of a bug or vulnerability in order to cause unintended or unanticipated behavior to occur on computer hardware or software. Rather than developing their own exploits, an adversary may find/modify exploits from online or purchase them from exploit vendors.(Citation: Exploit Database)(Citation: TempertonDarkHotel)(Citation: NationsBuying)
+
+        In addition to downloading free exploits from the internet, adversaries may purchase exploits from third-party entities. Third-party entities can include technology companies that specialize in exploit development, criminal marketplaces (including exploit kits), or from individuals.(Citation: PegasusCitizenLab)(Citation: Wired SandCat Oct 2019) In addition to purchasing exploits, adversaries may steal and repurpose exploits from third-party entities (including other adversaries).(Citation: TempertonDarkHotel)
+
+        An adversary may monitor exploit provider forums to understand the state of existing, as well as newly discovered, exploits. There is usually a delay between when an exploit is discovered and when it is made public. An adversary may target the systems of those known to conduct exploit research and development in order to gain that knowledge for use during a subsequent operation.
+
+        Adversaries may use exploits during various phases of the adversary lifecycle (i.e. [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190), [Exploitation for Client Execution](https://attack.mitre.org/techniques/T1203), [Exploitation for Privilege Escalation](https://attack.mitre.org/techniques/T1068), [Exploitation for Defense Evasion](https://attack.mitre.org/techniques/T1211), [Exploitation for Credential Access](https://attack.mitre.org/techniques/T1212), [Exploitation of Remote Services](https://attack.mitre.org/techniques/T1210), and [Application or System Exploitation](https://attack.mitre.org/techniques/T1499/004)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |2-
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on behaviors relating to the use of exploits (i.e. [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190), [Exploitation for Client Execution](https://attack.mitre.org/techniques/T1203), [Exploitation for Privilege Escalation](https://attack.mitre.org/techniques/T1068), [Exploitation for Defense Evasion](https://attack.mitre.org/techniques/T1211), [Exploitation for Credential Access](https://attack.mitre.org/techniques/T1212), [Exploitation of Remote Services](https://attack.mitre.org/techniques/T1210), and [Application or System Exploitation](https://attack.mitre.org/techniques/T1499/004)).
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1584.001:
+    technique:
+      modified: '2023-03-07T13:05:42.901Z'
+      name: Domains
+      description: |-
+        Adversaries may hijack domains and/or subdomains that can be used during targeting. Domain registration hijacking is the act of changing the registration of a domain name without the permission of the original registrant.(Citation: ICANNDomainNameHijacking) Adversaries may gain access to an email account for the person listed as the owner of the domain. The adversary can then claim that they forgot their password in order to make changes to the domain registration. Other possibilities include social engineering a domain registration help desk to gain access to an account or taking advantage of renewal process gaps.(Citation: Krebs DNS Hijack 2019)
+
+        Subdomain hijacking can occur when organizations have DNS entries that point to non-existent or deprovisioned resources. In such cases, an adversary may take control of a subdomain to conduct operations with the benefit of the trust associated with that domain.(Citation: Microsoft Sub Takeover 2020)
+
+        Adversaries who compromise a domain may also engage in domain shadowing by creating malicious subdomains under their control while keeping any existing DNS records. As service will not be disrupted, the malicious subdomains may go unnoticed for long periods of time.(Citation: Palo Alto Unit 42 Domain Shadowing 2022)
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: resource-development
+      x_mitre_detection: |-
+        Consider monitoring for anomalous changes to domain registrant information and/or domain resolution information that may indicate the compromise of a domain. Efforts may need to be tailored to specific domains of interest as benign registration and resolution changes are a common occurrence on the internet.
+
+        Much of this activity will take place outside the visibility of the target organization, making detection of this behavior difficult. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Command and Control.
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.3'
+      x_mitre_contributors:
+      - Jeremy Galloway
+      x_mitre_data_sources:
+      - 'Domain Name: Active DNS'
+      - 'Domain Name: Domain Registration'
+      - 'Domain Name: Passive DNS'
+      type: attack-pattern
+      id: attack-pattern--f9cc4d06-775f-4ee1-b401-4e2cc0da30ba
+      created: '2020-10-01T00:51:28.513Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1584/001
+        external_id: T1584.001
+      - source_name: Krebs DNS Hijack 2019
+        description: Brian Krebs. (2019, February 18). A Deep Dive on the Recent Widespread
+          DNS Hijacking Attacks. Retrieved February 14, 2022.
+        url: https://krebsonsecurity.com/2019/02/a-deep-dive-on-the-recent-widespread-dns-hijacking-attacks/
+      - source_name: ICANNDomainNameHijacking
+        description: 'ICANN Security and Stability Advisory Committee. (2005, July
+          12). Domain Name Hijacking: Incidents, Threats, Risks and Remediation. Retrieved
+          March 6, 2017.'
+        url: https://www.icann.org/groups/ssac/documents/sac-007-en
+      - source_name: Palo Alto Unit 42 Domain Shadowing 2022
+        description: 'Janos Szurdi, Rebekah Houser and Daiping Liu. (2022, September
+          21). Domain Shadowing: A Stealthy Use of DNS Compromise for Cybercrime.
+          Retrieved March 7, 2023.'
+        url: https://unit42.paloaltonetworks.com/domain-shadowing/
+      - source_name: Microsoft Sub Takeover 2020
+        description: Microsoft. (2020, September 29). Prevent dangling DNS entries
+          and avoid subdomain takeover. Retrieved October 12, 2020.
+        url: https://docs.microsoft.com/en-us/azure/security/fundamentals/subdomain-takeover
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []

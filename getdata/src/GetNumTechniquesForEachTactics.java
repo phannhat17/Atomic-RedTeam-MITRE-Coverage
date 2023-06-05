@@ -11,8 +11,9 @@ public class GetNumTechniquesForEachTactics {
             String[] tacticsList =  {"collection","command-and-control","credential-access","defense-evasion","discovery","execution","exfiltration","impact","initial-access","lateral-movement","persistence","privilege-escalation","reconnaissance","resource-development"};
 
             String[] techniqueList = {"enterprise-attack","ics-attack","mobile-attack"};
-
+            
             for (String technique : techniqueList) {
+                long str = System.currentTimeMillis();
                 // Read JSON file as a string
                 String jsonStr = new String(Files.readAllBytes(Paths.get("./mitre-attack/"+technique+".json")));
                 
@@ -72,6 +73,8 @@ public class GetNumTechniquesForEachTactics {
                     }
                 
                 myWriter.close();
+                long stp = System.currentTimeMillis();
+                System.out.println(stp - str);
                 // System.out.println("Number of Techniques: " + cnt);
             }
         } catch (JSONException e) {
