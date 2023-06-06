@@ -9,7 +9,7 @@ public class GetAtomic
 
     public static void main(String[] args) throws URISyntaxException 
     {
-        String downloadPath = "data/atomic";
+        String downloadPath = "demo/data/atomic";
         File directory = new File(downloadPath);
         if (!directory.exists()) 
         {

@@ -9,7 +9,7 @@ public class GetMITREData
 
     public static void main(String[] args) throws URISyntaxException 
     {
-        String downloadPath = "data/mitre-attack";
+        String downloadPath = "demo/data/mitre-attack";
         File directory = new File(downloadPath);
         if (!directory.exists()) 
         {

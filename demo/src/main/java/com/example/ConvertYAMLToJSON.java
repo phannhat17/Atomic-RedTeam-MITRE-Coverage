@@ -16,7 +16,7 @@ public class ConvertYAMLToJSON
         String content = "";
         try
         {
-            content = new String(Files.readAllBytes(Paths.get("data/atomic/atomic-all.yaml")));
+            content = new String(Files.readAllBytes(Paths.get("demo/data/atomic/atomic-all.yaml")));
             
             //System.out.println("*********Content from YAML File ****************");
             //System.out.println(content);
@@ -30,7 +30,7 @@ public class ConvertYAMLToJSON
             try 
             {
             	ObjectMapper mapper = new ObjectMapper();
-                mapper.writerWithDefaultPrettyPrinter().writeValue(new File("data/atomic/atomic-all.json"), json);
+                mapper.writerWithDefaultPrettyPrinter().writeValue(new File("demo/data/atomic/atomic-all.json"), json);
             }
             catch (IOException e)
             {

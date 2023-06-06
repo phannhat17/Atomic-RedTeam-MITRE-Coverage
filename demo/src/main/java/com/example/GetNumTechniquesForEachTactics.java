@@ -7,17 +7,21 @@ import org.json.JSONException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class GetNumTechniquesForEachTactics {
-    public static void main(String[] args) {
+public class GetNumTechniquesForEachTactics 
+{
+    public static void main(String[] args) 
+    {
         try {
-            String[] tacticsList =  {"collection","command-and-control","credential-access","defense-evasion","discovery","execution","exfiltration","impact","initial-access","lateral-movement","persistence","privilege-escalation","reconnaissance","resource-development"};
+            String[] tacticsList =  {"collection","command-and-control","credential-access","defense-evasion","discovery","execution","exfiltration","impact",
+                            "initial-access","lateral-movement","persistence","privilege-escalation","reconnaissance","resource-development"};
 
             String[] techniqueList = {"enterprise-attack","ics-attack","mobile-attack"};
 
-            for (String technique : techniqueList) {
+            for (String technique : techniqueList) 
+            {
                 long str = System.currentTimeMillis();
                 // Read JSON file as a string
-                String jsonStr = new String(Files.readAllBytes(Paths.get("data/mitre-attack/"+technique+".json")));
+                String jsonStr = new String(Files.readAllBytes(Paths.get("demo/data/mitre-attack/"+technique+".json")));
                 
                 // Parse the JSON string
                 JSONObject bundleJson = new JSONObject(jsonStr);
@@ -25,10 +29,12 @@ public class GetNumTechniquesForEachTactics {
                 // Get the "objects" array from the bundle
                 JSONArray objects = bundleJson.getJSONArray("objects");
                 int cnt =0;
-                FileWriter myWriter = new FileWriter("data/mitre-attack/"+technique+".txt");
-                for (String tac : tacticsList) {
+                FileWriter myWriter = new FileWriter("demo/data/mitre-attack/"+technique+".txt");
+                for (String tac : tacticsList) 
+                {
                 
-                    for (int i = 0; i < objects.length(); i++) {
+                    for (int i = 0; i < objects.length(); i++) 
+                    {
                         
                         JSONObject obj = objects.getJSONObject(i);
 
@@ -43,23 +49,30 @@ public class GetNumTechniquesForEachTactics {
 
                                     
                                         
-                                        if (killChainPhases != null) {
-                                            for (int j = 0; j < killChainPhases.length(); j++) {
+                                        if (killChainPhases != null) 
+                                        {
+                                            for (int j = 0; j < killChainPhases.length(); j++) 
+                                            {
                                                 JSONObject phase = killChainPhases.getJSONObject(j);
                                                 String phaseName = phase.optString("phase_name");
-                                                if (phaseName != null && phaseName.equals(tac)) {
+                                                if (phaseName != null && phaseName.equals(tac)) 
+                                                {
                                                     hasCollectionPhase = true;
                                                     break;
                                                 }
                                             }
                                         }
         
-                                        if (hasCollectionPhase) {
-                                            for (int j = 0; j < externalReferences.length(); j++) {
+                                        if (hasCollectionPhase) 
+                                        {
+                                            for (int j = 0; j < externalReferences.length(); j++) 
+                                            {
                                                 JSONObject ref = externalReferences.getJSONObject(j);
-                                                if (ref.has("external_id")) {
+                                                if (ref.has("external_id")) 
+                                                {
                                                     String externalId = ref.getString("external_id");
-                                                    if (externalId.startsWith("T")) {
+                                                    if (externalId.startsWith("T")) 
+                                                    {
                                                         // System.out.println("ID: " + externalId);
                                                         cnt++;
                                                     }
@@ -79,9 +92,13 @@ public class GetNumTechniquesForEachTactics {
                 System.out.println(stp - str);
                 // System.out.println("Number of Techniques: " + cnt);
             }
-        } catch (JSONException e) {
+        } 
+        catch (JSONException e) 
+        {
             e.printStackTrace();
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             e.printStackTrace();
         }
     }
