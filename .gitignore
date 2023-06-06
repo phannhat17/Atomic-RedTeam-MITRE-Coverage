@@ -25,3 +25,9 @@ replay_pid*
 
 demo/target
 demo/.vscode
+
+demo/.classpath
+demo/.project
+demo/.settings*
+
+/.metadata/
