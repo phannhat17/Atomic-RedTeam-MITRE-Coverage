@@ -17,7 +17,7 @@ public class GetNumTechniquesForEachTactics {
             for (String technique : techniqueList) {
                 long str = System.currentTimeMillis();
                 // Read JSON file as a string
-                String jsonStr = new String(Files.readAllBytes(Paths.get("./mitre-attack/"+technique+".json")));
+                String jsonStr = new String(Files.readAllBytes(Paths.get("data/mitre-attack/"+technique+".json")));
                 
                 // Parse the JSON string
                 JSONObject bundleJson = new JSONObject(jsonStr);
@@ -25,7 +25,7 @@ public class GetNumTechniquesForEachTactics {
                 // Get the "objects" array from the bundle
                 JSONArray objects = bundleJson.getJSONArray("objects");
                 int cnt =0;
-                FileWriter myWriter = new FileWriter("./mitre-attack/"+technique+".txt");
+                FileWriter myWriter = new FileWriter("data/mitre-attack/"+technique+".txt");
                 for (String tac : tacticsList) {
                 
                     for (int i = 0; i < objects.length(); i++) {

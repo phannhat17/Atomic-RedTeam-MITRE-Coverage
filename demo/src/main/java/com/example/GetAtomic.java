@@ -10,7 +10,7 @@ import java.nio.channels.ReadableByteChannel;
 public class GetAtomic {
 
     public static void main(String[] args) {
-        String downloadPath = "./atomic";
+        String downloadPath = "data/atomic";
         File directory = new File(downloadPath);
         if (!directory.exists()) {
             directory.mkdirs();

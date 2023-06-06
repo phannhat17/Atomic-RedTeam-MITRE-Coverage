@@ -5,7 +5,7 @@ import java.io.*;
 public class FileSectionFinder {
     public static void main(String[] args) {
         // Specify the input file path
-        String inputFile = "./atomic/atomic-all.yaml";
+        String inputFile = "data/atomic/atomic-all.yaml";
         // Specify the output file path
         
         // Specify the starting and ending markers for the section
@@ -27,7 +27,7 @@ public class FileSectionFinder {
         };
         for (String[] tacs : tacticsList) {
             String nameFile = tacs[0].split(":")[0];
-            String outputPath = "./atomic/" + nameFile + "/" ;
+            String outputPath = "data/atomic/" + nameFile + "/" ;
             File directory = new File(outputPath);
             if (!directory.exists()) {
                 directory.mkdirs();

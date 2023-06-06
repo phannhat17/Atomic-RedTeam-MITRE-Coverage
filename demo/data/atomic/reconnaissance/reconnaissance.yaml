@@ -1,0 +1,2115 @@
+reconnaissance:
+  T1592:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--09312b1a-c3c6-4b45-9844-3ccc78e5d82f
+      type: attack-pattern
+      created: '2020-10-02T16:39:33.966Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1592
+        url: https://attack.mitre.org/techniques/T1592
+      - source_name: ATT ScanBox
+        url: https://cybersecurity.att.com/blogs/labs-research/scanbox-a-reconnaissance-framework-used-on-watering-hole-attacks
+        description: 'Blasco, J. (2014, August 28). Scanbox: A Reconnaissance Framework
+          Used with Watering Hole Attacks. Retrieved October 19, 2020.'
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+      modified: '2021-10-17T16:35:09.878Z'
+      name: Gather Victim Host Information
+      description: |-
+        Adversaries may gather information about the victim's hosts that can be used during targeting. Information about hosts may include a variety of details, including administrative data (ex: name, assigned IP, functionality, etc.) as well as specifics regarding its configuration (ex: operating system, language, etc.).
+
+        Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Phishing for Information](https://attack.mitre.org/techniques/T1598). Adversaries may also compromise sites then include malicious content designed to collect host information from visitors.(Citation: ATT ScanBox) Information about hosts may also be exposed to adversaries via online or other accessible data sets (ex: [Social Media](https://attack.mitre.org/techniques/T1593/001) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)). Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [Supply Chain Compromise](https://attack.mitre.org/techniques/T1195) or [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Internet scanners may be used to look for patterns associated with malicious content designed to collect host information from visitors.(Citation: ThreatConnect Infrastructure Dec 2020)(Citation: ATT ScanBox)
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      x_mitre_is_subtechnique: false
+    atomic_tests: []
+  T1596.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--0979abf9-4e26-43ec-9b6e-54efc4e70fca
+      type: attack-pattern
+      created: '2020-10-02T16:58:58.738Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1596.003
+        url: https://attack.mitre.org/techniques/T1596/003
+      - source_name: SSLShopper Lookup
+        url: https://www.sslshopper.com/ssl-checker.html
+        description: SSL Shopper. (n.d.). SSL Checker. Retrieved October 20, 2020.
+      - source_name: Medium SSL Cert
+        url: https://medium.com/@menakajain/export-download-ssl-certificate-from-server-site-url-bcfc41ea46a2
+        description: Jain, M. (2019, September 16). Export & Download — SSL Certificate
+          from Server (Site URL). Retrieved October 20, 2020.
+      modified: '2021-04-15T03:48:37.628Z'
+      name: Digital Certificates
+      description: |-
+        Adversaries may search public digital certificate data for information about victims that can be used during targeting. Digital certificates are issued by a certificate authority (CA) in order to cryptographically verify the origin of signed content. These certificates, such as those used for encrypted web traffic (HTTPS SSL/TLS communications), contain information about the registered organization such as name and location.
+
+        Adversaries may search digital certificate data to gather actionable information. Threat actors can use online resources and lookup tools to harvest information about certificates.(Citation: SSLShopper Lookup) Digital certificate data may also be available from artifacts signed by the organization (ex: certificates used from encrypted web traffic are served with content).(Citation: Medium SSL Cert) Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Phishing for Information](https://attack.mitre.org/techniques/T1598)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133) or [Trusted Relationship](https://attack.mitre.org/techniques/T1199)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1597.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--0a241b6c-7bb2-48f9-98f7-128145b4d27f
+      type: attack-pattern
+      created: '2020-10-02T17:05:43.562Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1597.002
+        url: https://attack.mitre.org/techniques/T1597/002
+      - source_name: ZDNET Selling Data
+        url: https://www.zdnet.com/article/a-hacker-group-is-selling-more-than-73-million-user-records-on-the-dark-web/
+        description: Cimpanu, C. (2020, May 9). A hacker group is selling more than
+          73 million user records on the dark web. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:44:43.900Z'
+      name: Purchase Technical Data
+      description: |-
+        Adversaries may purchase technical information about victims that can be used during targeting. Information about victims may be available for purchase within reputable private sources and databases, such as paid subscriptions to feeds of scan databases or other data aggregation services. Adversaries may also purchase information from less-reputable sources such as dark web or cybercrime blackmarkets.
+
+        Adversaries may purchase information about their already identified targets, or use purchased data to discover opportunities for successful breaches. Threat actors may gather various technical details from purchased data, including but not limited to employee contact information, credentials, or specifics regarding a victim’s infrastructure.(Citation: ZDNET Selling Data) Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133) or [Valid Accounts](https://attack.mitre.org/techniques/T1078)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1590.005:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--0dda99f0-4701-48ca-9774-8504922e92d3
+      type: attack-pattern
+      created: '2020-10-02T15:59:11.695Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1590.005
+        url: https://attack.mitre.org/techniques/T1590/005
+      - source_name: WHOIS
+        url: https://www.whois.net/
+        description: NTT America. (n.d.). Whois Lookup. Retrieved October 20, 2020.
+      - source_name: DNS Dumpster
+        url: https://dnsdumpster.com/
+        description: Hacker Target. (n.d.). DNS Dumpster. Retrieved October 20, 2020.
+      - source_name: Circl Passive DNS
+        url: https://www.circl.lu/services/passive-dns/
+        description: CIRCL Computer Incident Response Center. (n.d.). Passive DNS.
+          Retrieved October 20, 2020.
+      modified: '2021-04-15T03:31:05.302Z'
+      name: IP Addresses
+      description: |-
+        Adversaries may gather the victim's IP addresses that can be used during targeting. Public IP addresses may be allocated to organizations by block, or a range of sequential addresses. Information about assigned IP addresses may include a variety of details, such as which IP addresses are in use. IP addresses may also enable an adversary to derive other details about a victim, such as organizational size, physical location(s), Internet service provider, and or where/how their publicly-facing infrastructure is hosted.
+
+        Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about assigned IP addresses may also be exposed to adversaries via online or other accessible data sets (ex: [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)).(Citation: WHOIS)(Citation: DNS Dumpster)(Citation: Circl Passive DNS) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1590.002:
+    technique:
+      modified: '2022-10-21T14:32:48.393Z'
+      name: DNS
+      description: |-
+        Adversaries may gather information about the victim's DNS that can be used during targeting. DNS information may include a variety of details, including registered name servers as well as records that outline addressing for a target’s subdomains, mail servers, and other hosts. DNS, MX, TXT, and SPF records may also reveal the use of third party cloud and SaaS providers, such as Office 365, G Suite, Salesforce, or Zendesk.(Citation: Sean Metcalf Twitter DNS Records)
+
+        Adversaries may gather this information in various ways, such as querying or otherwise collecting details via [DNS/Passive DNS](https://attack.mitre.org/techniques/T1596/001). DNS information may also be exposed to adversaries via online or other accessible data sets (ex: [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)).(Citation: DNS Dumpster)(Citation: Circl Passive DNS) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596), [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593), or [Active Scanning](https://attack.mitre.org/techniques/T1595)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.1'
+      x_mitre_contributors:
+      - Jannie Li, Microsoft Threat Intelligence Center (MSTIC)
+      type: attack-pattern
+      id: attack-pattern--0ff59227-8aa8-4c09-bf1f-925605bd07ea
+      created: '2020-10-02T15:47:10.102Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1590/002
+        external_id: T1590.002
+      - source_name: Circl Passive DNS
+        description: CIRCL Computer Incident Response Center. (n.d.). Passive DNS.
+          Retrieved October 20, 2020.
+        url: https://www.circl.lu/services/passive-dns/
+      - source_name: DNS Dumpster
+        description: Hacker Target. (n.d.). DNS Dumpster. Retrieved October 20, 2020.
+        url: https://dnsdumpster.com/
+      - source_name: Sean Metcalf Twitter DNS Records
+        description: Sean Metcalf. (2019, May 9). Sean Metcalf Twitter. Retrieved
+          May 27, 2022.
+        url: https://twitter.com/PyroTek3/status/1126487227712921600/photo/1
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1596.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--166de1c6-2814-4fe5-8438-4e80f76b169f
+      type: attack-pattern
+      created: '2020-10-02T16:56:49.744Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1596.002
+        url: https://attack.mitre.org/techniques/T1596/002
+      - source_name: WHOIS
+        url: https://www.whois.net/
+        description: NTT America. (n.d.). Whois Lookup. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:50:44.113Z'
+      name: WHOIS
+      description: |-
+        Adversaries may search public WHOIS data for information about victims that can be used during targeting. WHOIS data is stored by regional Internet registries (RIR) responsible for allocating and assigning Internet resources such as domain names. Anyone can query WHOIS servers for information about a registered domain, such as assigned IP blocks, contact information, and DNS nameservers.(Citation: WHOIS)
+
+        Adversaries may search WHOIS data to gather actionable information. Threat actors can use online resources or command-line utilities to pillage through WHOIS data for information about potential victims. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Phishing for Information](https://attack.mitre.org/techniques/T1598)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133) or [Trusted Relationship](https://attack.mitre.org/techniques/T1199)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1594:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--16cdd21f-da65-4e4f-bc04-dd7d198c7b26
+      type: attack-pattern
+      created: '2020-10-02T16:51:50.306Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1594
+        url: https://attack.mitre.org/techniques/T1594
+      - source_name: Comparitech Leak
+        url: https://www.comparitech.com/blog/vpn-privacy/350-million-customer-records-exposed-online/
+        description: Bischoff, P. (2020, October 15). Broadvoice database of more
+          than 350 million customer records exposed online. Retrieved October 20,
+          2020.
+      modified: '2021-04-15T03:53:33.023Z'
+      name: Search Victim-Owned Websites
+      description: |-
+        Adversaries may search websites owned by the victim for information that can be used during targeting. Victim-owned websites may contain a variety of details, including names of departments/divisions, physical locations, and data about key employees such as names, roles, and contact info (ex: [Email Addresses](https://attack.mitre.org/techniques/T1589/002)). These sites may also have details highlighting business operations and relationships.(Citation: Comparitech Leak)
+
+        Adversaries may search victim-owned websites to gather actionable information. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [Trusted Relationship](https://attack.mitre.org/techniques/T1199) or [Phishing](https://attack.mitre.org/techniques/T1566)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: Monitor for suspicious network traffic that could be indicative
+        of adversary reconnaissance, such as rapid successions of requests indicative
+        of web crawling and/or large quantities of requests originating from a single
+        source (especially if the source is known to be associated with an adversary).
+        Analyzing web metadata may also reveal artifacts that can be attributed to
+        potentially malicious activity, such as referer or user-agent string HTTP/S
+        fields.
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Application Log: Application Log Content'
+      x_mitre_is_subtechnique: false
+    atomic_tests: []
+  T1596.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--17fd695c-b88c-455a-a3d1-43b6cb728532
+      type: attack-pattern
+      created: '2020-10-02T16:57:45.044Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1596.001
+        url: https://attack.mitre.org/techniques/T1596/001
+      - source_name: DNS Dumpster
+        url: https://dnsdumpster.com/
+        description: Hacker Target. (n.d.). DNS Dumpster. Retrieved October 20, 2020.
+      - source_name: Circl Passive DNS
+        url: https://www.circl.lu/services/passive-dns/
+        description: CIRCL Computer Incident Response Center. (n.d.). Passive DNS.
+          Retrieved October 20, 2020.
+      modified: '2021-04-15T03:49:13.409Z'
+      name: DNS/Passive DNS
+      description: |-
+        Adversaries may search DNS data for information about victims that can be used during targeting. DNS information may include a variety of details, including registered name servers as well as records that outline addressing for a target’s subdomains, mail servers, and other hosts.
+
+        Adversaries may search DNS data to gather actionable information. Threat actors can query nameservers for a target organization directly, or search through centralized repositories of logged DNS query responses (known as passive DNS).(Citation: DNS Dumpster)(Citation: Circl Passive DNS) Adversaries may also seek and target DNS misconfigurations/leaks that reveal information about internal networks. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133) or [Trusted Relationship](https://attack.mitre.org/techniques/T1199)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1591.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--2339cf19-8f1e-48f7-8a91-0262ba547b6f
+      type: attack-pattern
+      created: '2020-10-02T16:34:32.435Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1591.003
+        url: https://attack.mitre.org/techniques/T1591/003
+      - source_name: ThreatPost Broadvoice Leak
+        url: https://threatpost.com/broadvoice-leaks-350m-records-voicemail-transcripts/160158/
+        description: Seals, T. (2020, October 15). Broadvoice Leak Exposes 350M Records,
+          Personal Voicemail Transcripts. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:38:31.983Z'
+      name: Identify Business Tempo
+      description: |-
+        Adversaries may gather information about the victim's business tempo that can be used during targeting. Information about an organization’s business tempo may include a variety of details, including operational hours/days of the week. This information may also reveal times/dates of purchases and shipments of the victim’s hardware and software resources.
+
+        Adversaries may gather this information in various ways, such as direct elicitation via [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about business tempo may also be exposed to adversaries via online or other accessible data sets (ex: [Social Media](https://attack.mitre.org/techniques/T1593/001) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)).(Citation: ThreatPost Broadvoice Leak) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [Supply Chain Compromise](https://attack.mitre.org/techniques/T1195) or [Trusted Relationship](https://attack.mitre.org/techniques/T1199))
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1592.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--24286c33-d4a4-4419-85c2-1d094a896c26
+      type: attack-pattern
+      created: '2020-10-02T16:40:47.488Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1592.001
+        url: https://attack.mitre.org/techniques/T1592/001
+      - source_name: ATT ScanBox
+        url: https://cybersecurity.att.com/blogs/labs-research/scanbox-a-reconnaissance-framework-used-on-watering-hole-attacks
+        description: 'Blasco, J. (2014, August 28). Scanbox: A Reconnaissance Framework
+          Used with Watering Hole Attacks. Retrieved October 19, 2020.'
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+      modified: '2021-10-17T16:32:10.810Z'
+      name: 'Gather Victim Host Information: Hardware'
+      description: |-
+        Adversaries may gather information about the victim's host hardware that can be used during targeting. Information about hardware infrastructure may include a variety of details such as types and versions on specific hosts, as well as the presence of additional components that might be indicative of added defensive protections (ex: card/biometric readers, dedicated encryption hardware, etc.).
+
+        Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) (ex: hostnames, server banners, user agent strings) or [Phishing for Information](https://attack.mitre.org/techniques/T1598). Adversaries may also compromise sites then include malicious content designed to collect host information from visitors.(Citation: ATT ScanBox) Information about the hardware infrastructure may also be exposed to adversaries via online or other accessible data sets (ex: job postings, network maps, assessment reports, resumes, or purchase invoices). Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [Compromise Hardware Supply Chain](https://attack.mitre.org/techniques/T1195/003) or [Hardware Additions](https://attack.mitre.org/techniques/T1200)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Internet scanners may be used to look for patterns associated with malicious content designed to collect host hardware information from visitors.(Citation: ThreatConnect Infrastructure Dec 2020)(Citation: ATT ScanBox)
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+      identifier: T1592.001
+    atomic_tests:
+    - name: Enumerate PlugNPlay Camera
+      auto_generated_guid: d430bf85-b656-40e7-b238-42db01df0183
+      description: 'Enumerate PlugNPlay Camera using powershell commandlet. this technique
+        was seen in dcrat malware backdoor capabilities where it enumerate the camera
+        info mounted on the compromised host. reference: https://www.mandiant.com/resources/analyzing-dark-crystal-rat-backdoor
+
+        '
+      supported_platforms:
+      - windows
+      executor:
+        name: powershell
+        elevation_required: true
+        command: 'Get-CimInstance -Query "SELECT * FROM Win32_PnPEntity WHERE (PNPClass
+          = ''Image'' OR PNPClass = ''Camera'')"
+
+          '
+  T1598.003:
+    technique:
+      modified: '2023-04-15T17:38:48.406Z'
+      name: Spearphishing Link
+      description: |-
+        Adversaries may send spearphishing messages with a malicious link to elicit sensitive information that can be used during targeting. Spearphishing for information is an attempt to trick targets into divulging information, frequently credentials or other actionable information. Spearphishing for information frequently involves social engineering techniques, such as posing as a source with a reason to collect information (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)) and/or sending multiple, seemingly urgent messages.
+
+        All forms of spearphishing are electronically delivered social engineering targeted at a specific individual, company, or industry. In this scenario, the malicious emails contain links generally accompanied by social engineering text to coax the user to actively click or copy and paste a URL into a browser.(Citation: TrendMictro Phishing)(Citation: PCMag FakeLogin) The given website may be a clone of a legitimate site (such as an online or corporate login portal) or may closely resemble a legitimate site in appearance and have a URL containing elements from the real site.
+
+        Adversaries may also link to "web bugs" or "web beacons" within phishing messages to verify the receipt of an email, while also potentially profiling and tracking victim information such as IP address.(Citation: NIST Web Bug)
+
+        Adversaries may also be able to spoof a complete website using what is known as a "browser-in-the-browser" (BitB) attack. By generating a fake browser popup window with an HTML-based address bar that appears to contain a legitimate URL (such as an authentication portal), they may be able to prompt users to enter their credentials while bypassing typical URL verification methods.(Citation: ZScaler BitB 2020)(Citation: Mr. D0x BitB 2022)
+
+        From the fake website, information is gathered in web forms and sent to the adversary. Adversaries may also use information from previous reconnaissance efforts (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)) to craft persuasive and believable lures.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_contributors:
+      - Philip Winther
+      - Sebastian Salla, McAfee
+      - Menachem Goldstein
+      - Robert Simmons, @MalwareUtkonos
+      - Elpidoforos Maragkos, @emaragkos
+      - Joas Antonio dos Santos, @C0d3Cr4zy
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Monitor for suspicious email activity, such as numerous accounts receiving messages from a single unusual/unknown sender. Filtering based on DKIM+SPF or header analysis can help detect when the email sender is spoofed.(Citation: Microsoft Anti Spoofing)(Citation: ACSC Email Spoofing)
+
+        Monitor for references to uncategorized or known-bad sites. URL inspection within email (including expanding shortened links) can also help detect links leading to known malicious sites.
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.4'
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Content'
+      - 'Application Log: Application Log Content'
+      - 'Network Traffic: Network Traffic Flow'
+      type: attack-pattern
+      id: attack-pattern--2d3f5b3c-54ca-4f4d-bb1f-849346d31230
+      created: '2020-10-02T17:09:50.723Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1598/003
+        external_id: T1598.003
+      - source_name: ACSC Email Spoofing
+        description: Australian Cyber Security Centre. (2012, December). Mitigating
+          Spoofed Emails Using Sender Policy Framework. Retrieved October 19, 2020.
+        url: https://www.cyber.gov.au/sites/default/files/2019-03/spoof_email_sender_policy_framework.pdf
+      - source_name: TrendMictro Phishing
+        description: Babon, P. (2020, September 3). Tricky 'Forms' of Phishing. Retrieved
+          October 20, 2020.
+        url: https://www.trendmicro.com/en_us/research/20/i/tricky-forms-of-phishing.html
+      - source_name: PCMag FakeLogin
+        description: Kan, M. (2019, October 24). Hackers Try to Phish United Nations
+          Staffers With Fake Login Pages. Retrieved October 20, 2020.
+        url: https://www.pcmag.com/news/hackers-try-to-phish-united-nations-staffers-with-fake-login-pages
+      - source_name: Microsoft Anti Spoofing
+        description: Microsoft. (2020, October 13). Anti-spoofing protection in EOP.
+          Retrieved October 19, 2020.
+        url: https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/anti-spoofing-protection?view=o365-worldwide
+      - source_name: Mr. D0x BitB 2022
+        description: mr.d0x. (2022, March 15). Browser In The Browser (BITB) Attack.
+          Retrieved March 8, 2023.
+        url: https://mrd0x.com/browser-in-the-browser-phishing-attack/
+      - source_name: NIST Web Bug
+        description: NIST Information Technology Laboratory. (n.d.). web bug. Retrieved
+          March 22, 2023.
+        url: https://csrc.nist.gov/glossary/term/web_bug
+      - source_name: ZScaler BitB 2020
+        description: ZScaler. (2020, February 11). Fake Sites Stealing Steam Credentials.
+          Retrieved March 8, 2023.
+        url: https://www.zscaler.com/blogs/security-research/fake-sites-stealing-steam-credentials
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1590.004:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--34ab90a3-05f6-4259-8f21-621081fdaba5
+      type: attack-pattern
+      created: '2020-10-02T15:49:03.815Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1590.004
+        url: https://attack.mitre.org/techniques/T1590/004
+      - source_name: DNS Dumpster
+        url: https://dnsdumpster.com/
+        description: Hacker Target. (n.d.). DNS Dumpster. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:33:02.476Z'
+      name: Network Topology
+      description: |-
+        Adversaries may gather information about the victim's network topology that can be used during targeting. Information about network topologies may include a variety of details, including the physical and/or logical arrangement of both external-facing and internal network environments. This information may also include specifics regarding network devices (gateways, routers, etc.) and other infrastructure.
+
+        Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about network topologies may also be exposed to adversaries via online or other accessible data sets (ex: [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)).(Citation: DNS Dumpster) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1590.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--36aa137f-5166-41f8-b2f0-a4cfa1b4133e
+      type: attack-pattern
+      created: '2020-10-02T15:47:59.457Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1590.003
+        url: https://attack.mitre.org/techniques/T1590/003
+      - source_name: Pentesting AD Forests
+        url: https://www.slideshare.net/rootedcon/carlos-garca-pentesting-active-directory-forests-rooted2019
+        description: García, C. (2019, April 3). Pentesting Active Directory Forests.
+          Retrieved October 20, 2020.
+      modified: '2021-04-15T03:34:22.917Z'
+      name: Network Trust Dependencies
+      description: |-
+        Adversaries may gather information about the victim's network trust dependencies that can be used during targeting. Information about network trusts may include a variety of details, including second or third-party organizations/domains (ex: managed service providers, contractors, etc.) that have connected (and potentially elevated) network access.
+
+        Adversaries may gather this information in various ways, such as direct elicitation via [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about network trusts may also be exposed to adversaries via online or other accessible data sets (ex: [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)).(Citation: Pentesting AD Forests) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [Trusted Relationship](https://attack.mitre.org/techniques/T1199)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1597.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--51e54974-a541-4fb6-a61b-0518e4c6de41
+      type: attack-pattern
+      created: '2020-10-02T17:03:45.918Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1597.001
+        url: https://attack.mitre.org/techniques/T1597/001
+      - source_name: D3Secutrity CTI Feeds
+        url: https://d3security.com/blog/10-of-the-best-open-source-threat-intelligence-feeds/
+        description: Banerd, W. (2019, April 30). 10 of the Best Open Source Threat
+          Intelligence Feeds. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:45:30.862Z'
+      name: Threat Intel Vendors
+      description: |-
+        Adversaries may search private data from threat intelligence vendors for information that can be used during targeting. Threat intelligence vendors may offer paid feeds or portals that offer more data than what is publicly reported. Although sensitive details (such as customer names and other identifiers) may be redacted, this information may contain trends regarding breaches such as target industries, attribution claims, and successful TTPs/countermeasures.(Citation: D3Secutrity CTI Feeds)
+
+        Adversaries may search in private threat intelligence vendor data to gather actionable information. Threat actors may seek information/indicators gathered about their own campaigns, as well as those conducted by other adversaries that may align with their target industries, capabilities/objectives, or other operational concerns. Information reported by vendors may also reveal opportunities other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190) or [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1589:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_contributors:
+      - Jannie Li, Microsoft Threat Intelligence Center (MSTIC)
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      type: attack-pattern
+      id: attack-pattern--5282dd9a-d26d-4e16-88b7-7c0f4553daf4
+      created: '2020-10-02T14:54:59.263Z'
+      x_mitre_version: '1.2'
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1589
+        url: https://attack.mitre.org/techniques/T1589
+      - source_name: OPM Leak
+        url: https://www.opm.gov/cybersecurity/cybersecurity-incidents/
+        description: Cybersecurity Resource Center. (n.d.). CYBERSECURITY INCIDENTS.
+          Retrieved October 20, 2020.
+      - source_name: Detectify Slack Tokens
+        url: https://labs.detectify.com/2016/04/28/slack-bot-token-leakage-exposing-business-critical-information/
+        description: Detectify. (2016, April 28). Slack bot token leakage exposing
+          business critical information. Retrieved October 19, 2020.
+      - source_name: GitHub truffleHog
+        url: https://github.com/dxa4481/truffleHog
+        description: Dylan Ayrey. (2016, December 31). truffleHog. Retrieved October
+          19, 2020.
+      - source_name: GrimBlog UsernameEnum
+        url: https://grimhacker.com/2017/07/24/office365-activesync-username-enumeration/
+        description: GrimHacker. (2017, July 24). Office365 ActiveSync Username Enumeration.
+          Retrieved December 9, 2021.
+      - source_name: Register Uber
+        url: https://www.theregister.com/2015/02/28/uber_subpoenas_github_for_hacker_details/
+        description: McCarthy, K. (2015, February 28). FORK ME! Uber hauls GitHub
+          into court to find who hacked database of 50,000 drivers. Retrieved October
+          19, 2020.
+      - source_name: GitHub Gitrob
+        url: https://github.com/michenriksen/gitrob
+        description: 'Michael Henriksen. (2018, June 9). Gitrob: Putting the Open
+          Source in OSINT. Retrieved October 19, 2020.'
+      - source_name: CNET Leaks
+        url: https://www.cnet.com/news/massive-breach-leaks-773-million-emails-21-million-passwords/
+        description: Ng, A. (2019, January 17). Massive breach leaks 773 million email
+          addresses, 21 million passwords. Retrieved October 20, 2020.
+      - source_name: Forbes GitHub Creds
+        url: https://www.forbes.com/sites/runasandvik/2014/01/14/attackers-scrape-github-for-cloud-service-credentials-hijack-account-to-mine-virtual-currency/#242c479d3196
+        description: Sandvik, R. (2014, January 14). Attackers Scrape GitHub For Cloud
+          Service Credentials, Hijack Account To Mine Virtual Currency. Retrieved
+          October 19, 2020.
+      - source_name: Register Deloitte
+        url: https://www.theregister.com/2017/09/26/deloitte_leak_github_and_google/
+        description: 'Thomson, I. (2017, September 26). Deloitte is a sitting duck:
+          Key systems with RDP open, VPN and proxy ''login details leaked''. Retrieved
+          October 19, 2020.'
+      x_mitre_deprecated: false
+      revoked: false
+      description: |-
+        Adversaries may gather information about the victim's identity that can be used during targeting. Information about identities may include a variety of details, including personal data (ex: employee names, email addresses, etc.) as well as sensitive details such as credentials.
+
+        Adversaries may gather this information in various ways, such as direct elicitation via [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about users could also be enumerated via other active means (i.e. [Active Scanning](https://attack.mitre.org/techniques/T1595)) such as probing and analyzing responses from authentication services that may reveal valid usernames in a system.(Citation: GrimBlog UsernameEnum) Information about victims may also be exposed to adversaries via online or other accessible data sets (ex: [Social Media](https://attack.mitre.org/techniques/T1593/001) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)).(Citation: OPM Leak)(Citation: Register Deloitte)(Citation: Register Uber)(Citation: Detectify Slack Tokens)(Citation: Forbes GitHub Creds)(Citation: GitHub truffleHog)(Citation: GitHub Gitrob)(Citation: CNET Leaks)
+
+        Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Phishing for Information](https://attack.mitre.org/techniques/T1598)), establishing operational resources (ex: [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [Phishing](https://attack.mitre.org/techniques/T1566) or [Valid Accounts](https://attack.mitre.org/techniques/T1078)).
+      modified: '2022-04-21T14:39:39.857Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      name: Gather Victim Identity Information
+      x_mitre_detection: |-
+        Monitor for suspicious network traffic that could be indicative of probing for user information, such as large/iterative quantities of authentication requests originating from a single source (especially if the source is known to be associated with an adversary/botnet). Analyzing web metadata may also reveal artifacts that can be attributed to potentially malicious activity, such as referer or user-agent string HTTP/S fields.
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_is_subtechnique: false
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Content'
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1595.002:
+    technique:
+      modified: '2023-03-13T20:46:31.907Z'
+      name: Vulnerability Scanning
+      description: |-
+        Adversaries may scan victims for vulnerabilities that can be used during targeting. Vulnerability scans typically check if the configuration of a target host/application (ex: software and version) potentially aligns with the target of a specific exploit the adversary may seek to use.
+
+        These scans may also include more broad attempts to [Gather Victim Host Information](https://attack.mitre.org/techniques/T1592) that can be used to identify more commonly known, exploitable vulnerabilities. Vulnerability scans typically harvest running software and version numbers via server banners, listening ports, or other network artifacts.(Citation: OWASP Vuln Scanning) Information from these scans may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Monitor for suspicious network traffic that could be indicative of scanning, such as large quantities originating from a single source (especially if the source is known to be associated with an adversary/botnet). Analyzing web metadata may also reveal artifacts that can be attributed to potentially malicious activity, such as referer or user-agent string HTTP/S fields.
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.0'
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Content'
+      - 'Network Traffic: Network Traffic Flow'
+      type: attack-pattern
+      id: attack-pattern--5502c4e9-24ef-4d5f-8ee9-9e906c2f82c4
+      created: '2020-10-02T16:55:16.047Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1595/002
+        external_id: T1595.002
+      - source_name: OWASP Vuln Scanning
+        description: OWASP. (n.d.). OAT-014 Vulnerability Scanning. Retrieved October
+          20, 2020.
+        url: https://owasp.org/www-project-automated-threats-to-web-applications/assets/oats/EN/OAT-014_Vulnerability_Scanning
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1596:
+    technique:
+      modified: '2022-10-18T22:45:19.607Z'
+      name: Search Open Technical Databases
+      description: |-
+        Adversaries may search freely available technical databases for information about victims that can be used during targeting. Information about victims may be available in online databases and repositories, such as registrations of domains/certificates as well as public collections of network data/artifacts gathered from traffic and/or scans.(Citation: WHOIS)(Citation: DNS Dumpster)(Citation: Circl Passive DNS)(Citation: Medium SSL Cert)(Citation: SSLShopper Lookup)(Citation: DigitalShadows CDN)(Citation: Shodan)
+
+        Adversaries may search in different open databases depending on what information they seek to gather. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133) or [Trusted Relationship](https://attack.mitre.org/techniques/T1199)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: false
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.0'
+      type: attack-pattern
+      id: attack-pattern--55fc4df0-b42c-479a-b860-7a6761bcaad0
+      created: '2020-10-02T16:56:05.810Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1596
+        external_id: T1596
+      - source_name: Circl Passive DNS
+        description: CIRCL Computer Incident Response Center. (n.d.). Passive DNS.
+          Retrieved October 20, 2020.
+        url: https://www.circl.lu/services/passive-dns/
+      - source_name: DNS Dumpster
+        description: Hacker Target. (n.d.). DNS Dumpster. Retrieved October 20, 2020.
+        url: https://dnsdumpster.com/
+      - source_name: Medium SSL Cert
+        description: Jain, M. (2019, September 16). Export & Download — SSL Certificate
+          from Server (Site URL). Retrieved October 20, 2020.
+        url: https://medium.com/@menakajain/export-download-ssl-certificate-from-server-site-url-bcfc41ea46a2
+      - source_name: WHOIS
+        description: NTT America. (n.d.). Whois Lookup. Retrieved October 20, 2020.
+        url: https://www.whois.net/
+      - source_name: Shodan
+        description: Shodan. (n.d.). Shodan. Retrieved October 20, 2020.
+        url: https://shodan.io
+      - source_name: SSLShopper Lookup
+        description: SSL Shopper. (n.d.). SSL Checker. Retrieved October 20, 2020.
+        url: https://www.sslshopper.com/ssl-checker.html
+      - source_name: DigitalShadows CDN
+        description: Swisscom & Digital Shadows. (2017, September 6). Content Delivery
+          Networks (CDNs) Can Leave You Exposed – How You Might Be Affected And What
+          You Can Do About It. Retrieved October 20, 2020.
+        url: https://www.digitalshadows.com/blog-and-research/content-delivery-networks-cdns-can-leave-you-exposed-how-you-might-be-affected-and-what-you-can-do-about-it/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1595:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--67073dde-d720-45ae-83da-b12d5e73ca3b
+      type: attack-pattern
+      created: '2020-10-02T16:53:16.526Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1595
+        url: https://attack.mitre.org/techniques/T1595
+      - source_name: Botnet Scan
+        url: https://www.caida.org/publications/papers/2012/analysis_slash_zero/analysis_slash_zero.pdf
+        description: Dainotti, A. et al. (2012). Analysis of a “/0�? Stealth Scan from
+          a Botnet. Retrieved October 20, 2020.
+      - source_name: OWASP Fingerprinting
+        url: https://wiki.owasp.org/index.php/OAT-004_Fingerprinting
+        description: OWASP Wiki. (2018, February 16). OAT-004 Fingerprinting. Retrieved
+          October 20, 2020.
+      modified: '2022-03-08T20:58:13.661Z'
+      name: Active Scanning
+      description: |-
+        Adversaries may execute active reconnaissance scans to gather information that can be used during targeting. Active scans are those where the adversary probes victim infrastructure via network traffic, as opposed to other forms of reconnaissance that do not involve direct interaction.
+
+        Adversaries may perform different forms of active scanning depending on what information they seek to gather. These scans can also be performed in various ways, including using native features of network protocols such as ICMP.(Citation: Botnet Scan)(Citation: OWASP Fingerprinting) Information from these scans may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133) or [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Monitor for suspicious network traffic that could be indicative of scanning, such as large quantities originating from a single source (especially if the source is known to be associated with an adversary/botnet). Analyzing web metadata may also reveal artifacts that can be attributed to potentially malicious activity, such as referer or user-agent string HTTP/S fields.
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Content'
+      - 'Network Traffic: Network Traffic Flow'
+      x_mitre_is_subtechnique: false
+    atomic_tests: []
+  T1589.002:
+    technique:
+      modified: '2022-10-21T14:30:10.979Z'
+      name: Email Addresses
+      description: |-
+        Adversaries may gather email addresses that can be used during targeting. Even if internal instances exist, organizations may have public-facing email infrastructure and addresses for employees.
+
+        Adversaries may easily gather email addresses, since they may be readily available and exposed via online or other accessible data sets (ex: [Social Media](https://attack.mitre.org/techniques/T1593/001) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)).(Citation: HackersArise Email)(Citation: CNET Leaks) Email addresses could also be enumerated via more active means (i.e. [Active Scanning](https://attack.mitre.org/techniques/T1595)), such as probing and analyzing responses from authentication services that may reveal valid usernames in a system.(Citation: GrimBlog UsernameEnum) For example, adversaries may be able to enumerate email addresses in Office 365 environments by querying a variety of publicly available API endpoints, such as autodiscover and GetCredentialType.(Citation: GitHub Office 365 User Enumeration)(Citation: Azure Active Directory Reconnaisance)
+
+        Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Phishing for Information](https://attack.mitre.org/techniques/T1598)), establishing operational resources (ex: [Email Accounts](https://attack.mitre.org/techniques/T1586/002)), and/or initial access (ex: [Phishing](https://attack.mitre.org/techniques/T1566) or [Brute Force](https://attack.mitre.org/techniques/T1110) via [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Monitor for suspicious network traffic that could be indicative of probing for email addresses and/or usernames, such as large/iterative quantities of authentication requests originating from a single source (especially if the source is known to be associated with an adversary/botnet). Analyzing web metadata may also reveal artifacts that can be attributed to potentially malicious activity, such as referer or user-agent string HTTP/S fields.
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.2'
+      x_mitre_contributors:
+      - Jannie Li, Microsoft Threat Intelligence Center (MSTIC)
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Content'
+      type: attack-pattern
+      id: attack-pattern--69f897fd-12a9-4c89-ad6a-46d2f3c38262
+      created: '2020-10-02T14:56:24.866Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1589/002
+        external_id: T1589.002
+      - source_name: Azure Active Directory Reconnaisance
+        description: 'Dr. Nestori Syynimaa. (2020, June 13). Just looking: Azure Active
+          Directory reconnaissance as an outsider. Retrieved May 27, 2022.'
+        url: https://o365blog.com/post/just-looking/
+      - source_name: GitHub Office 365 User Enumeration
+        description: gremwell. (2020, March 24). Office 365 User Enumeration. Retrieved
+          May 27, 2022.
+        url: https://github.com/gremwell/o365enum
+      - source_name: GrimBlog UsernameEnum
+        description: GrimHacker. (2017, July 24). Office365 ActiveSync Username Enumeration.
+          Retrieved December 9, 2021.
+        url: https://grimhacker.com/2017/07/24/office365-activesync-username-enumeration/
+      - source_name: HackersArise Email
+        description: Hackers Arise. (n.d.). Email Scraping and Maltego. Retrieved
+          October 20, 2020.
+        url: https://www.hackers-arise.com/email-scraping-and-maltego
+      - source_name: CNET Leaks
+        description: Ng, A. (2019, January 17). Massive breach leaks 773 million email
+          addresses, 21 million passwords. Retrieved October 20, 2020.
+        url: https://www.cnet.com/news/massive-breach-leaks-773-million-emails-21-million-passwords/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1590.006:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--6c2957f9-502a-478c-b1dd-d626c0659413
+      type: attack-pattern
+      created: '2020-10-02T16:01:35.350Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1590.006
+        url: https://attack.mitre.org/techniques/T1590/006
+      - source_name: Nmap Firewalls NIDS
+        url: https://nmap.org/book/firewalls.html
+        description: Nmap. (n.d.). Chapter 10. Detecting and Subverting Firewalls
+          and Intrusion Detection Systems. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:31:54.275Z'
+      name: Network Security Appliances
+      description: |-
+        Adversaries may gather information about the victim's network security appliances that can be used during targeting. Information about network security appliances may include a variety of details, such as the existence and specifics of deployed firewalls, content filters, and proxies/bastion hosts. Adversaries may also target information about victim network-based intrusion detection systems (NIDS) or other appliances related to defensive cybersecurity operations.
+
+        Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Phishing for Information](https://attack.mitre.org/techniques/T1598).(Citation: Nmap Firewalls NIDS) Information about network security appliances may also be exposed to adversaries via online or other accessible data sets (ex: [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)). Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1593.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--6e561441-8431-4773-a9b8-ccf28ef6a968
+      type: attack-pattern
+      created: '2020-10-02T16:50:12.809Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1593.002
+        url: https://attack.mitre.org/techniques/T1593/002
+      - source_name: SecurityTrails Google Hacking
+        url: https://securitytrails.com/blog/google-hacking-techniques
+        description: Borges, E. (2019, March 5). Exploring Google Hacking Techniques.
+          Retrieved October 20, 2020.
+      - source_name: ExploitDB GoogleHacking
+        url: https://www.exploit-db.com/google-hacking-database
+        description: Offensive Security. (n.d.). Google Hacking Database. Retrieved
+          October 23, 2020.
+      modified: '2021-04-15T03:52:06.960Z'
+      name: Search Engines
+      description: |-
+        Adversaries may use search engines to collect information about victims that can be used during targeting. Search engine services typical crawl online sites to index context and may provide users with specialized syntax to search for specific keywords or specific types of content (i.e. filetypes).(Citation: SecurityTrails Google Hacking)(Citation: ExploitDB GoogleHacking)
+
+        Adversaries may craft various search engine queries depending on what information they seek to gather. Threat actors may use search engines to harvest general information about victims, as well as use specialized queries to look for spillages/leaks of sensitive information such as network details or credentials. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [Valid Accounts](https://attack.mitre.org/techniques/T1078) or [Phishing](https://attack.mitre.org/techniques/T1566)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1591.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--6ee2dc99-91ad-4534-a7d8-a649358c331f
+      type: attack-pattern
+      created: '2020-10-02T16:27:55.713Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1591.002
+        url: https://attack.mitre.org/techniques/T1591/002
+      - source_name: ThreatPost Broadvoice Leak
+        url: https://threatpost.com/broadvoice-leaks-350m-records-voicemail-transcripts/160158/
+        description: Seals, T. (2020, October 15). Broadvoice Leak Exposes 350M Records,
+          Personal Voicemail Transcripts. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:36:58.964Z'
+      name: Business Relationships
+      description: |-
+        Adversaries may gather information about the victim's business relationships that can be used during targeting. Information about an organization’s business relationships may include a variety of details, including second or third-party organizations/domains (ex: managed service providers, contractors, etc.) that have connected (and potentially elevated) network access. This information may also reveal supply chains and shipment paths for the victim’s hardware and software resources.
+
+        Adversaries may gather this information in various ways, such as direct elicitation via [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about business relationships may also be exposed to adversaries via online or other accessible data sets (ex: [Social Media](https://attack.mitre.org/techniques/T1593/001) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)).(Citation: ThreatPost Broadvoice Leak) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [Supply Chain Compromise](https://attack.mitre.org/techniques/T1195), [Drive-by Compromise](https://attack.mitre.org/techniques/T1189), or [Trusted Relationship](https://attack.mitre.org/techniques/T1199)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1593.003:
+    technique:
+      modified: '2022-10-26T18:01:20.520Z'
+      name: Code Repositories
+      description: "Adversaries may search public code repositories for information
+        about victims that can be used during targeting. Victims may store code in
+        repositories on various third-party websites such as GitHub, GitLab, SourceForge,
+        and BitBucket. Users typically interact with code repositories through a web
+        application or command-line utilities such as git.  \n\nAdversaries may search
+        various public code repositories for various information about a victim. Public
+        code repositories can often be a source of various general information about
+        victims, such as commonly used programming languages and libraries as well
+        as the names of employees. Adversaries may also identify more sensitive data,
+        including accidentally leaked credentials or API keys.(Citation: GitHub Cloud
+        Service Credentials) Information from these sources may reveal opportunities
+        for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598)),
+        establishing operational resources (ex: [Compromise Accounts](https://attack.mitre.org/techniques/T1586)
+        or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)),
+        and/or initial access (ex: [Valid Accounts](https://attack.mitre.org/techniques/T1078)
+        or [Phishing](https://attack.mitre.org/techniques/T1566)). \n\n**Note:** This
+        is distinct from [Code Repositories](https://attack.mitre.org/techniques/T1213/003),
+        which focuses on [Collection](https://attack.mitre.org/tactics/TA0009) from
+        private and internally hosted code repositories. "
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: "Much of this activity may have a very high occurrence and
+        associated false positive rate, as well as potentially taking place outside
+        the visibility of the target organization, making detection difficult for
+        defenders. \n\nDetection efforts may be focused on related stages of the adversary
+        lifecycle, such as during Initial Access."
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.0'
+      x_mitre_contributors:
+      - Matt Burrough, @mattburrough, Microsoft
+      - Vinayak Wadhwa, SAFE Security
+      type: attack-pattern
+      id: attack-pattern--70910fbd-58dc-4c1c-8c48-814d11fcd022
+      created: '2022-08-09T13:01:43.314Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1593/003
+        external_id: T1593.003
+      - source_name: GitHub Cloud Service Credentials
+        description: Runa A. Sandvik. (2014, January 14). Attackers Scrape GitHub
+          For Cloud Service Credentials, Hijack Account To Mine Virtual Currency.
+          Retrieved August 9, 2022.
+        url: https://www.forbes.com/sites/runasandvik/2014/01/14/attackers-scrape-github-for-cloud-service-credentials-hijack-account-to-mine-virtual-currency/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.0.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1589.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--76551c52-b111-4884-bc47-ff3e728f0156
+      type: attack-pattern
+      created: '2020-10-02T14:57:15.906Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1589.003
+        url: https://attack.mitre.org/techniques/T1589/003
+      - source_name: OPM Leak
+        url: https://www.opm.gov/cybersecurity/cybersecurity-incidents/
+        description: Cybersecurity Resource Center. (n.d.). CYBERSECURITY INCIDENTS.
+          Retrieved October 20, 2020.
+      modified: '2021-04-15T03:27:49.437Z'
+      name: Employee Names
+      description: |-
+        Adversaries may gather employee names that can be used during targeting. Employee names be used to derive email addresses as well as to help guide other reconnaissance efforts and/or craft more-believable lures.
+
+        Adversaries may easily gather employee names, since they may be readily available and exposed via online or other accessible data sets (ex: [Social Media](https://attack.mitre.org/techniques/T1593/001) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)).(Citation: OPM Leak) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Phishing for Information](https://attack.mitre.org/techniques/T1598)), establishing operational resources (ex: [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [Phishing](https://attack.mitre.org/techniques/T1566) or [Valid Accounts](https://attack.mitre.org/techniques/T1078)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1592.004:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--774ad5bb-2366-4c13-a8a9-65e50b292e7c
+      type: attack-pattern
+      created: '2020-10-02T16:47:16.719Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1592.004
+        url: https://attack.mitre.org/techniques/T1592/004
+      - source_name: ATT ScanBox
+        url: https://cybersecurity.att.com/blogs/labs-research/scanbox-a-reconnaissance-framework-used-on-watering-hole-attacks
+        description: 'Blasco, J. (2014, August 28). Scanbox: A Reconnaissance Framework
+          Used with Watering Hole Attacks. Retrieved October 19, 2020.'
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+      modified: '2021-10-17T16:35:09.668Z'
+      name: Client Configurations
+      description: |-
+        Adversaries may gather information about the victim's client configurations that can be used during targeting. Information about client configurations may include a variety of details and settings, including operating system/version, virtualization, architecture (ex: 32 or 64 bit), language, and/or time zone.
+
+        Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) (ex: listening ports, server banners, user agent strings) or [Phishing for Information](https://attack.mitre.org/techniques/T1598). Adversaries may also compromise sites then include malicious content designed to collect host information from visitors.(Citation: ATT ScanBox) Information about the client configurations may also be exposed to adversaries via online or other accessible data sets (ex: job postings, network maps, assessment reports, resumes, or purchase invoices). Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [Supply Chain Compromise](https://attack.mitre.org/techniques/T1195) or [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Internet scanners may be used to look for patterns associated with malicious content designed to collect client configuration information from visitors.(Citation: ThreatConnect Infrastructure Dec 2020)(Citation: ATT ScanBox)
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+    atomic_tests: []
+  T1598.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_contributors:
+      - Philip Winther
+      - Sebastian Salla, McAfee
+      - Robert Simmons, @MalwareUtkonos
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--8982a661-d84c-48c0-b4ec-1db29c6cf3bc
+      type: attack-pattern
+      created: '2020-10-02T17:08:57.386Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1598.002
+        url: https://attack.mitre.org/techniques/T1598/002
+      - source_name: Sophos Attachment
+        url: https://nakedsecurity.sophos.com/2020/10/02/serious-security-phishing-without-links-when-phishers-bring-along-their-own-web-pages/
+        description: 'Ducklin, P. (2020, October 2). Serious Security: Phishing without
+          links – when phishers bring along their own web pages. Retrieved October
+          20, 2020.'
+      - source_name: GitHub Phishery
+        url: https://github.com/ryhanson/phishery
+        description: Ryan Hanson. (2016, September 24). phishery. Retrieved October
+          23, 2020.
+      - source_name: Microsoft Anti Spoofing
+        url: https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/anti-spoofing-protection?view=o365-worldwide
+        description: Microsoft. (2020, October 13). Anti-spoofing protection in EOP.
+          Retrieved October 19, 2020.
+      - source_name: ACSC Email Spoofing
+        url: https://www.cyber.gov.au/sites/default/files/2019-03/spoof_email_sender_policy_framework.pdf
+        description: Australian Cyber Security Centre. (2012, December). Mitigating
+          Spoofed Emails Using Sender Policy Framework. Retrieved October 19, 2020.
+      modified: '2021-04-15T03:41:33.335Z'
+      name: Spearphishing Attachment
+      description: |-
+        Adversaries may send spearphishing messages with a malicious attachment to elicit sensitive information that can be used during targeting. Spearphishing for information is an attempt to trick targets into divulging information, frequently credentials or other actionable information. Spearphishing for information frequently involves social engineering techniques, such as posing as a source with a reason to collect information (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)) and/or sending multiple, seemingly urgent messages.
+
+        All forms of spearphishing are electronically delivered social engineering targeted at a specific individual, company, or industry. In this scenario, adversaries attach a file to the spearphishing email and usually rely upon the recipient populating information then returning the file.(Citation: Sophos Attachment)(Citation: GitHub Phishery) The text of the spearphishing email usually tries to give a plausible reason why the file should be filled-in, such as a request for information from a business associate. Adversaries may also use information from previous reconnaissance efforts (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)) to craft persuasive and believable lures.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: 'Monitor for suspicious email activity, such as numerous
+        accounts receiving messages from a single unusual/unknown sender. Filtering
+        based on DKIM+SPF or header analysis can help detect when the email sender
+        is spoofed.(Citation: Microsoft Anti Spoofing)(Citation: ACSC Email Spoofing)'
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Flow'
+      - 'Network Traffic: Network Traffic Content'
+      - 'Application Log: Application Log Content'
+    atomic_tests: []
+  T1596.004:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--91177e6d-b616-4a03-ba4b-f3b32f7dda75
+      type: attack-pattern
+      created: '2020-10-02T16:59:56.648Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1596.004
+        url: https://attack.mitre.org/techniques/T1596/004
+      - source_name: DigitalShadows CDN
+        url: https://www.digitalshadows.com/blog-and-research/content-delivery-networks-cdns-can-leave-you-exposed-how-you-might-be-affected-and-what-you-can-do-about-it/
+        description: Swisscom & Digital Shadows. (2017, September 6). Content Delivery
+          Networks (CDNs) Can Leave You Exposed – How You Might Be Affected And What
+          You Can Do About It. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:47:55.905Z'
+      name: CDNs
+      description: |-
+        Adversaries may search content delivery network (CDN) data about victims that can be used during targeting. CDNs allow an organization to host content from a distributed, load balanced array of servers. CDNs may also allow organizations to customize content delivery based on the requestor’s geographical region.
+
+        Adversaries may search CDN data to gather actionable information. Threat actors can use online resources and lookup tools to harvest information about content servers within a CDN. Adversaries may also seek and target CDN misconfigurations that leak sensitive information not intended to be hosted and/or do not have the same protection mechanisms (ex: login portals) as the content hosted on the organization’s website.(Citation: DigitalShadows CDN) Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [Drive-by Compromise](https://attack.mitre.org/techniques/T1189)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1591:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--937e4772-8441-4e4a-8bf0-8d447d667e23
+      type: attack-pattern
+      created: '2020-10-02T16:27:02.339Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1591
+        url: https://attack.mitre.org/techniques/T1591
+      - source_name: ThreatPost Broadvoice Leak
+        url: https://threatpost.com/broadvoice-leaks-350m-records-voicemail-transcripts/160158/
+        description: Seals, T. (2020, October 15). Broadvoice Leak Exposes 350M Records,
+          Personal Voicemail Transcripts. Retrieved October 20, 2020.
+      - source_name: SEC EDGAR Search
+        url: https://www.sec.gov/edgar/search-and-access
+        description: U.S. SEC. (n.d.). EDGAR - Search and Access. Retrieved August
+          27, 2021.
+      modified: '2021-08-27T15:37:09.343Z'
+      name: Gather Victim Org Information
+      description: |-
+        Adversaries may gather information about the victim's organization that can be used during targeting. Information about an organization may include a variety of details, including the names of divisions/departments, specifics of business operations, as well as the roles and responsibilities of key employees.
+
+        Adversaries may gather this information in various ways, such as direct elicitation via [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about an organization may also be exposed to adversaries via online or other accessible data sets (ex: [Social Media](https://attack.mitre.org/techniques/T1593/001) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)).(Citation: ThreatPost Broadvoice Leak)(Citation: SEC EDGAR Search) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [Phishing](https://attack.mitre.org/techniques/T1566) or [Trusted Relationship](https://attack.mitre.org/techniques/T1199)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_is_subtechnique: false
+    atomic_tests: []
+  T1590:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--9d48cab2-7929-4812-ad22-f536665f0109
+      type: attack-pattern
+      created: '2020-10-02T15:45:17.628Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1590
+        url: https://attack.mitre.org/techniques/T1590
+      - source_name: WHOIS
+        url: https://www.whois.net/
+        description: NTT America. (n.d.). Whois Lookup. Retrieved October 20, 2020.
+      - source_name: DNS Dumpster
+        url: https://dnsdumpster.com/
+        description: Hacker Target. (n.d.). DNS Dumpster. Retrieved October 20, 2020.
+      - source_name: Circl Passive DNS
+        url: https://www.circl.lu/services/passive-dns/
+        description: CIRCL Computer Incident Response Center. (n.d.). Passive DNS.
+          Retrieved October 20, 2020.
+      modified: '2021-04-15T03:34:23.229Z'
+      name: Gather Victim Network Information
+      description: |-
+        Adversaries may gather information about the victim's networks that can be used during targeting. Information about networks may include a variety of details, including administrative data (ex: IP ranges, domain names, etc.) as well as specifics regarding its topology and operations.
+
+        Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about networks may also be exposed to adversaries via online or other accessible data sets (ex: [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)).(Citation: WHOIS)(Citation: DNS Dumpster)(Citation: Circl Passive DNS) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [Trusted Relationship](https://attack.mitre.org/techniques/T1199)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_is_subtechnique: false
+    atomic_tests: []
+  T1593:
+    technique:
+      modified: '2022-10-18T22:48:33.286Z'
+      name: Search Open Websites/Domains
+      description: |-
+        Adversaries may search freely available websites and/or domains for information about victims that can be used during targeting. Information about victims may be available in various online sites, such as social media, new sites, or those hosting information about business operations such as hiring or requested/rewarded contracts.(Citation: Cyware Social Media)(Citation: SecurityTrails Google Hacking)(Citation: ExploitDB GoogleHacking)
+
+        Adversaries may search in different online sites depending on what information they seek to gather. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133) or [Phishing](https://attack.mitre.org/techniques/T1566)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: false
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.1'
+      type: attack-pattern
+      id: attack-pattern--a0e6614a-7740-4b24-bd65-f1bde09fc365
+      created: '2020-10-02T16:48:04.509Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1593
+        external_id: T1593
+      - source_name: SecurityTrails Google Hacking
+        description: Borges, E. (2019, March 5). Exploring Google Hacking Techniques.
+          Retrieved October 20, 2020.
+        url: https://securitytrails.com/blog/google-hacking-techniques
+      - source_name: Cyware Social Media
+        description: Cyware Hacker News. (2019, October 2). How Hackers Exploit Social
+          Media To Break Into Your Company. Retrieved October 20, 2020.
+        url: https://cyware.com/news/how-hackers-exploit-social-media-to-break-into-your-company-88e8da8e
+      - source_name: ExploitDB GoogleHacking
+        description: Offensive Security. (n.d.). Google Hacking Database. Retrieved
+          October 23, 2020.
+        url: https://www.exploit-db.com/google-hacking-database
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1597:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--a51eb150-93b1-484b-a503-e51453b127a4
+      type: attack-pattern
+      created: '2020-10-02T17:01:42.558Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1597
+        url: https://attack.mitre.org/techniques/T1597
+      - source_name: D3Secutrity CTI Feeds
+        url: https://d3security.com/blog/10-of-the-best-open-source-threat-intelligence-feeds/
+        description: Banerd, W. (2019, April 30). 10 of the Best Open Source Threat
+          Intelligence Feeds. Retrieved October 20, 2020.
+      - source_name: ZDNET Selling Data
+        url: https://www.zdnet.com/article/a-hacker-group-is-selling-more-than-73-million-user-records-on-the-dark-web/
+        description: Cimpanu, C. (2020, May 9). A hacker group is selling more than
+          73 million user records on the dark web. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:45:31.020Z'
+      name: Search Closed Sources
+      description: |-
+        Adversaries may search and gather information about victims from closed sources that can be used during targeting. Information about victims may be available for purchase from reputable private sources and databases, such as paid subscriptions to feeds of technical/threat intelligence data.(Citation: D3Secutrity CTI Feeds) Adversaries may also purchase information from less-reputable sources such as dark web or cybercrime blackmarkets.(Citation: ZDNET Selling Data)
+
+        Adversaries may search in different closed databases depending on what information they seek to gather. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133) or [Valid Accounts](https://attack.mitre.org/techniques/T1078)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_is_subtechnique: false
+    atomic_tests: []
+  T1592.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--b85f6ce5-81e8-4f36-aff2-3df9d02a9c9d
+      type: attack-pattern
+      created: '2020-10-02T16:46:42.537Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1592.003
+        url: https://attack.mitre.org/techniques/T1592/003
+      - source_name: ArsTechnica Intel
+        url: https://arstechnica.com/information-technology/2020/08/intel-is-investigating-the-leak-of-20gb-of-its-source-code-and-private-data/
+        description: Goodin, D. & Salter, J. (2020, August 6). More than 20GB of Intel
+          source code and proprietary data dumped online. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:22:46.759Z'
+      name: Firmware
+      description: |-
+        Adversaries may gather information about the victim's host firmware that can be used during targeting. Information about host firmware may include a variety of details such as type and versions on specific hosts, which may be used to infer more information about hosts in the environment (ex: configuration, purpose, age/patch level, etc.).
+
+        Adversaries may gather this information in various ways, such as direct elicitation via [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about host firmware may only be exposed to adversaries via online or other accessible data sets (ex: job postings, network maps, assessment reports, resumes, or purchase invoices).(Citation: ArsTechnica Intel) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [Supply Chain Compromise](https://attack.mitre.org/techniques/T1195) or [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1592.002:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--baf60e1a-afe5-4d31-830f-1b1ba2351884
+      type: attack-pattern
+      created: '2020-10-02T16:42:17.482Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1592.002
+        url: https://attack.mitre.org/techniques/T1592/002
+      - source_name: ATT ScanBox
+        url: https://cybersecurity.att.com/blogs/labs-research/scanbox-a-reconnaissance-framework-used-on-watering-hole-attacks
+        description: 'Blasco, J. (2014, August 28). Scanbox: A Reconnaissance Framework
+          Used with Watering Hole Attacks. Retrieved October 19, 2020.'
+      - source_name: ThreatConnect Infrastructure Dec 2020
+        url: https://threatconnect.com/blog/infrastructure-research-hunting/
+        description: 'ThreatConnect. (2020, December 15). Infrastructure Research
+          and Hunting: Boiling the Domain Ocean. Retrieved October 12, 2021.'
+      modified: '2021-10-17T16:33:19.596Z'
+      name: Software
+      description: |-
+        Adversaries may gather information about the victim's host software that can be used during targeting. Information about installed software may include a variety of details such as types and versions on specific hosts, as well as the presence of additional components that might be indicative of added defensive protections (ex: antivirus, SIEMs, etc.).
+
+        Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) (ex: listening ports, server banners, user agent strings) or [Phishing for Information](https://attack.mitre.org/techniques/T1598). Adversaries may also compromise sites then include malicious content designed to collect host information from visitors.(Citation: ATT ScanBox) Information about the installed software may also be exposed to adversaries via online or other accessible data sets (ex: job postings, network maps, assessment reports, resumes, or purchase invoices). Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or for initial access (ex: [Supply Chain Compromise](https://attack.mitre.org/techniques/T1195) or [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Internet scanners may be used to look for patterns associated with malicious content designed to collect host software information from visitors.(Citation: ThreatConnect Infrastructure Dec 2020)(Citation: ATT ScanBox)
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders. Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Internet Scan: Response Content'
+    atomic_tests: []
+  T1593.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--bbe5b322-e2af-4a5e-9625-a4e62bf84ed3
+      type: attack-pattern
+      created: '2020-10-02T16:49:31.262Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1593.001
+        url: https://attack.mitre.org/techniques/T1593/001
+      - source_name: Cyware Social Media
+        url: https://cyware.com/news/how-hackers-exploit-social-media-to-break-into-your-company-88e8da8e
+        description: Cyware Hacker News. (2019, October 2). How Hackers Exploit Social
+          Media To Break Into Your Company. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:52:40.958Z'
+      name: Social Media
+      description: |-
+        Adversaries may search social media for information about victims that can be used during targeting. Social media sites may contain various information about a victim organization, such as business announcements as well as information about the roles, locations, and interests of staff.
+
+        Adversaries may search in different social media sites depending on what information they seek to gather. Threat actors may passively harvest data from these sites, as well as use information gathered to create fake profiles/groups to elicit victim’s into revealing specific information (i.e. [Spearphishing Service](https://attack.mitre.org/techniques/T1598/001)).(Citation: Cyware Social Media) Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [Spearphishing via Service](https://attack.mitre.org/techniques/T1566/003)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1589.001:
+    technique:
+      modified: '2023-04-14T23:29:10.396Z'
+      name: Credentials
+      description: "Adversaries may gather credentials that can be used during targeting.
+        Account credentials gathered by adversaries may be those directly associated
+        with the target victim organization or attempt to take advantage of the tendency
+        for users to use the same passwords across personal and business accounts.\n\nAdversaries
+        may gather credentials from potential victims in various ways, such as direct
+        elicitation via [Phishing for Information](https://attack.mitre.org/techniques/T1598).
+        Adversaries may also compromise sites then add malicious content designed
+        to collect website authentication cookies from visitors.(Citation: ATT ScanBox)
+        Credential information may also be exposed to adversaries via leaks to online
+        or other accessible data sets (ex: [Search Engines](https://attack.mitre.org/techniques/T1593/002),
+        breach dumps, code repositories, etc.).(Citation: Register Deloitte)(Citation:
+        Register Uber)(Citation: Detectify Slack Tokens)(Citation: Forbes GitHub Creds)(Citation:
+        GitHub truffleHog)(Citation: GitHub Gitrob)(Citation: CNET Leaks) Adversaries
+        may also purchase credentials from dark web or other black-markets. Finally,
+        where multi-factor authentication (MFA) based on out-of-band communications
+        is in use, adversaries may compromise a service provider to gain access to
+        MFA codes and one-time passwords (OTP).(Citation: Okta Scatter Swine 2022)\n\nGathering
+        this information may reveal opportunities for other forms of reconnaissance
+        (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)
+        or [Phishing for Information](https://attack.mitre.org/techniques/T1598)),
+        establishing operational resources (ex: [Compromise Accounts](https://attack.mitre.org/techniques/T1586)),
+        and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133)
+        or [Valid Accounts](https://attack.mitre.org/techniques/T1078)). "
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_contributors:
+      - Vinayak Wadhwa, Lucideus
+      - Lee Christensen, SpecterOps
+      - Toby Kohlenberg
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: true
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.1'
+      type: attack-pattern
+      id: attack-pattern--bc76d0a4-db11-4551-9ac4-01a469cfb161
+      created: '2020-10-02T14:55:43.815Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1589/001
+        external_id: T1589.001
+      - source_name: ATT ScanBox
+        description: 'Blasco, J. (2014, August 28). Scanbox: A Reconnaissance Framework
+          Used with Watering Hole Attacks. Retrieved October 19, 2020.'
+        url: https://cybersecurity.att.com/blogs/labs-research/scanbox-a-reconnaissance-framework-used-on-watering-hole-attacks
+      - source_name: Detectify Slack Tokens
+        description: Detectify. (2016, April 28). Slack bot token leakage exposing
+          business critical information. Retrieved October 19, 2020.
+        url: https://labs.detectify.com/2016/04/28/slack-bot-token-leakage-exposing-business-critical-information/
+      - source_name: GitHub truffleHog
+        description: Dylan Ayrey. (2016, December 31). truffleHog. Retrieved October
+          19, 2020.
+        url: https://github.com/dxa4481/truffleHog
+      - source_name: Register Uber
+        description: McCarthy, K. (2015, February 28). FORK ME! Uber hauls GitHub
+          into court to find who hacked database of 50,000 drivers. Retrieved October
+          19, 2020.
+        url: https://www.theregister.com/2015/02/28/uber_subpoenas_github_for_hacker_details/
+      - source_name: GitHub Gitrob
+        description: 'Michael Henriksen. (2018, June 9). Gitrob: Putting the Open
+          Source in OSINT. Retrieved October 19, 2020.'
+        url: https://github.com/michenriksen/gitrob
+      - source_name: CNET Leaks
+        description: Ng, A. (2019, January 17). Massive breach leaks 773 million email
+          addresses, 21 million passwords. Retrieved October 20, 2020.
+        url: https://www.cnet.com/news/massive-breach-leaks-773-million-emails-21-million-passwords/
+      - source_name: Okta Scatter Swine 2022
+        description: 'Okta. (2022, August 25). Detecting Scatter Swine: Insights into
+          a Relentless Phishing Campaign. Retrieved February 24, 2023.'
+        url: https://sec.okta.com/scatterswine
+      - source_name: Forbes GitHub Creds
+        description: Sandvik, R. (2014, January 14). Attackers Scrape GitHub For Cloud
+          Service Credentials, Hijack Account To Mine Virtual Currency. Retrieved
+          October 19, 2020.
+        url: https://www.forbes.com/sites/runasandvik/2014/01/14/attackers-scrape-github-for-cloud-service-credentials-hijack-account-to-mine-virtual-currency/#242c479d3196
+      - source_name: Register Deloitte
+        description: 'Thomson, I. (2017, September 26). Deloitte is a sitting duck:
+          Key systems with RDP open, VPN and proxy ''login details leaked''. Retrieved
+          October 19, 2020.'
+        url: https://www.theregister.com/2017/09/26/deloitte_leak_github_and_google/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1595.003:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_contributors:
+      - Jan Petrov, Citi
+      - Elvis Veliz, Citi
+      - Richard Julian, Citi
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      type: attack-pattern
+      id: attack-pattern--bed04f7d-e48a-4e76-bd0f-4c57fe31fc46
+      created: '2022-03-04T18:56:38.844Z'
+      x_mitre_version: '1.0'
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1595.003
+        url: https://attack.mitre.org/techniques/T1595/003
+      - source_name: ClearSky Lebanese Cedar Jan 2021
+        url: https://www.clearskysec.com/wp-content/uploads/2021/01/Lebanese-Cedar-APT.pdf
+        description: ClearSky Cyber Security. (2021, January). “Lebanese Cedar�? APT
+          Global Lebanese Espionage Campaign Leveraging Web Servers. Retrieved February
+          10, 2021.
+      - source_name: GCPBucketBrute
+        url: https://rhinosecuritylabs.com/gcp/google-cloud-platform-gcp-bucket-enumeration/
+        description: Spencer Gietzen. (2019, February 26). Google Cloud Platform (GCP)
+          Bucket Enumeration and Privilege Escalation. Retrieved March 4, 2022.
+      - source_name: S3Recon GitHub
+        url: https://github.com/clarketm/s3recon
+        description: Travis Clarke. (2020, March 21). S3Recon GitHub. Retrieved March
+          4, 2022.
+      x_mitre_deprecated: false
+      revoked: false
+      description: "Adversaries may iteratively probe infrastructure using brute-forcing
+        and crawling techniques. While this technique employs similar methods to [Brute
+        Force](https://attack.mitre.org/techniques/T1110), its goal is the identification
+        of content and infrastructure rather than the discovery of valid credentials.
+        Wordlists used in these scans may contain generic, commonly used names and
+        file extensions or terms specific to a particular software. Adversaries may
+        also create custom, target-specific wordlists using data gathered from other
+        Reconnaissance techniques (ex: [Gather Victim Org Information](https://attack.mitre.org/techniques/T1591),
+        or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)).\n\nFor
+        example, adversaries may use web content discovery tools such as Dirb, DirBuster,
+        and GoBuster and generic or custom wordlists to enumerate a website’s pages
+        and directories.(Citation: ClearSky Lebanese Cedar Jan 2021) This can help
+        them to discover old, vulnerable pages or hidden administrative portals that
+        could become the target of further operations (ex: [Exploit Public-Facing
+        Application](https://attack.mitre.org/techniques/T1190) or [Brute Force](https://attack.mitre.org/techniques/T1110)).
+        \ \n\nAs cloud storage solutions typically use globally unique names, adversaries
+        may also use target-specific wordlists and tools such as s3recon and GCPBucketBrute
+        to enumerate public and private buckets on cloud infrastructure.(Citation:
+        S3Recon GitHub)(Citation: GCPBucketBrute) Once storage objects are discovered,
+        adversaries may leverage [Data from Cloud Storage](https://attack.mitre.org/techniques/T1530)
+        to access valuable information that can be exfiltrated or used to escalate
+        privileges and move laterally. "
+      modified: '2022-04-15T19:10:23.838Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      name: Wordlist Scanning
+      x_mitre_detection: "Monitor for suspicious network traffic that could be indicative
+        of scanning, such as large quantities originating from a single source (especially
+        if the source is known to be associated with an adversary/botnet). Monitor
+        for access to S3 buckets, especially those that are not intended to be publicly
+        accessible. \n\nMuch of this activity may have a very high occurrence and
+        associated false positive rate, as well as potentially taking place outside
+        the visibility of the target organization, making detection difficult for
+        defenders. \n\nDetection efforts may be focused on related stages of the adversary
+        lifecycle, such as during Initial Access."
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_is_subtechnique: true
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Content'
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1591.004:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--cc723aff-ec88-40e3-a224-5af9fd983cc4
+      type: attack-pattern
+      created: '2020-10-02T16:37:30.015Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1591.004
+        url: https://attack.mitre.org/techniques/T1591/004
+      - source_name: ThreatPost Broadvoice Leak
+        url: https://threatpost.com/broadvoice-leaks-350m-records-voicemail-transcripts/160158/
+        description: Seals, T. (2020, October 15). Broadvoice Leak Exposes 350M Records,
+          Personal Voicemail Transcripts. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:39:08.904Z'
+      name: Identify Roles
+      description: |-
+        Adversaries may gather information about identities and roles within the victim organization that can be used during targeting. Information about business roles may reveal a variety of targetable details, including identifiable information for key personnel as well as what data/resources they have access to.
+
+        Adversaries may gather this information in various ways, such as direct elicitation via [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about business roles may also be exposed to adversaries via online or other accessible data sets (ex: [Social Media](https://attack.mitre.org/techniques/T1593/001) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)).(Citation: ThreatPost Broadvoice Leak) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)), and/or initial access (ex: [Phishing](https://attack.mitre.org/techniques/T1566)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1598:
+    technique:
+      modified: '2023-04-14T17:42:38.063Z'
+      name: Phishing for Information
+      description: "Adversaries may send phishing messages to elicit sensitive information
+        that can be used during targeting. Phishing for information is an attempt
+        to trick targets into divulging information, frequently credentials or other
+        actionable information. Phishing for information is different from [Phishing](https://attack.mitre.org/techniques/T1566)
+        in that the objective is gathering data from the victim rather than executing
+        malicious code.\n\nAll forms of phishing are electronically delivered social
+        engineering. Phishing can be targeted, known as spearphishing. In spearphishing,
+        a specific individual, company, or industry will be targeted by the adversary.
+        More generally, adversaries can conduct non-targeted phishing, such as in
+        mass credential harvesting campaigns.\n\nAdversaries may also try to obtain
+        information directly through the exchange of emails, instant messages, or
+        other electronic conversation means.(Citation: ThreatPost Social Media Phishing)(Citation:
+        TrendMictro Phishing)(Citation: PCMag FakeLogin)(Citation: Sophos Attachment)(Citation:
+        GitHub Phishery) Victims may also receive phishing messages that direct them
+        to call a phone number where the adversary attempts to collect confidential
+        information.(Citation: Avertium callback phishing)\n\nPhishing for information
+        frequently involves social engineering techniques, such as posing as a source
+        with a reason to collect information (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585)
+        or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)) and/or
+        sending multiple, seemingly urgent messages. Another way to accomplish this
+        is by forging or spoofing(Citation: Proofpoint-spoof) the identity of the
+        sender which can be used to fool both the human recipient as well as automated
+        security tools.(Citation: cyberproof-double-bounce) \n\nPhishing for information
+        may also involve evasive techniques, such as removing or manipulating emails
+        or metadata/headers from compromised accounts being abused to send messages
+        (e.g., [Email Hiding Rules](https://attack.mitre.org/techniques/T1564/008)).(Citation:
+        Microsoft OAuth Spam 2022)(Citation: Palo Alto Unit 42 VBA Infostealer 2014)"
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_contributors:
+      - Philip Winther
+      - Sebastian Salla, McAfee
+      - Robert Simmons, @MalwareUtkonos
+      - Ohad Zaidenberg, @ohad_mz
+      - Liora Itkin
+      - Liran Ravich, CardinalOps
+      - Scott Cook, Capital One
+      x_mitre_deprecated: false
+      x_mitre_detection: |-
+        Depending on the specific method of phishing, the detections can vary. Monitor for suspicious email activity, such as numerous accounts receiving messages from a single unusual/unknown sender. Filtering based on DKIM+SPF or header analysis can help detect when the email sender is spoofed.(Citation: Microsoft Anti Spoofing)(Citation: ACSC Email Spoofing)
+
+        When it comes to following links, monitor for references to uncategorized or known-bad sites. URL inspection within email (including expanding shortened links) can also help detect links leading to known malicious sites.
+
+        Monitor social media traffic for suspicious activity, including messages requesting information as well as abnormal file or data transfers (especially those involving unknown, or otherwise suspicious accounts).
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_is_subtechnique: false
+      x_mitre_platforms:
+      - PRE
+      x_mitre_version: '1.2'
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Content'
+      - 'Network Traffic: Network Traffic Flow'
+      - 'Application Log: Application Log Content'
+      type: attack-pattern
+      id: attack-pattern--cca0ccb6-a068-4574-a722-b1556f86833a
+      created: '2020-10-02T17:07:01.502Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1598
+        external_id: T1598
+      - source_name: ACSC Email Spoofing
+        description: Australian Cyber Security Centre. (2012, December). Mitigating
+          Spoofed Emails Using Sender Policy Framework. Retrieved October 19, 2020.
+        url: https://www.cyber.gov.au/sites/default/files/2019-03/spoof_email_sender_policy_framework.pdf
+      - source_name: Avertium callback phishing
+        description: Avertium. (n.d.). EVERYTHING YOU NEED TO KNOW ABOUT CALLBACK
+          PHISHING. Retrieved February 2, 2023.
+        url: https://www.avertium.com/resources/threat-reports/everything-you-need-to-know-about-callback-phishing
+      - source_name: TrendMictro Phishing
+        description: Babon, P. (2020, September 3). Tricky 'Forms' of Phishing. Retrieved
+          October 20, 2020.
+        url: https://www.trendmicro.com/en_us/research/20/i/tricky-forms-of-phishing.html
+      - source_name: Sophos Attachment
+        description: 'Ducklin, P. (2020, October 2). Serious Security: Phishing without
+          links – when phishers bring along their own web pages. Retrieved October
+          20, 2020.'
+        url: https://nakedsecurity.sophos.com/2020/10/02/serious-security-phishing-without-links-when-phishers-bring-along-their-own-web-pages/
+      - source_name: cyberproof-double-bounce
+        description: Itkin, Liora. (2022, September 1). Double-bounced attacks with
+          email spoofing . Retrieved February 24, 2023.
+        url: https://blog.cyberproof.com/blog/double-bounced-attacks-with-email-spoofing-2022-trends
+      - source_name: PCMag FakeLogin
+        description: Kan, M. (2019, October 24). Hackers Try to Phish United Nations
+          Staffers With Fake Login Pages. Retrieved October 20, 2020.
+        url: https://www.pcmag.com/news/hackers-try-to-phish-united-nations-staffers-with-fake-login-pages
+      - source_name: Microsoft Anti Spoofing
+        description: Microsoft. (2020, October 13). Anti-spoofing protection in EOP.
+          Retrieved October 19, 2020.
+        url: https://docs.microsoft.com/en-us/microsoft-365/security/office-365-security/anti-spoofing-protection?view=o365-worldwide
+      - source_name: Microsoft OAuth Spam 2022
+        description: Microsoft. (2023, September 22). Malicious OAuth applications
+          abuse cloud email services to spread spam. Retrieved March 13, 2023.
+        url: https://www.microsoft.com/en-us/security/blog/2022/09/22/malicious-oauth-applications-used-to-compromise-email-servers-and-spread-spam/
+      - source_name: ThreatPost Social Media Phishing
+        description: 'O''Donnell, L. (2020, October 20). Facebook: A Top Launching
+          Pad For Phishing Attacks. Retrieved October 20, 2020.'
+        url: https://threatpost.com/facebook-launching-pad-phishing-attacks/160351/
+      - source_name: Proofpoint-spoof
+        description: Proofpoint. (n.d.). What Is Email Spoofing?. Retrieved February
+          24, 2023.
+        url: https://www.proofpoint.com/us/threat-reference/email-spoofing
+      - source_name: GitHub Phishery
+        description: Ryan Hanson. (2016, September 24). phishery. Retrieved October
+          23, 2020.
+        url: https://github.com/ryhanson/phishery
+      - source_name: Palo Alto Unit 42 VBA Infostealer 2014
+        description: Vicky Ray and Rob Downs. (2014, October 29). Examining a VBA-Initiated
+          Infostealer Campaign. Retrieved March 13, 2023.
+        url: https://unit42.paloaltonetworks.com/examining-vba-initiated-infostealer-campaign/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 3.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1595.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--db8f5003-3b20-48f0-9b76-123e44208120
+      type: attack-pattern
+      created: '2020-10-02T16:54:23.193Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1595.001
+        url: https://attack.mitre.org/techniques/T1595/001
+      - source_name: Botnet Scan
+        url: https://www.caida.org/publications/papers/2012/analysis_slash_zero/analysis_slash_zero.pdf
+        description: Dainotti, A. et al. (2012). Analysis of a “/0�? Stealth Scan from
+          a Botnet. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:19:38.469Z'
+      name: Scanning IP Blocks
+      description: |-
+        Adversaries may scan victim IP blocks to gather information that can be used during targeting. Public IP addresses may be allocated to organizations by block, or a range of sequential addresses.
+
+        Adversaries may scan IP blocks in order to [Gather Victim Network Information](https://attack.mitre.org/techniques/T1590), such as which IP addresses are actively in use as well as more detailed information about hosts assigned these addresses. Scans may range from simple pings (ICMP requests and responses) to more nuanced scans that may reveal host software/versions via server banners or other network artifacts.(Citation: Botnet Scan) Information from these scans may reveal opportunities for other forms of reconnaissance (ex: [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593) or [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Monitor for suspicious network traffic that could be indicative of scanning, such as large quantities originating from a single source (especially if the source is known to be associated with an adversary/botnet).
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Network Traffic: Network Traffic Flow'
+    atomic_tests: []
+  T1590.001:
+    technique:
+      modified: '2022-10-21T14:32:05.257Z'
+      name: Domain Properties
+      description: |-
+        Adversaries may gather information about the victim's network domain(s) that can be used during targeting. Information about domains and their properties may include a variety of details, including what domain(s) the victim owns as well as administrative data (ex: name, registrar, etc.) and more directly actionable information such as contacts (email addresses and phone numbers), business addresses, and name servers.
+
+        Adversaries may gather this information in various ways, such as direct collection actions via [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Phishing for Information](https://attack.mitre.org/techniques/T1598). Information about victim domains and their properties may also be exposed to adversaries via online or other accessible data sets (ex: [WHOIS](https://attack.mitre.org/techniques/T1596/002)).(Citation: WHOIS)(Citation: DNS Dumpster)(Citation: Circl Passive DNS) Where third-party cloud providers are in use, this information may also be exposed through publicly available API endpoints, such as GetUserRealm and autodiscover in Office 365 environments.(Citation: Azure Active Directory Reconnaisance)(Citation: Office 265 Azure Domain Availability) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Search Open Technical Databases](https://attack.mitre.org/techniques/T1596), [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593), or [Phishing for Information](https://attack.mitre.org/techniques/T1598)), establishing operational resources (ex: [Acquire Infrastructure](https://attack.mitre.org/techniques/T1583) or [Compromise Infrastructure](https://attack.mitre.org/techniques/T1584)), and/or initial access (ex: [Phishing](https://attack.mitre.org/techniques/T1566)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_platforms:
+      - PRE
+      x_mitre_is_subtechnique: true
+      x_mitre_deprecated: false
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_version: '1.1'
+      x_mitre_contributors:
+      - Jannie Li, Microsoft Threat Intelligence Center (MSTIC)
+      type: attack-pattern
+      id: attack-pattern--e3b168bd-fcd7-439e-9382-2e6c2f63514d
+      created: '2020-10-02T15:46:24.670Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      revoked: false
+      external_references:
+      - source_name: mitre-attack
+        url: https://attack.mitre.org/techniques/T1590/001
+        external_id: T1590.001
+      - source_name: Circl Passive DNS
+        description: CIRCL Computer Incident Response Center. (n.d.). Passive DNS.
+          Retrieved October 20, 2020.
+        url: https://www.circl.lu/services/passive-dns/
+      - source_name: Azure Active Directory Reconnaisance
+        description: 'Dr. Nestori Syynimaa. (2020, June 13). Just looking: Azure Active
+          Directory reconnaissance as an outsider. Retrieved May 27, 2022.'
+        url: https://o365blog.com/post/just-looking/
+      - source_name: DNS Dumpster
+        description: Hacker Target. (n.d.). DNS Dumpster. Retrieved October 20, 2020.
+        url: https://dnsdumpster.com/
+      - source_name: Office 265 Azure Domain Availability
+        description: 'Microsoft. (2017, January 23). (Cloud) Tip of the Day: Advanced
+          way to check domain availability for Office 365 and Azure. Retrieved May
+          27, 2022.'
+        url: https://docs.microsoft.com/en-us/archive/blogs/tip_of_the_day/cloud-tip-of-the-day-advanced-way-to-check-domain-availability-for-office-365-and-azure
+      - source_name: WHOIS
+        description: NTT America. (n.d.). Whois Lookup. Retrieved October 20, 2020.
+        url: https://www.whois.net/
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      x_mitre_attack_spec_version: 2.1.0
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1596.005:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--ec4be82f-940c-4dcb-87fe-2bbdd17c692f
+      type: attack-pattern
+      created: '2020-10-02T17:00:44.586Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1596.005
+        url: https://attack.mitre.org/techniques/T1596/005
+      - source_name: Shodan
+        url: https://shodan.io
+        description: Shodan. (n.d.). Shodan. Retrieved October 20, 2020.
+      modified: '2021-04-15T03:49:49.260Z'
+      name: Scan Databases
+      description: |-
+        Adversaries may search within public scan databases for information about victims that can be used during targeting. Various online services continuously publish the results of Internet scans/surveys, often harvesting information such as active IP addresses, hostnames, open ports, certificates, and even server banners.(Citation: Shodan)
+
+        Adversaries may search scan databases to gather actionable information. Threat actors can use online resources and lookup tools to harvest information from these services. Adversaries may seek information about their already identified targets, or use these datasets to discover opportunities for successful breaches. Information from these sources may reveal opportunities for other forms of reconnaissance (ex: [Active Scanning](https://attack.mitre.org/techniques/T1595) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [External Remote Services](https://attack.mitre.org/techniques/T1133) or [Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1591.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--ed730f20-0e44-48b9-85f8-0e2adeb76867
+      type: attack-pattern
+      created: '2020-10-02T16:32:33.126Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1591.001
+        url: https://attack.mitre.org/techniques/T1591/001
+      - source_name: ThreatPost Broadvoice Leak
+        url: https://threatpost.com/broadvoice-leaks-350m-records-voicemail-transcripts/160158/
+        description: Seals, T. (2020, October 15). Broadvoice Leak Exposes 350M Records,
+          Personal Voicemail Transcripts. Retrieved October 20, 2020.
+      - source_name: SEC EDGAR Search
+        url: https://www.sec.gov/edgar/search-and-access
+        description: U.S. SEC. (n.d.). EDGAR - Search and Access. Retrieved August
+          27, 2021.
+      modified: '2021-08-27T15:37:09.025Z'
+      name: Determine Physical Locations
+      description: |-
+        Adversaries may gather the victim's physical location(s) that can be used during targeting. Information about physical locations of a target organization may include a variety of details, including where key resources and infrastructure are housed. Physical locations may also indicate what legal jurisdiction and/or authorities the victim operates within.
+
+        Adversaries may gather this information in various ways, such as direct elicitation via [Phishing for Information](https://attack.mitre.org/techniques/T1598). Physical locations of a target organization may also be exposed to adversaries via online or other accessible data sets (ex: [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594) or [Social Media](https://attack.mitre.org/techniques/T1593/001)).(Citation: ThreatPost Broadvoice Leak)(Citation: SEC EDGAR Search) Gathering this information may reveal opportunities for other forms of reconnaissance (ex: [Phishing for Information](https://attack.mitre.org/techniques/T1598) or [Search Open Websites/Domains](https://attack.mitre.org/techniques/T1593)), establishing operational resources (ex: [Develop Capabilities](https://attack.mitre.org/techniques/T1587) or [Obtain Capabilities](https://attack.mitre.org/techniques/T1588)), and/or initial access (ex: [Phishing](https://attack.mitre.org/techniques/T1566) or [Hardware Additions](https://attack.mitre.org/techniques/T1200)).
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.1'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+    atomic_tests: []
+  T1598.001:
+    technique:
+      x_mitre_platforms:
+      - PRE
+      x_mitre_domains:
+      - enterprise-attack
+      x_mitre_contributors:
+      - Robert Simmons, @MalwareUtkonos
+      object_marking_refs:
+      - marking-definition--fa42a846-8d90-4e51-bc29-71d5b4802168
+      id: attack-pattern--f870408c-b1cd-49c7-a5c7-0ef0fc496cc6
+      type: attack-pattern
+      created: '2020-10-02T17:08:07.742Z'
+      created_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      external_references:
+      - source_name: mitre-attack
+        external_id: T1598.001
+        url: https://attack.mitre.org/techniques/T1598/001
+      - source_name: ThreatPost Social Media Phishing
+        url: https://threatpost.com/facebook-launching-pad-phishing-attacks/160351/
+        description: 'O''Donnell, L. (2020, October 20). Facebook: A Top Launching
+          Pad For Phishing Attacks. Retrieved October 20, 2020.'
+      modified: '2021-04-15T03:43:12.843Z'
+      name: Spearphishing Service
+      description: |-
+        Adversaries may send spearphishing messages via third-party services to elicit sensitive information that can be used during targeting. Spearphishing for information is an attempt to trick targets into divulging information, frequently credentials or other actionable information. Spearphishing for information frequently involves social engineering techniques, such as posing as a source with a reason to collect information (ex: [Establish Accounts](https://attack.mitre.org/techniques/T1585) or [Compromise Accounts](https://attack.mitre.org/techniques/T1586)) and/or sending multiple, seemingly urgent messages.
+
+        All forms of spearphishing are electronically delivered social engineering targeted at a specific individual, company, or industry. In this scenario, adversaries send messages through various social media services, personal webmail, and other non-enterprise controlled services.(Citation: ThreatPost Social Media Phishing) These services are more likely to have a less-strict security policy than an enterprise. As with most kinds of spearphishing, the goal is to generate rapport with the target or get the target's interest in some way. Adversaries may create fake social media accounts and message employees for potential job opportunities. Doing so allows a plausible reason for asking about services, policies, and information about their environment. Adversaries may also use information from previous reconnaissance efforts (ex: [Social Media](https://attack.mitre.org/techniques/T1593/001) or [Search Victim-Owned Websites](https://attack.mitre.org/techniques/T1594)) to craft persuasive and believable lures.
+      kill_chain_phases:
+      - kill_chain_name: mitre-attack
+        phase_name: reconnaissance
+      x_mitre_detection: |-
+        Monitor social media traffic for suspicious activity, including messages requesting information as well as abnormal file or data transfers (especially those involving unknown, or otherwise suspicious accounts).
+
+        Much of this activity may have a very high occurrence and associated false positive rate, as well as potentially taking place outside the visibility of the target organization, making detection difficult for defenders.
+
+        Detection efforts may be focused on related stages of the adversary lifecycle, such as during Initial Access.
+      x_mitre_is_subtechnique: true
+      x_mitre_version: '1.0'
+      x_mitre_modified_by_ref: identity--c78cb6e5-0c4b-4611-8297-d1b8b55e40b5
+      x_mitre_data_sources:
+      - 'Application Log: Application Log Content'
+      - 'Network Traffic: Network Traffic Content'
+      - 'Network Traffic: Network Traffic Flow'
+    atomic_tests: []

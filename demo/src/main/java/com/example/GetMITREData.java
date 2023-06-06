@@ -10,7 +10,7 @@ import java.nio.channels.ReadableByteChannel;
 public class GetMITREData {
 
     public static void main(String[] args) {
-        String downloadPath = "./mitre-attack";
+        String downloadPath = "data/mitre-attack";
         File directory = new File(downloadPath);
         if (!directory.exists()) {
             directory.mkdirs();
