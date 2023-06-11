@@ -13,7 +13,7 @@ public class ExcelExporter
 {
 	private static final String[] HEADERS = { "No.", "Technique ID", "Technique Name", "Technique Description",
 			"Technique Platforms", "Technique Domains", "Technique URL", "Technique Tactics", "Technique Detection",
-			"Is Subtechnique", "Test Number", "Test Name", "Test GUID", "Test Description", "Test Supported Platforms",
+			"Is Subtechnique", "Test #", "Test Name", "Test GUID", "Test Description", "Test Supported Platforms",
 			"Test Input Arguments", "Test Executor", "Test Dependency Executor Name", "Test Dependencies" };
 	private final String jsonFilePath;
 	private final String excelFilePath;
@@ -48,9 +48,11 @@ public class ExcelExporter
 		autoSizeColumns(sheet);
 		hideTechniqueColumns(sheet);
 
+		applyFilter(sheet);
+
 		writeWorkbook(workbook);
 		System.out.println("Excel file exported successfully");
-		
+
 		long stop = System.currentTimeMillis();
 		System.out.println("Run time: " + (stop - start));
 	}
@@ -171,6 +173,7 @@ public class ExcelExporter
 	private void createSubHeaderRow(Sheet sheet)
 	{
 		Row subHeaderRow = sheet.createRow(3);
+		subHeaderRow.setHeight((short) -1);
 		CellStyle subHeaderCellStyle = sheet.getWorkbook().createCellStyle();
 		Font font = sheet.getWorkbook().createFont();
 		font.setBold(true);
@@ -298,10 +301,10 @@ public class ExcelExporter
 		sheet.setColumnWidth(0, 3000);
 
 		// Technique ID
-		sheet.setColumnWidth(1, 4000);
+		sheet.setColumnWidth(1, 5500);
 
 		// Technique Name
-		sheet.setColumnWidth(2, 10000);
+		sheet.setColumnWidth(2,10500);
 
 		// Technique Description
 		sheet.setColumnWidth(3, 60000);
@@ -316,40 +319,40 @@ public class ExcelExporter
 		sheet.setColumnWidth(6, 12000);
 
 		// Technique Tactics
-		sheet.setColumnWidth(7, 6000);
+		sheet.setColumnWidth(7, 7000);
 
 		// Technique Detection
 		sheet.setColumnWidth(8, 20000);
 
 		// Is Subtechnique
-		sheet.setColumnWidth(9, 4000);
+		sheet.setColumnWidth(9, 5000);
 
 		// Test Number
-		sheet.setColumnWidth(10, 3500);
+		sheet.setColumnWidth(10, 4000);
 
 		// Test Name
-		sheet.setColumnWidth(11, 10000);
+		sheet.setColumnWidth(11, 10500);
 
 		// Test GUID
-		sheet.setColumnWidth(12, 12000);
+		sheet.setColumnWidth(12, 11000);
 
-		// Text Description
-		sheet.setColumnWidth(13, 20000);
+		// Test Description
+		sheet.setColumnWidth(13, 19000);
 
 		// Test Supported Platforms
 		sheet.setColumnWidth(14, 6000);
 
 		// Test Input Arguments
-		sheet.setColumnWidth(15, 15000);
+		sheet.setColumnWidth(15, 14600);
 
 		// Test Executor
-		sheet.setColumnWidth(16, 15000);
+		sheet.setColumnWidth(16, 14600);
 
 		// Test Dependency Executor Name
-		sheet.setColumnWidth(17, 6000);
+		sheet.setColumnWidth(17, 6500);
 
 		// Test Dependencies
-		sheet.setColumnWidth(18, 12000);
+		sheet.setColumnWidth(18, 11500);
 	}
 
 	private void hideTechniqueColumns(Sheet sheet)
@@ -358,6 +361,16 @@ public class ExcelExporter
 		{
 			sheet.setColumnHidden(i, true);
 		}
+	}
+
+	private void applyFilter(Sheet sheet)
+	{
+		// Determine the last row and column with data
+		int lastRowNum = sheet.getLastRowNum();
+		int lastColNum = sheet.getRow(lastRowNum).getLastCellNum() - 1;
+
+		CellRangeAddress usedRange = new CellRangeAddress(3, lastRowNum, 0, lastColNum);
+		sheet.setAutoFilter(usedRange);
 	}
 
 	private void writeWorkbook(Workbook workbook) throws IOException
