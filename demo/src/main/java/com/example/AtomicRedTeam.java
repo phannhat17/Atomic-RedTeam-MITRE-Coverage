@@ -143,7 +143,7 @@ public class AtomicRedTeam extends MitreAttackFramework
 		exporter.export();
 	}
 
-	public int getNumTechniques()
+	public int getNumTechniques(String taxonomy, String type)
 	{
 		return 0;
 	}

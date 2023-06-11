@@ -7,40 +7,39 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @JsonDeserialize(using = Deserializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MitreAttackFramework 
+public class MitreAttackFramework
 {
-
 	private String techniqueId;
-	
+
 	@JsonProperty("name")
-    private String techniqueName;
-	
+	private String techniqueName;
+
 	@JsonProperty("description")
-    private String techniqueDescription;
-	
+	private String techniqueDescription;
+
 	@JsonProperty("x_mitre_platforms")
-    private String[] techniquePlatforms;
-	
+	private String[] techniquePlatforms;
+
 	@JsonProperty("x_mitre_domains")
-    private String[] techniqueDomains;
-	
-    private String techniqueUrl;
-	
-    private String[] techniqueTactic;
-	
+	private String[] techniqueDomains;
+
+	private String techniqueUrl;
+
+	private String[] techniqueTactics;
+
 	@JsonProperty("x_mitre_detection")
-    private String techniqueDetection;
-	
+	private String techniqueDetection;
+
 	@JsonProperty("x_mitre_is_subtechnique")
-    private boolean techniqueIsSubtechnique;
-	
+	private boolean techniqueIsSubtechnique;
+
 	public MitreAttackFramework()
 	{
-		
+
 	}
-	
+
 	public MitreAttackFramework(String techniqueId, String techniqueName, String techniqueDescription,
-			String[] techniquePlatforms, String[] techniqueDomains, String techniqueUrl, String[] techniqueTactic,
+			String[] techniquePlatforms, String[] techniqueDomains, String techniqueUrl, String[] techniqueTactics,
 			String techniqueDetection, boolean techniqueIsSubtechnique)
 	{
 		this.techniqueId = techniqueId;
@@ -49,7 +48,7 @@ public class MitreAttackFramework
 		this.techniquePlatforms = techniquePlatforms;
 		this.techniqueDomains = techniqueDomains;
 		this.techniqueUrl = techniqueUrl;
-		this.techniqueTactic = techniqueTactic;
+		this.techniqueTactics = techniqueTactics;
 		this.techniqueDetection = techniqueDetection;
 		this.techniqueIsSubtechnique = techniqueIsSubtechnique;
 	}
@@ -94,9 +93,9 @@ public class MitreAttackFramework
 		this.techniqueUrl = techniqueUrl;
 	}
 
-	public void setTechniqueTactic(String[] techniqueTactic)
+	public void setTechniqueTactics(String[] techniqueTactics)
 	{
-		this.techniqueTactic = techniqueTactic;
+		this.techniqueTactics = techniqueTactics;
 	}
 
 	public void setTechniqueDetection(String techniqueDetection)
@@ -129,9 +128,9 @@ public class MitreAttackFramework
 		return techniqueUrl;
 	}
 
-	public String[] getTechniqueTactic()
+	public String[] getTechniqueTactics()
 	{
-		return techniqueTactic;
+		return techniqueTactics;
 	}
 
 	public String getTechniqueDetection()
@@ -147,27 +146,23 @@ public class MitreAttackFramework
 	public void downloadData() throws URISyntaxException
 	{
 		String mitreURL = "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/";
-    	String mitreDirectory = "demo/data/mitre-attack";
-    	// Array of files to download
-    	String[] mitreFiles = {
-                "enterprise-attack/enterprise-attack.json",
-                "mobile-attack/mobile-attack.json",
-                "ics-attack/ics-attack.json"
-        };
-    	
-    	DataRetriever mitreDownloader = new DataRetriever(mitreURL, mitreDirectory, mitreFiles);
-    	mitreDownloader.download();
+		String mitreDirectory = "demo/data/mitre-attack";
+		// Array of files to download
+		String[] mitreFiles = { "enterprise-attack/enterprise-attack.json", "mobile-attack/mobile-attack.json",
+				"ics-attack/ics-attack.json" };
+
+		DataRetriever mitreDownloader = new DataRetriever(mitreURL, mitreDirectory, mitreFiles);
+		mitreDownloader.download();
 	}
-	
-	public int getNumTechniques()
+
+	public int getNumTechniques(String taxonomy, String type)
 	{
 		return 0;
 	}
-	
+
 	public static void main(String[] args) throws URISyntaxException
 	{
 		MitreAttackFramework mitre = new MitreAttackFramework();
 		mitre.downloadData();
 	}
-	
 }

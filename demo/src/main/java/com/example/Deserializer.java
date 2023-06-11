@@ -18,8 +18,7 @@ public class Deserializer extends JsonDeserializer<Object>
 		if (node.has("auto_generated_guid"))
 		{
 			return deserializeAtomicRedTeam(node);
-		} 
-		else
+		} else
 		{
 			return deserializeMitreAttackFramework(node);
 		}
@@ -131,7 +130,7 @@ public class Deserializer extends JsonDeserializer<Object>
 			throws JsonProcessingException, IllegalArgumentException
 	{
 
-		JsonNode externalReferencesNode = node.get("external_references");
+		JsonNode externalReferencesNode = node.has("external_references") ? node.get("external_references") : null;
 		JsonNode externalNode = null;
 		if (externalReferencesNode != null && externalReferencesNode.isArray())
 		{
@@ -145,26 +144,36 @@ public class Deserializer extends JsonDeserializer<Object>
 				}
 			}
 		}
-		String techniqueId = externalNode.get("external_id").asText();
+		String techniqueId = (externalNode != null && externalNode.has("external_id"))
+				? externalNode.get("external_id").asText()
+				: "";
 
-		String techniqueName = node.get("name").asText();
+		String techniqueName = node.has("name") ? node.get("name").asText() : "";
 
-		String techniqueDescription = node.get("description").asText();
+		String techniqueDescription = node.has("description") ? node.get("description").asText() : "";
 
-		String[] techniquePlatforms = parseStringArray(objectMapper, node.get("x_mitre_platforms"));
+		String[] techniquePlatforms = node.has("x_mitre_platforms")
+				? parseStringArray(objectMapper, node.get("x_mitre_platforms"))
+				: null;
 
-		String[] techniqueDomains = parseStringArray(objectMapper, node.get("x_mitre_domains"));
+		String[] techniqueDomains = node.has("x_mitre_domains")
+				? parseStringArray(objectMapper, node.get("x_mitre_domains"))
+				: null;
 
-		String techniqueUrl = externalNode.get("url").asText();
+		String techniqueUrl = (externalNode != null && externalNode.has("url")) ? externalNode.get("url").asText() : "";
 
-		String[] techniqueTactic = parseTactics(objectMapper, node.get("kill_chain_phases"));
+		String[] techniqueTactics = node.has("kill_chain_phases")
+				? parseTactics(objectMapper, node.get("kill_chain_phases"))
+				: null;
 
-		String techniqueDetection = node.has("x_mitre_detection")? node.get("x_mitre_detection").asText() : "";
+		String techniqueDetection = node.has("x_mitre_detection") ? node.get("x_mitre_detection").asText() : "";
 
-		boolean techniqueIsSubtechnique = node.get("x_mitre_is_subtechnique").asBoolean();
+		boolean techniqueIsSubtechnique = node.has("x_mitre_is_subtechnique")
+				? node.get("x_mitre_is_subtechnique").asBoolean()
+				: false;
 
 		return new MitreAttackFramework(techniqueId, techniqueName, techniqueDescription, techniquePlatforms,
-				techniqueDomains, techniqueUrl, techniqueTactic, techniqueDetection, techniqueIsSubtechnique);
+				techniqueDomains, techniqueUrl, techniqueTactics, techniqueDetection, techniqueIsSubtechnique);
 	}
 
 	private AtomicRedTeam deserializeAtomicRedTeam(JsonNode node)

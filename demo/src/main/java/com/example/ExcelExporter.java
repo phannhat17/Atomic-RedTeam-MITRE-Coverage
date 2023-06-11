@@ -26,22 +26,33 @@ public class ExcelExporter
 
 	public void export() throws IOException
 	{
+		long start = System.currentTimeMillis();
+
 		String jsonData = new String(Files.readAllBytes(Paths.get(jsonFilePath)));
 		List<AtomicRedTeam> atomicTests = mapJsonToAtomicTests(jsonData);
+
 		Workbook workbook = new XSSFWorkbook();
 		Sheet sheet = workbook.createSheet("Atomic Test");
 		sheet.setZoom(50);
+
 		createTitleRow(sheet);
+
 		Row spaceRow = sheet.createRow(1);
 		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 18));
-		spaceRow.setHeightInPoints((short) 50);;
+		spaceRow.setHeightInPoints((short) 50);
+
 		createHeaderRow(sheet);
 		createSubHeaderRow(sheet);
+
 		createDataRows(sheet, atomicTests);
 		autoSizeColumns(sheet);
 		hideTechniqueColumns(sheet);
+
 		writeWorkbook(workbook);
 		System.out.println("Excel file exported successfully");
+		
+		long stop = System.currentTimeMillis();
+		System.out.println("Run time: " + (stop - start));
 	}
 
 	private List<AtomicRedTeam> mapJsonToAtomicTests(String jsonData) throws IOException
@@ -71,7 +82,7 @@ public class ExcelExporter
 						atomicTest.setTechniquePlatforms(technique.getTechniquePlatforms());
 						atomicTest.setTechniqueDomains(technique.getTechniqueDomains());
 						atomicTest.setTechniqueUrl(technique.getTechniqueUrl());
-						atomicTest.setTechniqueTactic(technique.getTechniqueTactic());
+						atomicTest.setTechniqueTactics(technique.getTechniqueTactics());
 						atomicTest.setTechniqueDetection(technique.getTechniqueDetection());
 						atomicTest.setTechniqueIsSubtechnique(technique.isTechniqueIsSubtechnique());
 						atomicTest.setTestNumber(testNumber);
@@ -88,10 +99,10 @@ public class ExcelExporter
 	{
 		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 18));
 		Row row = sheet.createRow(0);
-		row.setHeightInPoints((short) 50);;
+		row.setHeightInPoints((short) 50);
 		Cell mergedCell = row.createCell(0);
 		mergedCell.setCellValue("ATOMIC REDTEAM TEST LIBRARY DATA");
-		
+
 		CellStyle titleStyle = sheet.getWorkbook().createCellStyle();
 		Font font = sheet.getWorkbook().createFont();
 		font.setFontHeightInPoints((short) 20);
@@ -111,7 +122,7 @@ public class ExcelExporter
 			mergedCell.setCellStyle(titleStyle);
 		}
 	}
-	
+
 	private void createHeaderRow(Sheet sheet)
 	{
 		Row headerRow = sheet.createRow(2);
@@ -156,7 +167,7 @@ public class ExcelExporter
 			mergedCell.setCellStyle(headerCellStyle);
 		}
 	}
-	
+
 	private void createSubHeaderRow(Sheet sheet)
 	{
 		Row subHeaderRow = sheet.createRow(3);
@@ -177,7 +188,7 @@ public class ExcelExporter
 		{
 			Cell cell = subHeaderRow.createCell(i);
 			cell.setCellValue(HEADERS[i]);
-			cell.setCellStyle(subHeaderCellStyle);;
+			cell.setCellStyle(subHeaderCellStyle);
 		}
 	}
 
@@ -188,21 +199,18 @@ public class ExcelExporter
 		if (value instanceof Integer)
 		{
 			dataCell.setCellValue((Integer) value);
-		}
-		else if (value instanceof Double)
+		} else if (value instanceof Double)
 		{
 			dataCell.setCellValue((Double) value);
-		}
-		else if (value instanceof Boolean)
+		} else if (value instanceof Boolean)
 		{
 			dataCell.setCellValue((Boolean) value);
-		}
-		else
+		} else
 		{
 			dataCell.setCellValue(value.toString());
 		}
 	}
-	
+
 	private void createDataRows(Sheet sheet, List<AtomicRedTeam> atomicTests)
 	{
 		int rowNum = 4;
@@ -216,7 +224,7 @@ public class ExcelExporter
 		contentCellStyle.setBorderTop(BorderStyle.THIN);
 		contentCellStyle.setBorderLeft(BorderStyle.THIN);
 		contentCellStyle.setBorderRight(BorderStyle.THIN);
-		
+
 		CellStyle contentCenteredCellStyle = sheet.getWorkbook().createCellStyle();
 		contentCenteredCellStyle.setWrapText(true);
 		contentCenteredCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
@@ -232,42 +240,55 @@ public class ExcelExporter
 			dataRow.setHeight((short) -1);
 
 			createDataCell(dataRow, 0, contentCenteredCellStyle, rowNum - 4);
-			
-			createDataCell(dataRow,1, contentCenteredCellStyle, atomicTest.getTechniqueId());
-			
+
+			createDataCell(dataRow, 1, contentCenteredCellStyle, atomicTest.getTechniqueId());
+
 			createDataCell(dataRow, 2, contentCellStyle, atomicTest.getTechniqueName());
-			
+
 			createDataCell(dataRow, 3, contentCellStyle, atomicTest.getTechniqueDescription());
-			
-			createDataCell(dataRow, 4, contentCellStyle, String.join("\n", atomicTest.getTechniquePlatforms()));
-			
-			createDataCell(dataRow, 5, contentCellStyle, String.join("\n", atomicTest.getTechniqueDomains()));
-			
+
+			String techniquePlatforms = (atomicTest.getTechniquePlatforms() == null) ? ""
+					: String.join("\n", atomicTest.getTechniquePlatforms());
+			createDataCell(dataRow, 4, contentCellStyle, techniquePlatforms);
+
+			String techniqueDomains = (atomicTest.getTechniqueDomains() == null) ? ""
+					: String.join("\n", atomicTest.getTechniqueDomains());
+			createDataCell(dataRow, 5, contentCellStyle, techniqueDomains);
+
 			createDataCell(dataRow, 6, contentCellStyle, atomicTest.getTechniqueUrl());
-			
-			createDataCell(dataRow, 7, contentCellStyle, String.join("\n", atomicTest.getTechniqueTactic()));
-			
+
+			String techniqueTactics = (atomicTest.getTechniqueTactics() == null) ? ""
+					: String.join("\n", atomicTest.getTechniqueTactics());
+			createDataCell(dataRow, 7, contentCellStyle, techniqueTactics);
+
 			createDataCell(dataRow, 8, contentCellStyle, atomicTest.getTechniqueDetection());
-			
+
 			createDataCell(dataRow, 9, contentCellStyle, atomicTest.isTechniqueIsSubtechnique());
-			
+
 			createDataCell(dataRow, 10, contentCenteredCellStyle, atomicTest.getTestNumber());
-			
+
 			createDataCell(dataRow, 11, contentCellStyle, atomicTest.getTestName());
-			
+
 			createDataCell(dataRow, 12, contentCellStyle, atomicTest.getTestGuid());
-			
+
 			createDataCell(dataRow, 13, contentCellStyle, atomicTest.getTestDescription());
-			
-			createDataCell(dataRow, 14, contentCellStyle, String.join("\n", atomicTest.getTestSupportedPlatforms()));
-			
-			createDataCell(dataRow, 15, contentCellStyle, String.join("\n", atomicTest.getTestInputArguments()));
-			
-			createDataCell(dataRow, 16, contentCellStyle, String.join("\n", atomicTest.getTestExecutor()));
-			
+
+			String testSupportedPlatforms = (atomicTest.getTestSupportedPlatforms() == null) ? ""
+					: String.join("\n", atomicTest.getTestSupportedPlatforms());
+			createDataCell(dataRow, 14, contentCellStyle, testSupportedPlatforms);
+
+			String testInputArguments = (atomicTest.getTestInputArguments() == null) ? ""
+					: String.join("\n", atomicTest.getTestInputArguments());
+			createDataCell(dataRow, 15, contentCellStyle, testInputArguments);
+
+			String testExecutor = (atomicTest.getTestExecutor() == null) ? ""
+					: String.join("\n", atomicTest.getTestExecutor());
+			createDataCell(dataRow, 16, contentCellStyle, testExecutor);
+
 			createDataCell(dataRow, 17, contentCellStyle, atomicTest.getTestDependencyExecutorName());
 
-			String testDependencies = (atomicTest.getTestDependencies() == null)? "" : String.join("\n", atomicTest.getTestDependencies());
+			String testDependencies = (atomicTest.getTestDependencies() == null) ? ""
+					: String.join("\n", atomicTest.getTestDependencies());
 			createDataCell(dataRow, 18, contentCellStyle, testDependencies);
 		}
 	}
@@ -275,58 +296,58 @@ public class ExcelExporter
 	private void autoSizeColumns(Sheet sheet)
 	{
 		sheet.setColumnWidth(0, 3000);
-		
+
 		// Technique ID
 		sheet.setColumnWidth(1, 4000);
-		
+
 		// Technique Name
 		sheet.setColumnWidth(2, 10000);
-		
+
 		// Technique Description
 		sheet.setColumnWidth(3, 60000);
-		
+
 		// Technique Platforms
 		sheet.setColumnWidth(4, 5000);
-		
+
 		// Technique Domains
 		sheet.setColumnWidth(5, 5000);
-		
+
 		// Technique URL
 		sheet.setColumnWidth(6, 12000);
-		
+
 		// Technique Tactics
 		sheet.setColumnWidth(7, 6000);
 
 		// Technique Detection
 		sheet.setColumnWidth(8, 20000);
-		
+
 		// Is Subtechnique
 		sheet.setColumnWidth(9, 4000);
-		
+
 		// Test Number
 		sheet.setColumnWidth(10, 3500);
-		
+
 		// Test Name
 		sheet.setColumnWidth(11, 10000);
-		
+
 		// Test GUID
 		sheet.setColumnWidth(12, 12000);
-		
+
 		// Text Description
 		sheet.setColumnWidth(13, 20000);
-		
+
 		// Test Supported Platforms
 		sheet.setColumnWidth(14, 6000);
-		
+
 		// Test Input Arguments
 		sheet.setColumnWidth(15, 15000);
-		
+
 		// Test Executor
 		sheet.setColumnWidth(16, 15000);
-		
+
 		// Test Dependency Executor Name
 		sheet.setColumnWidth(17, 6000);
-		
+
 		// Test Dependencies
 		sheet.setColumnWidth(18, 12000);
 	}
