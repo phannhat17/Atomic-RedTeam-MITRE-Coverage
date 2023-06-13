@@ -23,11 +23,11 @@
 hs_err_pid*
 replay_pid*
 
-demo/target
-demo/.vscode
+atomic-data-collector/target
+atomic-data-collector/.vscode
 
-demo/.classpath
-demo/.project
-demo/.settings*
+atomic-data-collector/.classpath
+atomic-data-collector/.project
+atomic-data-collector/.settings*
 
 /.metadata/
