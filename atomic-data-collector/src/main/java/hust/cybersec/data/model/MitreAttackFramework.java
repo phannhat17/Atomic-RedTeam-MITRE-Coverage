@@ -1,9 +1,12 @@
-package hust.cybersec;
+package hust.cybersec.data.model;
 
 import java.net.URISyntaxException;
 
 import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import hust.cybersec.data.collector.DataRetriever;
+import hust.cybersec.data.process.Deserializer;
 
 @JsonDeserialize(using = Deserializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -1,4 +1,4 @@
-package hust.cybersec;
+package hust.cybersec.data.collector;
 
 import java.io.*;
 import java.net.*;

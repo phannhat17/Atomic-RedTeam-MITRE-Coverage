@@ -1,4 +1,7 @@
-package hust.cybersec;
+package hust.cybersec.functional;
+
+import hust.cybersec.data.model.AtomicRedTeam;
+import hust.cybersec.data.model.MitreAttackFramework;
 
 public class CoverageAnalyser
 {
