@@ -122,14 +122,14 @@ public class AtomicRedTeam extends MitreAttackFramework
 	public void downloadData() throws URISyntaxException
 	{
 		String atomicURL = "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/Indexes/";
-		String atomicDirectory = "demo/data/atomic";
+		String atomicDirectory = "./data/atomic";
 		String[] atomicFiles = { "index.yaml" };
 
 		DataRetriever atomicDownloader = new DataRetriever(atomicURL, atomicDirectory, atomicFiles);
 		atomicDownloader.download("atomic-all.yaml");
 
-		String yamlFilePath = "demo/data/atomic/atomic-all.yaml";
-		String jsonFilePath = "demo/data/atomic/atomic-all.json";
+		String yamlFilePath = "./data/atomic/atomic-all.yaml";
+		String jsonFilePath = "./data/atomic/atomic-all.json";
 
 		YamlToJsonConverter converter = new YamlToJsonConverter(yamlFilePath, jsonFilePath);
 		converter.convert();
@@ -137,8 +137,8 @@ public class AtomicRedTeam extends MitreAttackFramework
 
 	public void exportExcel() throws FileNotFoundException, IOException
 	{
-		String jsonFilePath = "demo/data/atomic/atomic-all.json";
-		String excelFilePath = "demo/data/atomic/atomic-all.xlsx";
+		String jsonFilePath = "./data/atomic/atomic-all.json";
+		String excelFilePath = "./data/atomic/atomic-all.xlsx";
 		ExcelExporter exporter = new ExcelExporter(jsonFilePath, excelFilePath);
 		exporter.export();
 	}
