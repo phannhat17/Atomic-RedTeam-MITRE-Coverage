@@ -304,7 +304,7 @@ public class ExcelExporter
 		sheet.setColumnWidth(1, 5500);
 
 		// Technique Name
-		sheet.setColumnWidth(2,10500);
+		sheet.setColumnWidth(2, 10500);
 
 		// Technique Description
 		sheet.setColumnWidth(3, 60000);

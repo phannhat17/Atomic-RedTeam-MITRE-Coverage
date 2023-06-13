@@ -151,7 +151,7 @@ public class AtomicRedTeam extends MitreAttackFramework
 	public void analyseCoverage(MitreAttackFramework mitre)
 	{
 		CoverageAnalyser analyser = new CoverageAnalyser(this, mitre);
-		analyser.generateChart();
+		analyser.analyse();
 	}
 
 	public static void main(String[] args) throws URISyntaxException

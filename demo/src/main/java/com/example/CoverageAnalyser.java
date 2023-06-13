@@ -11,12 +11,30 @@ public class CoverageAnalyser
 		this.mitre = mitre;
 	}
 
+	public void analyse()
+	{
+		preprocessData();
+		double ratio = calculateCoverageRatio();
+		
+		generateChart();
+	}
+	
+	private void preprocessData()
+	{
+		buildDataTree();
+	}
+	
+	private void buildDataTree()
+	{
+		
+	}
+	
 	private double calculateCoverageRatio()
 	{
 		return 0.0;
 	}
 
-	public void generateChart()
+	private void generateChart()
 	{
 
 	}
