@@ -1,4 +1,4 @@
-package com.example;
+package hust.cybersec;
 
 import java.io.*;
 import java.net.URISyntaxException;
