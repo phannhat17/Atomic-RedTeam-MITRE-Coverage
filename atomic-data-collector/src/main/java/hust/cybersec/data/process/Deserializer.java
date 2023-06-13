@@ -68,7 +68,7 @@ public class Deserializer extends JsonDeserializer<Object>
 	{
 		if (!node.has("kill_chain_phases"))
 		{
-			return null;
+			return new String[0];
 		}
 		JsonNode jsonNode = node.get("kill_chain_phases");
 		List<String> phaseNames = new ArrayList<>();
@@ -90,7 +90,7 @@ public class Deserializer extends JsonDeserializer<Object>
 	{
 		if (!node.has("input_arguments"))
 		{
-			return null;
+			return new String[0];
 		}
 		JsonNode jsonNode = node.get("input_arguments");
 		List<String> inputArgumentsList = new ArrayList<>();
@@ -125,7 +125,7 @@ public class Deserializer extends JsonDeserializer<Object>
 	{
 		if (!node.has("executor"))
 		{
-			return null;
+			return new String[0];
 		}
 		JsonNode jsonNode = node.get("executor");
 		List<String> executorList = new ArrayList<>();
@@ -153,7 +153,7 @@ public class Deserializer extends JsonDeserializer<Object>
 	{
 		if (!node.has("dependencies"))
 		{
-			return null;
+			return new String[0];
 		}
 		JsonNode jsonNode = node.get("dependencies");
 		List<String> dependenciesList = new ArrayList<>();

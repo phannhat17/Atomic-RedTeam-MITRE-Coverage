@@ -52,8 +52,7 @@ public class DataRetriever
 				e.printStackTrace();
 			}
 		}
-
-	};
+	}
 
 	// Downloads a file using NIO (non-blocking I/O)
 	protected void downloadUsingNIO(String urlStr, String file) throws IOException, URISyntaxException
