@@ -124,6 +124,7 @@ public class AtomicRedTeam extends MitreAttackFramework
 		return testDependencies;
 	}
 
+	@Override
 	public void downloadData() throws URISyntaxException
 	{
 		String atomicURL = "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/Indexes/";
@@ -140,17 +141,12 @@ public class AtomicRedTeam extends MitreAttackFramework
 		converter.convert();
 	}
 
-	public void exportExcel() throws FileNotFoundException, IOException
+	public void exportExcel() throws IOException
 	{
 		String jsonFilePath = "./data/atomic/atomic-all.json";
 		String excelFilePath = "./data/atomic/atomic-all.xlsx";
 		ExcelExporter exporter = new ExcelExporter(jsonFilePath, excelFilePath);
 		exporter.export();
-	}
-
-	public int getNumTechniques(String taxonomy, String type)
-	{
-		return 0;
 	}
 
 	public void analyseCoverage(MitreAttackFramework mitre)
@@ -159,10 +155,9 @@ public class AtomicRedTeam extends MitreAttackFramework
 		analyser.analyse();
 	}
 
-	public static void main(String[] args) throws URISyntaxException
+	public static void main(String[] args)
 	{
 		AtomicRedTeam atomic = new AtomicRedTeam();
-		// atomic.downloadData();
 		try
 		{
 			atomic.exportExcel();

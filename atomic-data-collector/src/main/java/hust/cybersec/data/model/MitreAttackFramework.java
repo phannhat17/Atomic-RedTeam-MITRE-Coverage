@@ -150,17 +150,13 @@ public class MitreAttackFramework
 	{
 		String mitreURL = "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/";
 		String mitreDirectory = "./data/mitre-attack";
+		
 		// Array of files to download
 		String[] mitreFiles = { "enterprise-attack/enterprise-attack.json", "mobile-attack/mobile-attack.json",
 				"ics-attack/ics-attack.json" };
 
 		DataRetriever mitreDownloader = new DataRetriever(mitreURL, mitreDirectory, mitreFiles);
 		mitreDownloader.download();
-	}
-
-	public int getNumTechniques(String taxonomy, String type)
-	{
-		return 0;
 	}
 
 	public static void main(String[] args) throws URISyntaxException

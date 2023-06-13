@@ -26,16 +26,52 @@ public class Deserializer extends JsonDeserializer<Object>
 			return deserializeMitreAttackFramework(node);
 		}
 	}
-
-	private String[] parseStringArray(ObjectMapper objectMapper, JsonNode jsonNode)
-			throws JsonProcessingException, IllegalArgumentException
+	
+	private JsonNode findExternalNode(JsonNode externalReferencesNode)
 	{
-		return objectMapper.treeToValue(jsonNode, String[].class);
+		JsonNode externalNode = null;
+		if (externalReferencesNode != null && externalReferencesNode.isArray())
+		{
+			for (JsonNode referenceNode : externalReferencesNode)
+			{
+				if (referenceNode.has("external_id")
+						&& referenceNode.get("source_name").asText().equals("mitre-attack"))
+				{
+					externalNode = referenceNode;
+					break;
+				}
+			}
+		}
+		return externalNode;
+	}
+	
+	private String getNodeValue(JsonNode node, String fieldName)
+	{
+		if (node.has(fieldName))
+		{
+			return node.get(fieldName).asText();
+		}
+		return "";
 	}
 
-	private String[] parseTactics(ObjectMapper objectMapper, JsonNode jsonNode)
+	private String[] parseStringArray(ObjectMapper objectMapper, JsonNode node, String fieldName)
+			throws JsonProcessingException, IllegalArgumentException
 	{
-		List<String> phaseNames = new ArrayList<String>();
+		if (node.has(fieldName))
+		{
+			return objectMapper.treeToValue(node.get(fieldName), String[].class);
+		}
+		return null;
+	}
+
+	private String[] parseTactics(JsonNode node)
+	{
+		if (!node.has("kill_chain_phases"))
+		{
+			return null;
+		}
+		JsonNode jsonNode = node.get("kill_chain_phases");
+		List<String> phaseNames = new ArrayList<>();
 		if (jsonNode != null && jsonNode.isArray())
 		{
 			for (JsonNode phaseNode : jsonNode)
@@ -50,9 +86,14 @@ public class Deserializer extends JsonDeserializer<Object>
 		return phaseNames.toArray(new String[0]);
 	}
 
-	private String[] parseInputArguments(JsonNode jsonNode)
+	private String[] parseInputArguments(JsonNode node)
 	{
-		List<String> inputArgumentsList = new ArrayList<String>();
+		if (!node.has("input_arguments"))
+		{
+			return null;
+		}
+		JsonNode jsonNode = node.get("input_arguments");
+		List<String> inputArgumentsList = new ArrayList<>();
 		if (jsonNode != null && jsonNode.isObject())
 		{
 			Iterator<Map.Entry<String, JsonNode>> argumentFields = jsonNode.fields();
@@ -80,9 +121,14 @@ public class Deserializer extends JsonDeserializer<Object>
 		return inputArgumentsList.toArray(new String[0]);
 	}
 
-	private String[] parseExecutor(JsonNode jsonNode)
+	private String[] parseExecutor(JsonNode node)
 	{
-		List<String> executorList = new ArrayList<String>();
+		if (!node.has("executor"))
+		{
+			return null;
+		}
+		JsonNode jsonNode = node.get("executor");
+		List<String> executorList = new ArrayList<>();
 		if (jsonNode != null && jsonNode.isObject())
 		{
 			Iterator<Map.Entry<String, JsonNode>> executorFields = jsonNode.fields();
@@ -103,9 +149,14 @@ public class Deserializer extends JsonDeserializer<Object>
 		return executorList.toArray(new String[0]);
 	}
 
-	private String[] parseDependencies(JsonNode jsonNode)
+	private String[] parseDependencies(JsonNode node)
 	{
-		List<String> dependenciesList = new ArrayList<String>();
+		if (!node.has("dependencies"))
+		{
+			return null;
+		}
+		JsonNode jsonNode = node.get("dependencies");
+		List<String> dependenciesList = new ArrayList<>();
 		if (jsonNode != null && jsonNode.isArray())
 		{
 			for (JsonNode dependencyNode : jsonNode)
@@ -134,46 +185,26 @@ public class Deserializer extends JsonDeserializer<Object>
 	{
 
 		JsonNode externalReferencesNode = node.has("external_references") ? node.get("external_references") : null;
-		JsonNode externalNode = null;
-		if (externalReferencesNode != null && externalReferencesNode.isArray())
-		{
-			for (JsonNode referenceNode : externalReferencesNode)
-			{
-				if (referenceNode.has("external_id")
-						&& referenceNode.get("source_name").asText().equals("mitre-attack"))
-				{
-					externalNode = referenceNode;
-					break;
-				}
-			}
-		}
+		JsonNode externalNode = findExternalNode(externalReferencesNode);
 		String techniqueId = (externalNode != null && externalNode.has("external_id"))
 				? externalNode.get("external_id").asText()
 				: "";
 
-		String techniqueName = node.has("name") ? node.get("name").asText() : "";
+		String techniqueName = getNodeValue(node, "name");
 
-		String techniqueDescription = node.has("description") ? node.get("description").asText() : "";
+		String techniqueDescription = getNodeValue(node, "description");
 
-		String[] techniquePlatforms = node.has("x_mitre_platforms")
-				? parseStringArray(objectMapper, node.get("x_mitre_platforms"))
-				: null;
+		String[] techniquePlatforms = parseStringArray(objectMapper, node, "x_mitre_platforms");
 
-		String[] techniqueDomains = node.has("x_mitre_domains")
-				? parseStringArray(objectMapper, node.get("x_mitre_domains"))
-				: null;
+		String[] techniqueDomains = parseStringArray(objectMapper, node, "x_mitre_domains");
 
 		String techniqueUrl = (externalNode != null && externalNode.has("url")) ? externalNode.get("url").asText() : "";
 
-		String[] techniqueTactics = node.has("kill_chain_phases")
-				? parseTactics(objectMapper, node.get("kill_chain_phases"))
-				: null;
+		String[] techniqueTactics = parseTactics(node);
 
-		String techniqueDetection = node.has("x_mitre_detection") ? node.get("x_mitre_detection").asText() : "";
+		String techniqueDetection = getNodeValue(node, "x_mitre_detection");
 
-		boolean techniqueIsSubtechnique = node.has("x_mitre_is_subtechnique")
-				? node.get("x_mitre_is_subtechnique").asBoolean()
-				: false;
+		boolean techniqueIsSubtechnique = node.has("x_mitre_is_subtechnique") && node.get("x_mitre_is_subtechnique").asBoolean();
 
 		return new MitreAttackFramework(techniqueId, techniqueName, techniqueDescription, techniquePlatforms,
 				techniqueDomains, techniqueUrl, techniqueTactics, techniqueDetection, techniqueIsSubtechnique);
@@ -182,23 +213,21 @@ public class Deserializer extends JsonDeserializer<Object>
 	private AtomicRedTeam deserializeAtomicRedTeam(JsonNode node)
 			throws JsonProcessingException, IllegalArgumentException
 	{
-		String testName = node.get("name").asText();
+		String testName = getNodeValue(node, "name");
 
-		String testGuid = node.get("auto_generated_guid").asText();
+		String testGuid = getNodeValue(node, "auto_generated_guid");
 
-		String testDescription = node.get("description").asText();
+		String testDescription = getNodeValue(node, "description");
 
-		String[] testSupportedPlatforms = parseStringArray(objectMapper, node.get("supported_platforms"));
+		String[] testSupportedPlatforms = parseStringArray(objectMapper, node, "supported_platforms");
 
-		String[] testInputArguments = parseInputArguments(node.get("input_arguments"));
+		String[] testInputArguments = parseInputArguments(node);
 
-		String[] testExecutor = parseExecutor(node.get("executor"));
+		String[] testExecutor = parseExecutor(node);
 
-		String testDependencyExecutorName = node.has("dependency_executor_name")
-				? node.get("dependency_executor_name").asText()
-				: "";
+		String testDependencyExecutorName = getNodeValue(node, "dependency_executor_name");
 
-		String[] testDependencies = node.has("dependencies") ? parseDependencies(node.get("dependencies")) : null;
+		String[] testDependencies = parseDependencies(node);
 
 		return new AtomicRedTeam(testName, testGuid, testDescription, testSupportedPlatforms, testInputArguments,
 				testExecutor, testDependencyExecutorName, testDependencies);
