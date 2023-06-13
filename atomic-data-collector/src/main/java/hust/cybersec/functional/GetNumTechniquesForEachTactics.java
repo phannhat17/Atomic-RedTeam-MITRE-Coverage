@@ -1,4 +1,4 @@
-package hust.cybersec;
+package hust.cybersec.functional;
 
 import org.json.*;
 import java.nio.file.*;
