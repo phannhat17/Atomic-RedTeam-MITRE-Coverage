@@ -15,20 +15,20 @@ public class CoverageAnalyser
 	{
 		preprocessData();
 		double ratio = calculateCoverageRatio();
-		
+
 		generateChart();
 	}
-	
+
 	private void preprocessData()
 	{
 		buildDataTree();
 	}
-	
+
 	private void buildDataTree()
 	{
-		
+
 	}
-	
+
 	private double calculateCoverageRatio()
 	{
 		return 0.0;
