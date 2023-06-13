@@ -1,4 +1,4 @@
-package com.example;
+package hust.cybersec;
 
 import org.json.*;
 import java.nio.file.*;
@@ -73,7 +73,7 @@ public class GetNumTechniquesForEachTactics
 		try
 		{
 			// Get the absolute path of the base directory
-			Path basePath = Paths.get("demo/data/mitre-attack/").toAbsolutePath().normalize();
+			Path basePath = Paths.get("./data/mitre-attack/").toAbsolutePath().normalize();
 
 			// Resolve the file path based on the technique
 			Path filePath = basePath.resolve(domain + ".json");
@@ -97,7 +97,7 @@ public class GetNumTechniquesForEachTactics
 		try
 		{
 			// Get the absolute path of the base directory
-			Path basePath = Paths.get("demo/data/mitre-attack/").toAbsolutePath().normalize();
+			Path basePath = Paths.get("./data/mitre-attack/").toAbsolutePath().normalize();
 
 			// Resolve the file path for the output file based on the domain
 			Path filePath = basePath.resolve(domain + ".txt");

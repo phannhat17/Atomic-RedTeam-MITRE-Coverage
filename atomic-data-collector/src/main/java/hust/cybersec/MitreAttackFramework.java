@@ -1,4 +1,4 @@
-package com.example;
+package hust.cybersec;
 
 import java.net.URISyntaxException;
 
@@ -146,7 +146,7 @@ public class MitreAttackFramework
 	public void downloadData() throws URISyntaxException
 	{
 		String mitreURL = "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/";
-		String mitreDirectory = "demo/data/mitre-attack";
+		String mitreDirectory = "./data/mitre-attack";
 		// Array of files to download
 		String[] mitreFiles = { "enterprise-attack/enterprise-attack.json", "mobile-attack/mobile-attack.json",
 				"ics-attack/ics-attack.json" };
