@@ -61,7 +61,7 @@ public class Deserializer extends JsonDeserializer<Object>
 		{
 			return objectMapper.treeToValue(node.get(fieldName), String[].class);
 		}
-		return null;
+		return new String[0];
 	}
 
 	private String[] parseTactics(JsonNode node)
