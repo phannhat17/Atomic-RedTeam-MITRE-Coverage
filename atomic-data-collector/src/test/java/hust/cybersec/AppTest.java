@@ -1,4 +1,4 @@
-package com.example;
+package hust.cybersec;
 
 import static org.junit.Assert.assertTrue;
 
