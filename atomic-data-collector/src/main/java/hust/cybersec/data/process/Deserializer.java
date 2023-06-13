@@ -1,7 +1,10 @@
-package hust.cybersec;
+package hust.cybersec.data.process;
 
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
+
+import hust.cybersec.data.model.AtomicRedTeam;
+import hust.cybersec.data.model.MitreAttackFramework;
 
 import java.io.*;
 import java.util.*;
