@@ -1,51 +1,48 @@
 package hust.cybersec.data.process;
 
+import java.util.Arrays;
+
 public class DataTree
 {
 	private DataNode root;
-	private static final String[] tacticList = { "reconnaissance", "resource-development", "initial-access",
-			"execution", "persistence", "privilege-escalation", "defense-evasion", "credential-access", "discovery",
-			"lateral-movement", "collection", "command-and-control", "exfiltration", "impact" };
-	private static final String[] platformList = { "Windows", "Azure AD", "Office 365", "SaaS", "IaaS", "Linux",
-			"macOS", "Google Workspace", "Containers", "Network" };
 
-	public DataTree(String domains)
+	public DataTree(String domain)
 	{
-		root = new DataNode(domains, 0);
+		root = new DataNode(domain, new Pair(0, 0));
 		buildTree(root);
 	}
 
 	private void buildTree(DataNode parentNode)
 	{
-		for (String tactic : tacticList)
+		for (String tactic : Constants.TACTICS)
 		{
-			DataNode tacticNode = new DataNode(tactic);
+			DataNode tacticNode = new DataNode(tactic, new Pair(0, 0));
 			parentNode.getChild().put(tactic, tacticNode);
 
-			for (String platform : platformList)
+			for (String platform : Constants.PLATFORMS)
 			{
-				DataNode platformNode = new DataNode(platform);
+				DataNode platformNode = new DataNode(platform, new Pair(0, 0));
 				tacticNode.getChild().put(platform, platformNode);
 
-				DataNode totalTechniqueNode = new DataNode("TOTAL.Technique");
-				platformNode.getChild().put("TOTAL.Technique", totalTechniqueNode);
+				DataNode atomicTechniqueNode = new DataNode("Atomic.Technique", 0);
+				platformNode.getChild().put("Atomic.Technique", atomicTechniqueNode);
 
-				for (String testPlatform : platformList)
-				{
-					DataNode testPlatformNode = new DataNode(testPlatform);
-					platformNode.getChild().put(testPlatform, testPlatformNode);
-				}
+				DataNode atomicTestNode = new DataNode("Atomic.Test", 0);
+				atomicTechniqueNode.getChild().put("Atomic.Test", atomicTestNode);
+
+				DataNode mitreTechniqueNode = new DataNode("Mitre.Technique", 0);
+				platformNode.getChild().put("Mitre.Technique", mitreTechniqueNode);
 			}
 		}
 	}
 
-	public int getValue(String[] path)
+	public Object getValue(String[] path)
 	{
 		DataNode node = getNode(path);
-		return (node != null) ? node.getValue() : 0;
+		return (node != null) ? node.getValue() : null;
 	}
 
-	public void setValue(String[] path, int value)
+	public void setValue(String[] path, Object value)
 	{
 		DataNode node = getNode(path);
 		if (node != null)
@@ -63,26 +60,31 @@ public class DataTree
 			current = current.getChild().get(level);
 			if (current == null)
 			{
-				System.out.println("Path not found!");
+				System.out.println("Path not found: " + Arrays.toString(path));
 				return null;
 			}
 		}
 		return current;
 	}
 
-	public static void main(String[] args)
-	{
-		DataTree dataTree = new DataTree("enterprise");
-
-		// Retrieve node values
-		int value = dataTree.getValue(new String[] { "enterprise", "collection", "macOS" });
-		System.out.println("Value: " + value);
-
-		// Set node value
-		dataTree.setValue(new String[] { "enterprise", "collection", "macOS" }, 10);
-
-		// Retrieve updated node value
-		value = dataTree.getValue(new String[] { "enterprise", "collection", "macOS" });
-		System.out.println("Updated value: " + value);
-	}
+//	public static void main(String[] args)
+//	{
+//		DataTree dataTree = new DataTree("enterprise");
+//
+//		// Retrieve node values
+//		Integer value = dataTree.getValue(new String[] { "enterprise", "collection", "macOS", "Mitre.Technique" });
+//		System.out.println("Value: " + value);
+//		value = dataTree.getValue(new String[] { "enterprise", "collection" });
+//		System.out.println("Value: " + value);
+//
+//		// Set node value
+//		dataTree.setValue(new String[] { "enterprise", "collection", "macOS", "Mitre.Technique" }, 10);
+//		dataTree.setValue(new String[] { "enterprise", "collection" }, 10);
+//
+//		// Retrieve updated node value
+//		value = dataTree.getValue(new String[] { "enterprise", "collection", "macOS", "Mitre.Technique" });
+//		System.out.println("Updated value: " + value);
+//		value = dataTree.getValue(new String[] { "enterprise", "collection" });
+//		System.out.println("Updated value: " + value);
+//	}
 }

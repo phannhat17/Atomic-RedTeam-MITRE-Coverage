@@ -7,8 +7,7 @@ import com.fasterxml.jackson.annotation.*;
 
 import hust.cybersec.data.collector.DataRetriever;
 import hust.cybersec.data.process.YamlToJsonConverter;
-import hust.cybersec.functional.CoverageAnalyser;
-import hust.cybersec.functional.ExcelExporter;
+import hust.cybersec.functional.*;
 
 public class AtomicRedTeam extends MitreAttackFramework
 {
@@ -151,7 +150,7 @@ public class AtomicRedTeam extends MitreAttackFramework
 
 	public void analyseCoverage(MitreAttackFramework mitre)
 	{
-		CoverageAnalyser analyser = new CoverageAnalyser(this, mitre);
+		CoverageAnalyser analyser = new CoverageAnalyser();
 		analyser.analyse();
 	}
 

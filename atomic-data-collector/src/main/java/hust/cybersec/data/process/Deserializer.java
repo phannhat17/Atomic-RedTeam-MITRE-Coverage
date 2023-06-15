@@ -3,8 +3,7 @@ package hust.cybersec.data.process;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 
-import hust.cybersec.data.model.AtomicRedTeam;
-import hust.cybersec.data.model.MitreAttackFramework;
+import hust.cybersec.data.model.*;
 
 import java.io.*;
 import java.util.*;
@@ -26,7 +25,7 @@ public class Deserializer extends JsonDeserializer<Object>
 			return deserializeMitreAttackFramework(node);
 		}
 	}
-	
+
 	private JsonNode findExternalNode(JsonNode externalReferencesNode)
 	{
 		JsonNode externalNode = null;
@@ -44,7 +43,7 @@ public class Deserializer extends JsonDeserializer<Object>
 		}
 		return externalNode;
 	}
-	
+
 	private String getNodeValue(JsonNode node, String fieldName)
 	{
 		if (node.has(fieldName))
@@ -204,7 +203,8 @@ public class Deserializer extends JsonDeserializer<Object>
 
 		String techniqueDetection = getNodeValue(node, "x_mitre_detection");
 
-		boolean techniqueIsSubtechnique = node.has("x_mitre_is_subtechnique") && node.get("x_mitre_is_subtechnique").asBoolean();
+		boolean techniqueIsSubtechnique = node.has("x_mitre_is_subtechnique")
+				&& node.get("x_mitre_is_subtechnique").asBoolean();
 
 		return new MitreAttackFramework(techniqueId, techniqueName, techniqueDescription, techniquePlatforms,
 				techniqueDomains, techniqueUrl, techniqueTactics, techniqueDetection, techniqueIsSubtechnique);
