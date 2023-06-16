@@ -61,6 +61,7 @@ public class ExcelExporter
 
 	private List<AtomicRedTeam> mapJsonToAtomicTests(String jsonData) throws IOException
 	{
+		HashSet<String> testID = new HashSet<>();
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode root = objectMapper.readTree(jsonData);
 		List<AtomicRedTeam> atomicTests = new ArrayList<>();
@@ -78,6 +79,16 @@ public class ExcelExporter
 					int testNumber = 0;
 					for (JsonNode atomicTestNode : atomicTestsNode)
 					{
+						if (!atomicTestNode.has("auto_generated_guid"))
+						{
+							continue;
+						}
+						String testAutoID = atomicTestNode.get("auto_generated_guid").asText();
+						if (testID.contains(testAutoID))
+						{
+								continue;
+						}
+						testID.add(testAutoID);
 						testNumber += 1;
 						AtomicRedTeam atomicTest = objectMapper.treeToValue(atomicTestNode, AtomicRedTeam.class);
 						atomicTest.setTechniqueId(technique.getTechniqueId());
