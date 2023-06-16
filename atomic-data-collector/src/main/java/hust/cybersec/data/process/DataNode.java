@@ -17,7 +17,7 @@ public class DataNode
 	public DataNode(String name, Object value)
 	{
 		this.name = name;
-		if (value instanceof Pair || value instanceof Integer)
+		if (value instanceof Pair || value instanceof Integer || value instanceof Triple)
 		{
 			this.value = value;
 		}
@@ -48,7 +48,7 @@ public class DataNode
 			System.out.println("Cannot set value for this node");
 			return;
 		}
-		if (!(value instanceof Pair || value instanceof Integer))
+		if (!(value instanceof Pair || value instanceof Integer || value instanceof Triple))
 		{
 			System.out.println("Cannot set the value with this type");
 			return;

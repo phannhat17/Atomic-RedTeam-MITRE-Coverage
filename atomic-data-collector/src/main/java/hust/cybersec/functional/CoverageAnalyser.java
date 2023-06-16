@@ -130,7 +130,7 @@ public class CoverageAnalyser
 		return platformSubList.toArray(new String[0]);
 	}
 
-	private void assignMitreNodeValue(int domainInt, String[] pathNode)
+	private void assignNodeValue(int domainInt, String[] pathNode, int elementInt)
 	{
 		switch (domainInt)
 		{
@@ -139,8 +139,14 @@ public class CoverageAnalyser
 				if (value == null)
 					return;
 				Pair pairValue = (Pair) value;
-				pairValue.setFirst_mitre(pairValue.getFirst_mitre() + 1);
-//				pairValue.setSecond_atomic(pairValue.getSecond_atomic() + 1); 
+				if (elementInt == 1)
+				{
+					pairValue.setFirstPairElement(pairValue.getFirstPairElement() + 1);
+				}
+				else
+				{
+					pairValue.setSecondPairElement(pairValue.getSecondPairElement() + 1); 
+				}
 				enterpriseTree.setValue(pathNode, pairValue);
 				return;
 			case 1:
@@ -148,7 +154,14 @@ public class CoverageAnalyser
 				if (value == null)
 					return;
 				pairValue = (Pair) value;
-				pairValue.setFirst_mitre(pairValue.getFirst_mitre() + 1);
+				if (elementInt == 1)
+				{
+					pairValue.setFirstPairElement(pairValue.getFirstPairElement() + 1);
+				}
+				else
+				{
+					pairValue.setSecondPairElement(pairValue.getSecondPairElement() + 1); 
+				}
 				mobileTree.setValue(pathNode, pairValue);
 				return;
 			case 2:
@@ -156,12 +169,111 @@ public class CoverageAnalyser
 				if (value == null)
 					return;
 				pairValue = (Pair) value;
-				pairValue.setFirst_mitre(pairValue.getFirst_mitre() + 1);
+				if (elementInt == 1)
+				{
+					pairValue.setFirstPairElement(pairValue.getFirstPairElement() + 1);
+				}
+				else
+				{
+					pairValue.setSecondPairElement(pairValue.getSecondPairElement() + 1); 
+				}
 				icsTree.setValue(pathNode, pairValue);
 		}
 	}
+	
+	private void assignPlatformValue(int domainInt, String[] pathNode, int elementInt, int elementSubInt)
+	{
+		switch (domainInt)
+		{
+			case 0:
+				Object value = enterpriseTree.getValue(pathNode);
+				if (value == null || elementInt != 2)
+					return;
+				Triple tripleValue = (Triple) value;
+				Pair pairValue = tripleValue.getSecondThirdElement();
+				if (elementSubInt == 1)
+				{
+					pairValue.setFirstPairElement(pairValue.getFirstPairElement() + 1);
+					tripleValue.setSecondThirdElement(pairValue);
+				}
+				else
+				{
+					pairValue.setFirstPairElement(pairValue.getSecondPairElement() + 1);
+					tripleValue.setSecondThirdElement(pairValue);
+				}
+				enterpriseTree.setValue(pathNode, tripleValue);
+				return;
+			case 1:
+				value = mobileTree.getValue(pathNode);
+				if (value == null || elementInt != 2)
+					return;
+				tripleValue = (Triple) value;
+				pairValue = tripleValue.getSecondThirdElement();
+				if (elementSubInt == 1)
+				{
+					pairValue.setFirstPairElement(pairValue.getFirstPairElement() + 1);
+					tripleValue.setSecondThirdElement(pairValue);
+				}
+				else
+				{
+					pairValue.setFirstPairElement(pairValue.getSecondPairElement() + 1);
+					tripleValue.setSecondThirdElement(pairValue);
+				}
+				mobileTree.setValue(pathNode, tripleValue);
+				return;
+			case 2:
+				value = icsTree.getValue(pathNode);
+				if (value == null || elementInt != 2)
+					return;
+				tripleValue = (Triple) value;
+				pairValue = tripleValue.getSecondThirdElement();
+				if (elementSubInt == 1)
+				{
+					pairValue.setFirstPairElement(pairValue.getFirstPairElement() + 1);
+					tripleValue.setSecondThirdElement(pairValue);
+				}
+				else
+				{
+					pairValue.setFirstPairElement(pairValue.getSecondPairElement() + 1);
+					tripleValue.setSecondThirdElement(pairValue);
+				}
+				icsTree.setValue(pathNode, tripleValue);
+				
+		}
+	}
+	
+	private void assignPlatformValue(int domainInt, String[] pathNode, int elementInt)
+	{
+		switch (domainInt)
+		{
+			case 0:
+				Object value = enterpriseTree.getValue(pathNode);
+				if (value == null || elementInt != 1)
+					return;
+				Triple tripleValue = (Triple) value;
+				tripleValue.setFirstTripleElement(tripleValue.getFirstTripleElement() + 1);
+				enterpriseTree.setValue(pathNode, tripleValue);
+				return;
+			case 1:
+				value = mobileTree.getValue(pathNode);
+				if (value == null || elementInt != 1)
+					return;
+				tripleValue = (Triple) value;
+				tripleValue.setFirstTripleElement(tripleValue.getFirstTripleElement() + 1);
+				mobileTree.setValue(pathNode, tripleValue);
+				return;
+			case 2:
+				value = icsTree.getValue(pathNode);
+				if (value == null || elementInt != 1)
+					return;
+				tripleValue = (Triple) value;
+				tripleValue.setFirstTripleElement(tripleValue.getFirstTripleElement() + 1);
+				icsTree.setValue(pathNode, tripleValue);
+				
+		}
+	}
 
-	private void assignLeafValue(int domainInt, String[] pathNode)
+	private void assignMitreValue(int domainInt, String[] pathNode)
 	{
 		switch (domainInt)
 		{
@@ -185,7 +297,7 @@ public class CoverageAnalyser
 	private void mapMitreData()
 	{
 		String jsonDirectoryPath = "./data/mitre-attack/";
-		path[3] = "Mitre.Technique";
+		path[3] = "Mitre.Total";
 		for (int i = 0; i < Constants.DOMAINS.length; ++i)
 		{
 			String domain = Constants.DOMAINS[i];
@@ -202,20 +314,25 @@ public class CoverageAnalyser
 					{
 						if (checkValid(techniqueNode))
 						{
-							assignMitreNodeValue(i, Arrays.copyOfRange(path, 0, 1));
+							assignNodeValue(i, Arrays.copyOfRange(path, 0, 1), 1);
 							String[] tacticSubList = getTacticList(techniqueNode, Constants.KILL_CHAIN_NAME[i]);
 							if (techniqueNode.has("x_mitre_platforms"))
 							{
 								String[] platformSubList = getPlatformList(techniqueNode);
-								for (String tactic : tacticSubList)
+								for (int j = 0; j < tacticSubList.length; ++j)
 								{
+									String tactic = tacticSubList[j];
 									path[1] = tactic;
-									assignMitreNodeValue(i, Arrays.copyOfRange(path, 0, 2));
+									assignNodeValue(i, Arrays.copyOfRange(path, 0, 2), 1);
 									for (String platform : platformSubList)
 									{
 										path[2] = platform;
-										assignMitreNodeValue(i, Arrays.copyOfRange(path, 0, 3));
-										assignLeafValue(i, path);
+										assignPlatformValue(i, Arrays.copyOfRange(path, 0, 3), 2, 1);
+										assignMitreValue(i, path);
+										if (j == tacticSubList.length - 1)
+										{
+											assignPlatformValue(i, Arrays.copyOfRange(path, 0, 3), 1);
+										}
 									}
 								}
 							}
@@ -232,7 +349,8 @@ public class CoverageAnalyser
 
 	private void mapAtomicData()
 	{
-
+		String jsonPath = "./data/atomic/atomic-all.json";
+		path[3] = "Atomic.Total";
 	}
 
 	private void buildDataTree()
@@ -263,53 +381,54 @@ public class CoverageAnalyser
 		CoverageAnalyser coverage = new CoverageAnalyser();
 		coverage.preprocessData();
 
-//		coverage.path[3] = "Mitre.Technique";
-//		
-//		String[] tempPath;
-//		
-//		for (int i = 0; i < Constants.DOMAINS.length; ++i)
-//		{
-//			int total = 0;
-//			String domain = Constants.DOMAINS[i];
-//			coverage.path[0] = domain;
-//			for (String tactic : Constants.TACTICS)
-//			{
-//				coverage.path[1] = tactic;
-//				for (String platform : Constants.PLATFORMS)
-//				{
-//					coverage.path[2] = platform;
-//					Integer value = null;
-//					if (i == 0)
-//					{
-//						value = (Integer) coverage.enterpriseTree.getValue(coverage.path);
-//						total += value;
-//					} else if (i == 1)
-//					{
-//						value = (Integer) coverage.mobileTree.getValue(coverage.path);
-//						total += value;
-//					} else
-//					{
-//						value = (Integer) coverage.icsTree.getValue(coverage.path);
-//						total += value;
-//					}
-//					System.out.println(Arrays.toString(coverage.path) + ": " + value);
-//				}
-//			}
-//			System.out.println("Total for " + domain + ": " + total);
-//		}
-//		
-//		coverage.path[0] = Constants.DOMAINS[0];
-//		tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
-//		Pair pairValue = (Pair) coverage.enterpriseTree.getValue(tempPath);
-//		System.out.println(Arrays.toString(tempPath) + pairValue.getFirst_mitre() + " " + pairValue.getSecond_atomic());
-//		coverage.path[0] = Constants.DOMAINS[1];
-//		tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
-//		pairValue = (Pair) coverage.mobileTree.getValue(tempPath);
-//		System.out.println(Arrays.toString(tempPath) + pairValue.getFirst_mitre() + " " + pairValue.getSecond_atomic());
-//		coverage.path[0] = Constants.DOMAINS[2];
-//		tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
-//		pairValue = (Pair) coverage.icsTree.getValue(tempPath);
-//		System.out.println(Arrays.toString(tempPath) + pairValue.getFirst_mitre() + " " + pairValue.getSecond_atomic());
-	}
-
+		coverage.path[3] = "Mitre.Total";
+		
+		String[] tempPath;
+		
+		for (int i = 0; i < Constants.DOMAINS.length; ++i)
+		{
+			int total = 0;
+			String domain = Constants.DOMAINS[i];
+			coverage.path[0] = domain;
+			for (String tactic : Constants.TACTICS)
+			{
+				coverage.path[1] = tactic;
+				for (String platform : Constants.PLATFORMS)
+				{
+					coverage.path[2] = platform;
+					Integer value = null;
+					if (i == 0)
+					{
+						value = (Integer) coverage.enterpriseTree.getValue(coverage.path);
+						total += value;
+					} else if (i == 1)
+					{
+						value = (Integer) coverage.mobileTree.getValue(coverage.path);
+						total += value;
+					} else
+					{
+						value = (Integer) coverage.icsTree.getValue(coverage.path);
+						total += value;
+					}
+					System.out.println(Arrays.toString(coverage.path) + ": " + value);
+					coverage.path[2] = null;
+				}
+			}
+			coverage.path[1] = null;
+			System.out.println("Total for " + domain + ": " + total);
+		}
+		
+		coverage.path[0] = Constants.DOMAINS[0];
+		tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
+		Pair pairValue = (Pair) coverage.enterpriseTree.getValue(tempPath);
+		System.out.println(Arrays.toString(tempPath) + pairValue.getFirstPairElement() + " " + pairValue.getSecondPairElement());
+		coverage.path[0] = Constants.DOMAINS[1];
+		tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
+		pairValue = (Pair) coverage.mobileTree.getValue(tempPath);
+		System.out.println(Arrays.toString(tempPath) + pairValue.getFirstPairElement() + " " + pairValue.getSecondPairElement());
+		coverage.path[0] = Constants.DOMAINS[2];
+		tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
+		pairValue = (Pair) coverage.icsTree.getValue(tempPath);
+		System.out.println(Arrays.toString(tempPath) + pairValue.getFirstPairElement() + " " + pairValue.getSecondPairElement());
+	}                                                           
 }

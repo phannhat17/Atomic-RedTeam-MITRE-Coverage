@@ -21,17 +21,17 @@ public class DataTree
 
 			for (String platform : Constants.PLATFORMS)
 			{
-				DataNode platformNode = new DataNode(platform, new Pair(0, 0));
+				DataNode platformNode = new DataNode(platform, new Triple(0, new Pair(0, 0)));
 				tacticNode.getChild().put(platform, platformNode);
 
-				DataNode atomicTechniqueNode = new DataNode("Atomic.Technique", 0);
-				platformNode.getChild().put("Atomic.Technique", atomicTechniqueNode);
+				DataNode atomicTechniqueNode = new DataNode("Atomic.Total", new Pair(0, 0));
+				platformNode.getChild().put("Atomic.Total", atomicTechniqueNode);
 
-				DataNode atomicTestNode = new DataNode("Atomic.Test", 0);
-				atomicTechniqueNode.getChild().put("Atomic.Test", atomicTestNode);
+//				DataNode atomicTestNode = new DataNode("Atomic.Test", 0);
+//				atomicTechniqueNode.getChild().put("Atomic.Test", atomicTestNode);
 
-				DataNode mitreTechniqueNode = new DataNode("Mitre.Technique", 0);
-				platformNode.getChild().put("Mitre.Technique", mitreTechniqueNode);
+				DataNode mitreTechniqueNode = new DataNode("Mitre.Total", 0);
+				platformNode.getChild().put("Mitre.Total", mitreTechniqueNode);
 			}
 		}
 	}
@@ -57,6 +57,10 @@ public class DataTree
 		for (int i = 1; i < path.length; ++i)
 		{
 			String level = path[i];
+			if (path[i] == null)
+			{
+				break;
+			}
 			current = current.getChild().get(level);
 			if (current == null)
 			{

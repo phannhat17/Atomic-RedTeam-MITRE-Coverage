@@ -159,8 +159,10 @@ public class AtomicRedTeam extends MitreAttackFramework
 		AtomicRedTeam atomic = new AtomicRedTeam();
 		try
 		{
+			// atomic.downloadData();
 			atomic.exportExcel();
 		} catch (IOException e)
+		// } catch(URISyntaxException e)
 		{
 			e.printStackTrace();
 		}
