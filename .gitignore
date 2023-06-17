@@ -25,6 +25,7 @@ replay_pid*
 
 atomic-data-collector/target
 atomic-data-collector/.vscode
+atomic-data-collector/.idea
 
 atomic-data-collector/.classpath
 atomic-data-collector/.project
