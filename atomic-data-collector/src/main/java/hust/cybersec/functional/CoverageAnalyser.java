@@ -103,10 +103,13 @@ public class CoverageAnalyser
 				tripleValue = (Triple) value;
 				tripleValue.setMitreNode(tripleValue.getMitreNode() + valueAdd);
 				icsTree.setValue(pathNode, tripleValue);
+				return;
+			default:
+				return;
 		}
 	}
 
-	private Triple addNodeValue(Object value, String[] pathNode, int elementInt, int elementSubInt, int valueAdd)
+	private Triple addNodeValue(Object value, int elementSubInt, int valueAdd)
 	{
 		Triple tripleValue = (Triple) value;
 		Pair pairValue = tripleValue.getAtomicNode();
@@ -130,20 +133,21 @@ public class CoverageAnalyser
 			case 0:
 				Object value = enterpriseTree.getValue(pathNode);
 				if (value == null || elementInt != 2) return;
-				Triple tripleValue = addNodeValue(value, pathNode, elementInt, elementSubInt, valueAdd);
+				Triple tripleValue = addNodeValue(value, elementSubInt, valueAdd);
 				enterpriseTree.setValue(pathNode, tripleValue);
 				return;
 			case 1:
 				value = mobileTree.getValue(pathNode);
 				if (value == null || elementInt != 2) return;
-				tripleValue = addNodeValue(value, pathNode, elementInt, elementSubInt, valueAdd);
+				tripleValue = addNodeValue(value, elementSubInt, valueAdd);
 				mobileTree.setValue(pathNode, tripleValue);
 				return;
 			case 2:
 				value = icsTree.getValue(pathNode);
 				if (value == null || elementInt != 2) return;
-				tripleValue = addNodeValue(value, pathNode, elementInt, elementSubInt, valueAdd);
+				tripleValue = addNodeValue(value, elementSubInt, valueAdd);
 				icsTree.setValue(pathNode, tripleValue);
+				return;
 			default:
 				return;
 		}
@@ -167,12 +171,13 @@ public class CoverageAnalyser
 				value = icsTree.getValue(pathNode);
 				value = (value == null) ? null : (Integer) value + 1;
 				icsTree.setValue(pathNode, value);
+				return;
 			default:
 				return;
 		}
 	}
 
-	private Pair addAtomicValue(Object value, String[] pathNode, int elementInt, int valueAdd)
+	private Pair addAtomicValue(Object value, int elementInt, int valueAdd)
 	{
 		Pair pairValue = (Pair) value;
 		if (elementInt == 1)
@@ -193,20 +198,21 @@ public class CoverageAnalyser
 			case 0:
 				Object value = enterpriseTree.getValue(pathNode);
 				if (value == null || elementInt > 2 || elementInt < 1) return;
-				Pair pairValue = addAtomicValue(value, pathNode, elementInt, valueAdd);
+				Pair pairValue = addAtomicValue(value, elementInt, valueAdd);
 				enterpriseTree.setValue(pathNode, pairValue);
 				return;
 			case 1:
 				value = mobileTree.getValue(pathNode);
 				if (value == null || elementInt > 2 || elementInt < 1) return;
-				pairValue = addAtomicValue(value, pathNode, elementInt, valueAdd);
+				pairValue = addAtomicValue(value, elementInt, valueAdd);
 				mobileTree.setValue(pathNode, pairValue);
 				return;
 			case 2:
 				value = icsTree.getValue(pathNode);
 				if (value == null || elementInt > 2 || elementInt < 1) return;
-				pairValue = addAtomicValue(value, pathNode, elementInt, valueAdd);
+				pairValue = addAtomicValue(value, elementInt, valueAdd);
 				icsTree.setValue(pathNode, pairValue);
+				return;
 			default:
 				return;
 		}
