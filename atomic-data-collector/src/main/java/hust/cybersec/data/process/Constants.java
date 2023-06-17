@@ -11,4 +11,9 @@ public class Constants
 	public static final String[] TACTICS = parser.parseDistinctTactic();
 
 	public static final String[] PLATFORMS = parser.parseDistinctPlatform();
+
+	private Constants()
+	{
+
+	}
 }

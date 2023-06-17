@@ -40,7 +40,8 @@ public class JsonNodeHandler
 				if (referenceNode.has("external_id")
 						&& referenceNode.get("source_name").asText().equals("mitre-attack"))
 				{
-					if (referenceNode.get("external_id").asText().startsWith("T"))
+					String externalId = referenceNode.get("external_id").asText();
+					if (externalId.startsWith("T"))
 					{
 						externalNode = referenceNode;
 						break;
@@ -48,10 +49,6 @@ public class JsonNodeHandler
 				}
 			}
 		}
-		if (externalNode == null)
-		{
-			return false;
-		}
-		return true;
+		return externalNode != null;
 	}
 }

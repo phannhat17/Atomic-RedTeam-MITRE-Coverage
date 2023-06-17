@@ -7,6 +7,7 @@ import java.nio.file.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
+
 import com.fasterxml.jackson.databind.*;
 
 import hust.cybersec.data.model.*;
@@ -86,10 +87,6 @@ public class ExcelExporter
 					int testNumber = 0;
 					for (JsonNode atomicTestNode : atomicTestsNode)
 					{
-						if (!atomicTestNode.has("auto_generated_guid"))
-						{
-							continue;
-						}
 						String testAutoID = atomicTestNode.get("auto_generated_guid").asText();
 						if (testID.contains(testAutoID))
 						{
@@ -222,13 +219,16 @@ public class ExcelExporter
 		if (value instanceof Integer)
 		{
 			dataCell.setCellValue((Integer) value);
-		} else if (value instanceof Double)
+		}
+		else if (value instanceof Double)
 		{
 			dataCell.setCellValue((Double) value);
-		} else if (value instanceof Boolean)
+		}
+		else if (value instanceof Boolean)
 		{
 			dataCell.setCellValue((Boolean) value);
-		} else
+		}
+		else
 		{
 			dataCell.setCellValue(value.toString());
 		}

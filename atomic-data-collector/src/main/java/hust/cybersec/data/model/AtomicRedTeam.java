@@ -148,7 +148,7 @@ public class AtomicRedTeam extends MitreAttackFramework
 		exporter.export();
 	}
 
-	public void analyseCoverage(MitreAttackFramework mitre)
+	public void analyseCoverage()
 	{
 		CoverageAnalyser analyser = new CoverageAnalyser();
 		analyser.analyse();
@@ -160,7 +160,8 @@ public class AtomicRedTeam extends MitreAttackFramework
 		try
 		{
 			atomic.exportExcel();
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
 		}

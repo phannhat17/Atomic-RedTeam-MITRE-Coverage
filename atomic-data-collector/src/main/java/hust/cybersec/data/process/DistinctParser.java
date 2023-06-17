@@ -3,6 +3,7 @@ package hust.cybersec.data.process;
 import java.util.*;
 import java.nio.file.*;
 import java.io.IOException;
+
 import com.fasterxml.jackson.databind.*;
 
 public class DistinctParser
@@ -21,23 +22,30 @@ public class DistinctParser
 			{
 				for (JsonNode phaseNode : root)
 				{
-					if (phaseNode.has("kill_chain_name") && phaseNode.has("phase_name"))
+					if (checkPhaseNode(phaseNode, domain))
 					{
-						if (phaseNode.get("kill_chain_name").asText().equals(domain))
-						{
-							tacticList.add(phaseNode.get("phase_name").asText().toLowerCase());
-						}
+						tacticList.add(phaseNode.get("phase_name").asText().toLowerCase());
 					}
 				}
 			}
 		}
 	}
 
-	private void getPlatformList(JsonNode root)
+	private boolean checkPhaseNode(JsonNode phaseNode, String domain)
 	{
-		if (root.has("x_mitre_platforms"))
+		if (!phaseNode.has("kill_chain_name") || !phaseNode.has("phase_name"))
 		{
-			root = root.get("x_mitre_platforms");
+			return false;
+		}
+		String killChainName = phaseNode.get("kill_chain_name").asText();
+		return killChainName.equals(domain);
+	}
+
+	private void getPlatformList(JsonNode root, String fieldName)
+	{
+		if (root.has(fieldName))
+		{
+			root = root.get(fieldName);
 			if (root != null && root.isArray())
 			{
 				for (JsonNode valueNode : root)
@@ -69,12 +77,13 @@ public class DistinctParser
 							getTacticList(techniqueNode, Constants.KILL_CHAIN_NAME[i]);
 							if (techniqueNode.has("x_mitre_platforms"))
 							{
-								getPlatformList(techniqueNode);
+								getPlatformList(techniqueNode, "x_mitre_platforms");
 							}
 						}
 					}
 				}
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				System.out.println("Path not found!");
 				e.printStackTrace();

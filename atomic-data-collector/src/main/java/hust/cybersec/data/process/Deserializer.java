@@ -2,6 +2,7 @@ package hust.cybersec.data.process;
 
 import java.io.*;
 import java.util.*;
+
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 
@@ -21,21 +22,21 @@ public class Deserializer extends JsonDeserializer<Object>
 		if (node.has("auto_generated_guid"))
 		{
 			return deserializeAtomicRedTeam(node);
-		} else
+		}
+		else
 		{
 			return deserializeMitreAttackFramework(node);
 		}
 	}
 
-	private JsonNode findExternalNode(JsonNode externalReferencesNode)
+	private JsonNode findExternalNode(JsonNode externalReferencesNode, String fieldName)
 	{
 		JsonNode externalNode = null;
 		if (externalReferencesNode != null && externalReferencesNode.isArray())
 		{
 			for (JsonNode referenceNode : externalReferencesNode)
 			{
-				if (referenceNode.has("external_id")
-						&& referenceNode.get("source_name").asText().equals("mitre-attack"))
+				if (referenceNode.has(fieldName) && referenceNode.get("source_name").asText().equals("mitre-attack"))
 				{
 					externalNode = referenceNode;
 					break;
@@ -176,9 +177,10 @@ public class Deserializer extends JsonDeserializer<Object>
 	{
 
 		JsonNode externalReferencesNode = node.has("external_references") ? node.get("external_references") : null;
-		JsonNode externalNode = findExternalNode(externalReferencesNode);
-		String techniqueId = (externalNode != null && externalNode.has("external_id"))
-				? externalNode.get("external_id").asText()
+		String externalId = "external_id";
+		JsonNode externalNode = findExternalNode(externalReferencesNode, externalId);
+		String techniqueId = (externalNode != null && externalNode.has(externalId))
+				? externalNode.get(externalId).asText()
 				: "";
 
 		String techniqueName = jsonHandler.getNodeValue(node, "name");

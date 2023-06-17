@@ -2,7 +2,9 @@ package hust.cybersec.data.process;
 
 import java.io.*;
 import java.nio.file.*;
+
 import org.yaml.snakeyaml.LoaderOptions;
+
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.dataformat.yaml.*;
 
@@ -35,7 +37,8 @@ public class YamlToJsonConverter
 			byte[] yamlBytes = readYamlFile();
 			Object json = convertYamlToJson(yamlBytes);
 			writeJsonToFile(json);
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			System.err.println("An error occurred during YAML to JSON conversion.");
 			e.printStackTrace();
@@ -55,11 +58,13 @@ public class YamlToJsonConverter
 				throw new FileNotFoundException("The YAML file does not exist.");
 			}
 			return Files.readAllBytes(file);
-		} catch (SecurityException e)
+		}
+		catch (SecurityException e)
 		{
 			System.err.println("Insufficient permissions to read the YAML file.");
 			throw e;
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			System.err.println("An I/O error occurred while reading the YAML file.");
 			throw e;
@@ -71,7 +76,8 @@ public class YamlToJsonConverter
 		try
 		{
 			return yamlObjectMapper.readValue(yamlBytes, Object.class);
-		} catch (IOException ex)
+		}
+		catch (IOException ex)
 		{
 			System.err.println("Error occurred while converting YAML to JSON.");
 			ex.printStackTrace();

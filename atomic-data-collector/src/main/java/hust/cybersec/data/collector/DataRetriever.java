@@ -47,7 +47,8 @@ public class DataRetriever
 				}
 				Path filePathObj = directoryPathObj.resolve(finalFileName);
 				downloadUsingNIO(dataURL + path, filePathObj.toString());
-			} catch (IOException e)
+			}
+			catch (IOException e)
 			{
 				e.printStackTrace();
 			}
@@ -75,7 +76,8 @@ public class DataRetriever
 		{
 			httpsConnection.connect();
 			validateCertificate(httpsConnection);
-		} catch (SSLException e)
+		}
+		catch (SSLException e)
 		{
 			e.printStackTrace();
 			return;
@@ -91,10 +93,12 @@ public class DataRetriever
 			{
 				fileOutputStream.write(buffer, 0, bytesRead);
 			}
-		} catch (IOException e)
+		}
+		catch (IOException e)
 		{
 			e.printStackTrace();
-		} finally
+		}
+		finally
 		{
 			httpsConnection.disconnect();
 		}
@@ -110,7 +114,8 @@ public class DataRetriever
 			// Implement additional validation logic if required
 			// Verify certificate chain, expiration, revocation, etc.
 			connection.getServerCertificates();
-		} catch (SSLPeerUnverifiedException e)
+		}
+		catch (SSLPeerUnverifiedException e)
 		{
 			throw new SSLException("Certificate verification failed", e);
 		}
