@@ -31,3 +31,6 @@ atomic-data-collector/.project
 atomic-data-collector/.settings*
 
 /.metadata/
+
+.idea
+.vscode
