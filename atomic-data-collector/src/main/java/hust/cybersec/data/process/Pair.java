@@ -2,32 +2,32 @@ package hust.cybersec.data.process;
 
 public class Pair
 {
-	private Integer firstPairElement;
-	private Integer secondPairElement;
+	private Integer atomicTechnique;
+	private Integer atomicTest;
 
-	public Pair(Integer firstPairElement, Integer secondPairElement)
+	public Pair(Integer atomicTechnique, Integer atomicTest)
 	{
-		this.firstPairElement = firstPairElement;
-		this.secondPairElement = secondPairElement;
+		this.atomicTechnique = atomicTechnique;
+		this.atomicTest = atomicTest;
 	}
 
-	public Integer getFirstPairElement()
+	public Integer getAtomicTechnique()
 	{
-		return firstPairElement;
+		return atomicTechnique;
 	}
 
-	public void setFirstPairElement(Integer firstPairElement)
+	public void setAtomicTechnique(Integer atomicTechnique)
 	{
-		this.firstPairElement = firstPairElement;
+		this.atomicTechnique = atomicTechnique;
 	}
 
-	public Integer getSecondPairElement()
+	public Integer getAtomicTest()
 	{
-		return secondPairElement;
+		return atomicTest;
 	}
 
-	public void setSecondPairElement(Integer secondPairElement)
+	public void setAtomicTest(Integer atomicTest)
 	{
-		this.secondPairElement = secondPairElement;
+		this.atomicTest = atomicTest;
 	}
 }

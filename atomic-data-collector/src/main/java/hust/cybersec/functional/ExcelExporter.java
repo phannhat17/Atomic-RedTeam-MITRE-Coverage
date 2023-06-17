@@ -1,15 +1,16 @@
 package hust.cybersec.functional;
 
 import java.io.*;
-import java.nio.file.*;
 import java.util.*;
+import java.nio.file.*;
 
 import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import com.fasterxml.jackson.databind.*;
 
 import hust.cybersec.data.model.*;
+import hust.cybersec.data.process.*;
 
 public class ExcelExporter
 {
@@ -19,6 +20,8 @@ public class ExcelExporter
 			"Test Input Arguments", "Test Executor", "Test Dependency Executor Name", "Test Dependencies" };
 	private final String jsonFilePath;
 	private final String excelFilePath;
+
+	private JsonNodeHandler jsonHandler = new JsonNodeHandler();
 
 	public ExcelExporter(String jsonFilePath, String excelFilePath)
 	{
@@ -72,7 +75,11 @@ public class ExcelExporter
 			{
 				JsonNode techniqueNode = list.get("technique");
 				JsonNode atomicTestsNode = list.get("atomic_tests");
-				if (atomicTestsNode != null && atomicTestsNode.isArray())
+				if (!jsonHandler.checkValid(techniqueNode))
+				{
+					continue;
+				}
+				if (atomicTestsNode != null && atomicTestsNode.isArray() && !atomicTestsNode.isEmpty())
 				{
 					MitreAttackFramework technique = objectMapper.treeToValue(techniqueNode,
 							MitreAttackFramework.class);
@@ -86,7 +93,7 @@ public class ExcelExporter
 						String testAutoID = atomicTestNode.get("auto_generated_guid").asText();
 						if (testID.contains(testAutoID))
 						{
-								continue;
+							continue;
 						}
 						testID.add(testAutoID);
 						testNumber += 1;

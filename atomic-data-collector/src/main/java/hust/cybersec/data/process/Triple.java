@@ -2,32 +2,32 @@ package hust.cybersec.data.process;
 
 public class Triple
 {
-	private Integer firstTripleElement;
-	private Pair secondThirdElement;
+	private Integer mitreNode;
+	private Pair atomicNode;
 
-	public Triple(Integer firstTripleElement, Pair secondThirdElement)
+	public Triple(Integer mitreNode, Pair atomicNode)
 	{
-		this.firstTripleElement = firstTripleElement;
-		this.secondThirdElement = secondThirdElement;
+		this.mitreNode = mitreNode;
+		this.atomicNode = atomicNode;
 	}
 
-	public Integer getFirstTripleElement()
+	public Integer getMitreNode()
 	{
-		return firstTripleElement;
+		return mitreNode;
 	}
 
-	public void setFirstTripleElement(Integer firstTripleElement)
+	public void setMitreNode(Integer mitreNode)
 	{
-		this.firstTripleElement = firstTripleElement;
+		this.mitreNode = mitreNode;
 	}
 
-	public Pair getSecondThirdElement()
+	public Pair getAtomicNode()
 	{
-		return secondThirdElement;
+		return atomicNode;
 	}
 
-	public void setSecondThirdElement(Pair secondThirdElement)
+	public void setAtomicNode(Pair atomicNode)
 	{
-		this.secondThirdElement = secondThirdElement;
+		this.atomicNode = atomicNode;
 	}
 }

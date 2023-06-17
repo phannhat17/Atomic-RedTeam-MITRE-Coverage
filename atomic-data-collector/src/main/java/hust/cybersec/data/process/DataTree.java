@@ -8,7 +8,7 @@ public class DataTree
 
 	public DataTree(String domain)
 	{
-		root = new DataNode(domain, new Pair(0, 0));
+		root = new DataNode(domain, new Triple(0, new Pair(0, 0)));
 		buildTree(root);
 	}
 
@@ -16,7 +16,7 @@ public class DataTree
 	{
 		for (String tactic : Constants.TACTICS)
 		{
-			DataNode tacticNode = new DataNode(tactic, new Pair(0, 0));
+			DataNode tacticNode = new DataNode(tactic, new Triple(0, new Pair(0, 0)));
 			parentNode.getChild().put(tactic, tacticNode);
 
 			for (String platform : Constants.PLATFORMS)
@@ -26,9 +26,6 @@ public class DataTree
 
 				DataNode atomicTechniqueNode = new DataNode("Atomic.Total", new Pair(0, 0));
 				platformNode.getChild().put("Atomic.Total", atomicTechniqueNode);
-
-//				DataNode atomicTestNode = new DataNode("Atomic.Test", 0);
-//				atomicTechniqueNode.getChild().put("Atomic.Test", atomicTestNode);
 
 				DataNode mitreTechniqueNode = new DataNode("Mitre.Total", 0);
 				platformNode.getChild().put("Mitre.Total", mitreTechniqueNode);
@@ -70,25 +67,4 @@ public class DataTree
 		}
 		return current;
 	}
-
-//	public static void main(String[] args)
-//	{
-//		DataTree dataTree = new DataTree("enterprise");
-//
-//		// Retrieve node values
-//		Integer value = dataTree.getValue(new String[] { "enterprise", "collection", "macOS", "Mitre.Technique" });
-//		System.out.println("Value: " + value);
-//		value = dataTree.getValue(new String[] { "enterprise", "collection" });
-//		System.out.println("Value: " + value);
-//
-//		// Set node value
-//		dataTree.setValue(new String[] { "enterprise", "collection", "macOS", "Mitre.Technique" }, 10);
-//		dataTree.setValue(new String[] { "enterprise", "collection" }, 10);
-//
-//		// Retrieve updated node value
-//		value = dataTree.getValue(new String[] { "enterprise", "collection", "macOS", "Mitre.Technique" });
-//		System.out.println("Updated value: " + value);
-//		value = dataTree.getValue(new String[] { "enterprise", "collection" });
-//		System.out.println("Updated value: " + value);
-//	}
 }

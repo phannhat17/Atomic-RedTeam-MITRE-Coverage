@@ -1,16 +1,17 @@
 package hust.cybersec.data.process;
 
+import java.io.*;
+import java.util.*;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
 
 import hust.cybersec.data.model.*;
 
-import java.io.*;
-import java.util.*;
-
 public class Deserializer extends JsonDeserializer<Object>
 {
 	private ObjectMapper objectMapper = new ObjectMapper();
+
+	private JsonNodeHandler jsonHandler = new JsonNodeHandler();
 
 	@Override
 	public Object deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException
@@ -42,15 +43,6 @@ public class Deserializer extends JsonDeserializer<Object>
 			}
 		}
 		return externalNode;
-	}
-
-	private String getNodeValue(JsonNode node, String fieldName)
-	{
-		if (node.has(fieldName))
-		{
-			return node.get(fieldName).asText();
-		}
-		return "";
 	}
 
 	private String[] parseStringArray(ObjectMapper objectMapper, JsonNode node, String fieldName)
@@ -189,9 +181,9 @@ public class Deserializer extends JsonDeserializer<Object>
 				? externalNode.get("external_id").asText()
 				: "";
 
-		String techniqueName = getNodeValue(node, "name");
+		String techniqueName = jsonHandler.getNodeValue(node, "name");
 
-		String techniqueDescription = getNodeValue(node, "description");
+		String techniqueDescription = jsonHandler.getNodeValue(node, "description");
 
 		String[] techniquePlatforms = parseStringArray(objectMapper, node, "x_mitre_platforms");
 
@@ -201,7 +193,7 @@ public class Deserializer extends JsonDeserializer<Object>
 
 		String[] techniqueTactics = parseTactics(node);
 
-		String techniqueDetection = getNodeValue(node, "x_mitre_detection");
+		String techniqueDetection = jsonHandler.getNodeValue(node, "x_mitre_detection");
 
 		boolean techniqueIsSubtechnique = node.has("x_mitre_is_subtechnique")
 				&& node.get("x_mitre_is_subtechnique").asBoolean();
@@ -213,11 +205,11 @@ public class Deserializer extends JsonDeserializer<Object>
 	private AtomicRedTeam deserializeAtomicRedTeam(JsonNode node)
 			throws JsonProcessingException, IllegalArgumentException
 	{
-		String testName = getNodeValue(node, "name");
+		String testName = jsonHandler.getNodeValue(node, "name");
 
-		String testGuid = getNodeValue(node, "auto_generated_guid");
+		String testGuid = jsonHandler.getNodeValue(node, "auto_generated_guid");
 
-		String testDescription = getNodeValue(node, "description");
+		String testDescription = jsonHandler.getNodeValue(node, "description");
 
 		String[] testSupportedPlatforms = parseStringArray(objectMapper, node, "supported_platforms");
 
@@ -225,7 +217,7 @@ public class Deserializer extends JsonDeserializer<Object>
 
 		String[] testExecutor = parseExecutor(node);
 
-		String testDependencyExecutorName = getNodeValue(node, "dependency_executor_name");
+		String testDependencyExecutorName = jsonHandler.getNodeValue(node, "dependency_executor_name");
 
 		String[] testDependencies = parseDependencies(node);
 
