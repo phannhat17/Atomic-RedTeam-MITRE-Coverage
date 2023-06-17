@@ -361,7 +361,6 @@ public class CoverageAnalyser
 
 	private void mapAtomicData()
 	{
-		HashSet<String> testID = new HashSet<>();
 		HashSet<String> techniqueID = new HashSet<>();
 		String jsonPath = "./data/atomic/atomic-all.json";
 		path[3] = "Atomic.Total";
@@ -409,6 +408,7 @@ public class CoverageAnalyser
 								continue;
 							}
 							int totalTest = atomicTestsNode.size();
+					
 							assignNodeValue(domainIndex, Arrays.copyOfRange(path, 0, 1), 2, 1, 1);
 							assignNodeValue(domainIndex, Arrays.copyOfRange(path, 0, 1), 2, 2, totalTest);
 							for (int i = 0; i < tacticSubList.length; ++i)
@@ -416,15 +416,13 @@ public class CoverageAnalyser
 								String tactic = tacticSubList[i];
 								path[1] = tactic;
 
+								HashSet<String> testID = new HashSet<>();
 								HashSet<String> platformSubList = new HashSet<>();
+								assignNodeValue(domainIndex, Arrays.copyOfRange(path, 0, 2), 2, 1, 1);
+								assignNodeValue(domainIndex, Arrays.copyOfRange(path, 0, 2), 2, 2, totalTest);
 
 								for (JsonNode atomicTestNode : atomicTestsNode)
 								{
-									if (!atomicTestNode.has("auto_generated_guid")
-											|| !atomicTestNode.has("supported_platforms"))
-									{
-										continue;
-									}
 									String testAutoID = atomicTestNode.get("auto_generated_guid").asText();
 									if (testID.contains(testAutoID))
 									{
@@ -439,25 +437,19 @@ public class CoverageAnalyser
 										assignAtomicValue(domainIndex, path, 2, 1);
 										if (i == tacticSubList.length - 1)
 										{
-											assignAtomicValue(domainIndex, path, 1, 1);
 											assignNodeValue(domainIndex, Arrays.copyOfRange(path, 0, 3), 2, 2, 1);
-											if (platformSubList.contains(platform))
-											{
-												continue;
-											}
-											assignNodeValue(domainIndex, Arrays.copyOfRange(path, 0, 3), 2, 1, 1);
-											platformSubList.add(platform);
-											continue;
 										}
 										if (!platformSubList.contains(platform))
 										{
 											assignAtomicValue(domainIndex, path, 1, 1);
 											platformSubList.add(platform);
+											if (i == tacticSubList.length - 1)
+											{
+												assignNodeValue(domainIndex, Arrays.copyOfRange(path, 0, 3), 2, 1, 1);
+											}
 										}
 									}
 								}
-								assignNodeValue(domainIndex, Arrays.copyOfRange(path, 0, 2), 2, 1, 1);
-								assignNodeValue(domainIndex, Arrays.copyOfRange(path, 0, 2), 2, 2, totalTest);
 							}
 						}
 					}
@@ -500,56 +492,54 @@ public class CoverageAnalyser
 
 		coverage.path[3] = "Atomic.Total";
 
-		String[] tempPath;
+		// String[] tempPath;
 
-		for (int i = 0; i < Constants.DOMAINS.length; ++i)
+		// int total = 0;
+		String domain = Constants.DOMAINS[0];
+		coverage.path[0] = domain;
+		for (String platform : Constants.PLATFORMS)
 		{
-			int total = 0;
-			String domain = Constants.DOMAINS[i];
-			coverage.path[0] = domain;
+			coverage.path[2] = platform;
+			Pair pairValue = new Pair(0, 0);
 			for (String tactic : Constants.TACTICS)
 			{
 				coverage.path[1] = tactic;
-				for (String platform : Constants.PLATFORMS)
-				{
-					coverage.path[2] = platform;
-					Pair value = null;
-					if (i == 0)
-					{
-						value = (Pair) coverage.enterpriseTree.getValue(coverage.path);
-					} else if (i == 1)
-					{
-						value = (Pair) coverage.mobileTree.getValue(coverage.path);
-					} else
-					{
-						value = (Pair) coverage.icsTree.getValue(coverage.path);
-					}
-					System.out.println(Arrays.toString(coverage.path) + ": " + value.getAtomicTechnique() + ", "
-							+ value.getAtomicTest());
-					coverage.path[2] = null;
-				}
+				Triple value = (Triple) coverage.enterpriseTree.getValue(Arrays.copyOfRange(coverage.path, 0, 3));
+				pairValue.setAtomicTechnique(pairValue.getAtomicTechnique() + value.getAtomicNode().getAtomicTechnique());
+				pairValue.setAtomicTest(pairValue.getAtomicTest() + value.getAtomicNode().getAtomicTest());
 			}
 			coverage.path[1] = null;
-			System.out.println("Total for " + domain + ": " + total);
+			// for (String platform : Constants.PLATFORMS)
+			// {
+			// 	coverage.path[2] = platform;
+			// 	Pair value = null;
+			// 	value = (Pair) coverage.enterpriseTree.getValue(coverage.path);
+			// 	System.out.println(Arrays.toString(coverage.path) + ": " + value.getAtomicTechnique() + ", "
+			// 				+ value.getAtomicTest());
+			// 		coverage.path[2] = null;
+			// }
+			// Triple value = (Triple) coverage.enterpriseTree.getValue(Arrays.copyOfRange(coverage.path, 0, 2));
+			System.out.println(Arrays.toString(Arrays.copyOfRange(coverage.path, 0, 3)) + ": " + pairValue.getAtomicTechnique() + ", " + pairValue.getAtomicTest());
 		}
+		// System.out.println("Total for " + domain + ": " + total);
 
-		coverage.path[0] = Constants.DOMAINS[0];
-		tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
-		Triple tripleValue = (Triple) coverage.enterpriseTree.getValue(tempPath);
-		Pair pairValue = (Pair) tripleValue.getAtomicNode();
-		System.out.println(Arrays.toString(tempPath) + ": " + tripleValue.getMitreNode() + " <"
-				+ pairValue.getAtomicTechnique() + ", " + pairValue.getAtomicTest() + ">");
-		coverage.path[0] = Constants.DOMAINS[1];
-		tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
-		tripleValue = (Triple) coverage.mobileTree.getValue(tempPath);
-		pairValue = (Pair) tripleValue.getAtomicNode();
-		System.out.println(Arrays.toString(tempPath) + ": " + tripleValue.getMitreNode() + " <"
-				+ pairValue.getAtomicTechnique() + ", " + pairValue.getAtomicTest() + ">");
-		coverage.path[0] = Constants.DOMAINS[2];
-		tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
-		tripleValue = (Triple) coverage.icsTree.getValue(tempPath);
-		pairValue = (Pair) tripleValue.getAtomicNode();
-		System.out.println(Arrays.toString(tempPath) + ": " + tripleValue.getMitreNode() + " <"
-				+ pairValue.getAtomicTechnique() + ", " + pairValue.getAtomicTest() + ">");
+		// coverage.path[0] = Constants.DOMAINS[0];
+		// tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
+		// Triple tripleValue = (Triple) coverage.enterpriseTree.getValue(tempPath);
+		// Pair pairValue = (Pair) tripleValue.getAtomicNode();
+		// System.out.println(Arrays.toString(tempPath) + ": " + tripleValue.getMitreNode() + " <"
+		// 		+ pairValue.getAtomicTechnique() + ", " + pairValue.getAtomicTest() + ">");
+		// coverage.path[0] = Constants.DOMAINS[1];
+		// tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
+		// tripleValue = (Triple) coverage.mobileTree.getValue(tempPath);
+		// pairValue = (Pair) tripleValue.getAtomicNode();
+		// System.out.println(Arrays.toString(tempPath) + ": " + tripleValue.getMitreNode() + " <"
+		// 		+ pairValue.getAtomicTechnique() + ", " + pairValue.getAtomicTest() + ">");
+		// coverage.path[0] = Constants.DOMAINS[2];
+		// tempPath = Arrays.copyOfRange(coverage.path, 0, 1);
+		// tripleValue = (Triple) coverage.icsTree.getValue(tempPath);
+		// pairValue = (Pair) tripleValue.getAtomicNode();
+		// System.out.println(Arrays.toString(tempPath) + ": " + tripleValue.getMitreNode() + " <"
+		// 		+ pairValue.getAtomicTechnique() + ", " + pairValue.getAtomicTest() + ">");
 	}
 }
