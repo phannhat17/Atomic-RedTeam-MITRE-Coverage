@@ -98,7 +98,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                hust.cybersec.atomicdatacollector/hust.cybersec.screen.HelloApplication
+                                hust.cybersec.App
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

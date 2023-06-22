@@ -13,9 +13,9 @@ public class App {
     static AtomicRedTeam atomic = new AtomicRedTeam();
 
     public static void main(String[] args) throws URISyntaxException, IOException {
-//        mitre.downloadData();
-//        atomic.downloadData();
-//        atomic.exportExcel();
+        mitre.downloadData();
+        atomic.downloadData();
+        atomic.exportExcel();
         HelloApplication.LaunchScene();
     }
 

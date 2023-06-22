@@ -58,7 +58,7 @@ public class ExcelExporter {
         applyFilter(sheet);
 
         writeWorkbook(workbook);
-        System.out.println("Excel file exported successfully");
+        System.out.println("Excel file exported successfully to " + excelFilePath);
 
         long stop = System.currentTimeMillis();
         System.out.println("Run time: " + (stop - start));
