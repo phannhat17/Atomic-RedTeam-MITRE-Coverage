@@ -1,168 +1,139 @@
 package hust.cybersec.data.model;
 
-import java.io.*;
-import java.net.URISyntaxException;
-
-import com.fasterxml.jackson.annotation.*;
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 import hust.cybersec.data.collector.DataRetriever;
 import hust.cybersec.data.process.YamlToJsonConverter;
-import hust.cybersec.functional.*;
+import hust.cybersec.functional.CoverageAnalyser;
+import hust.cybersec.functional.ExcelExporter;
 
-public class AtomicRedTeam extends MitreAttackFramework
-{
-	private int testNumber;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
-	@JsonProperty("name")
-	private String testName;
+public class AtomicRedTeam extends MitreAttackFramework {
+    private int testNumber;
 
-	@JsonProperty("auto_generated_guid")
-	private String testGuid;
+    @JsonProperty("name")
+    private String testName;
 
-	@JsonProperty("description")
-	private String testDescription;
+    @JsonProperty("auto_generated_guid")
+    private String testGuid;
 
-	@JsonProperty("supported_platforms")
-	private String[] testSupportedPlatforms;
+    @JsonProperty("description")
+    private String testDescription;
 
-	@JsonProperty("input_arguments")
-	private String[] testInputArguments;
+    @JsonProperty("supported_platforms")
+    private String[] testSupportedPlatforms;
 
-	@JsonProperty("executor")
-	private String[] testExecutor;
+    @JsonProperty("input_arguments")
+    private String[] testInputArguments;
 
-	@JsonProperty("dependency_executor_name")
-	private String testDependencyExecutorName;
+    @JsonProperty("executor")
+    private String[] testExecutor;
 
-	@JsonProperty("dependencies")
-	private String[] testDependencies;
+    @JsonProperty("dependency_executor_name")
+    private String testDependencyExecutorName;
 
-	public AtomicRedTeam()
-	{
-		super();
-	}
+    @JsonProperty("dependencies")
+    private String[] testDependencies;
 
-	public AtomicRedTeam(String testName, String testGuid, String testDescription, String[] testSupportedPlatforms,
-			String[] testInputArguments, String[] testExecutor, String testDependencyExecutorName,
-			String[] testDependencies)
-	{
-		super();
-		this.testName = testName;
-		this.testGuid = testGuid;
-		this.testDescription = testDescription;
-		this.testSupportedPlatforms = testSupportedPlatforms;
-		this.testInputArguments = testInputArguments;
-		this.testExecutor = testExecutor;
-		this.testDependencyExecutorName = testDependencyExecutorName;
-		this.testDependencies = testDependencies;
-	}
+    public AtomicRedTeam() {
+        super();
+    }
 
-	public AtomicRedTeam(int testNumber, String testName, String testGuid, String testDescription,
-			String[] testSupportedPlatforms, String[] testInputArguments, String[] testExecutor,
-			String testDependencyExecutorName, String[] testDependencies)
-	{
-		super();
-		this.testNumber = testNumber;
-		this.testName = testName;
-		this.testGuid = testGuid;
-		this.testDescription = testDescription;
-		this.testSupportedPlatforms = testSupportedPlatforms;
-		this.testInputArguments = testInputArguments;
-		this.testExecutor = testExecutor;
-		this.testDependencyExecutorName = testDependencyExecutorName;
-		this.testDependencies = testDependencies;
-	}
+    public AtomicRedTeam(String testName, String testGuid, String testDescription, String[] testSupportedPlatforms,
+                         String[] testInputArguments, String[] testExecutor, String testDependencyExecutorName,
+                         String[] testDependencies) {
+        super();
+        this.testName = testName;
+        this.testGuid = testGuid;
+        this.testDescription = testDescription;
+        this.testSupportedPlatforms = testSupportedPlatforms;
+        this.testInputArguments = testInputArguments;
+        this.testExecutor = testExecutor;
+        this.testDependencyExecutorName = testDependencyExecutorName;
+        this.testDependencies = testDependencies;
+    }
 
-	public void setTestNumber(int testNumber)
-	{
-		this.testNumber = testNumber;
-	}
+    public AtomicRedTeam(int testNumber, String testName, String testGuid, String testDescription,
+                         String[] testSupportedPlatforms, String[] testInputArguments, String[] testExecutor,
+                         String testDependencyExecutorName, String[] testDependencies) {
+        super();
+        this.testNumber = testNumber;
+        this.testName = testName;
+        this.testGuid = testGuid;
+        this.testDescription = testDescription;
+        this.testSupportedPlatforms = testSupportedPlatforms;
+        this.testInputArguments = testInputArguments;
+        this.testExecutor = testExecutor;
+        this.testDependencyExecutorName = testDependencyExecutorName;
+        this.testDependencies = testDependencies;
+    }
 
-	public int getTestNumber()
-	{
-		return testNumber;
-	}
+    public void setTestNumber(int testNumber) {
+        this.testNumber = testNumber;
+    }
 
-	public String getTestName()
-	{
-		return testName;
-	}
+    public int getTestNumber() {
+        return testNumber;
+    }
 
-	public String getTestGuid()
-	{
-		return testGuid;
-	}
+    public String getTestName() {
+        return testName;
+    }
 
-	public String getTestDescription()
-	{
-		return testDescription;
-	}
+    public String getTestGuid() {
+        return testGuid;
+    }
 
-	public String[] getTestSupportedPlatforms()
-	{
-		return testSupportedPlatforms;
-	}
+    public String getTestDescription() {
+        return testDescription;
+    }
 
-	public String[] getTestInputArguments()
-	{
-		return testInputArguments;
-	}
+    public String[] getTestSupportedPlatforms() {
+        return testSupportedPlatforms;
+    }
 
-	public String[] getTestExecutor()
-	{
-		return testExecutor;
-	}
+    public String[] getTestInputArguments() {
+        return testInputArguments;
+    }
 
-	public String getTestDependencyExecutorName()
-	{
-		return testDependencyExecutorName;
-	}
+    public String[] getTestExecutor() {
+        return testExecutor;
+    }
 
-	public String[] getTestDependencies()
-	{
-		return testDependencies;
-	}
+    public String getTestDependencyExecutorName() {
+        return testDependencyExecutorName;
+    }
 
-	@Override
-	public void downloadData() throws URISyntaxException
-	{
-		String atomicURL = "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/Indexes/";
-		String atomicDirectory = "./data/atomic";
-		String[] atomicFiles = { "index.yaml" };
+    public String[] getTestDependencies() {
+        return testDependencies;
+    }
 
-		DataRetriever atomicDownloader = new DataRetriever(atomicURL, atomicDirectory, atomicFiles);
-		atomicDownloader.download("atomic-all.yaml");
+    @Override
+    public void downloadData() throws URISyntaxException {
+        String ATOMIC_URL = "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/Indexes/";
+        String ATOMIC_DIRECTORY = "./data/atomic";
+        String[] ATOMIC_FILES = {"index.yaml"};
 
-		String yamlFilePath = "./data/atomic/atomic-all.yaml";
-		String jsonFilePath = "./data/atomic/atomic-all.json";
+        DataRetriever atomicDownloader = new DataRetriever(ATOMIC_URL, ATOMIC_DIRECTORY, ATOMIC_FILES);
+        atomicDownloader.download("atomic-all.yaml");
 
-		YamlToJsonConverter converter = new YamlToJsonConverter(yamlFilePath, jsonFilePath);
-		converter.convert();
-	}
+        String YAML_FILE_PATH = "./data/atomic/atomic-all.yaml";
+        String JSON_FILE_PATH = "./data/atomic/atomic-all.json";
 
-	public void exportExcel() throws IOException
-	{
-		String jsonFilePath = "./data/atomic/atomic-all.json";
-		String excelFilePath = "./data/atomic/atomic-all.xlsx";
-		ExcelExporter exporter = new ExcelExporter(jsonFilePath, excelFilePath);
-		exporter.export();
-	}
+        YamlToJsonConverter converter = new YamlToJsonConverter(YAML_FILE_PATH, JSON_FILE_PATH);
+        converter.convert();
+    }
 
-	public void analyseCoverage(MitreAttackFramework mitre)
-	{
-		CoverageAnalyser analyser = new CoverageAnalyser();
-		analyser.analyse();
-	}
+    public void exportExcel() throws IOException {
+        String JSON_FILE_PATH = "./data/atomic/atomic-all.json";
+        String EXCEL_FILE_PATH = "./data/atomic/atomic-all.xlsx";
+        ExcelExporter exporter = new ExcelExporter(JSON_FILE_PATH, EXCEL_FILE_PATH);
+        exporter.export();
+    }
 
-	public static void main(String[] args)
-	{
-		AtomicRedTeam atomic = new AtomicRedTeam();
-		try
-		{
-			atomic.exportExcel();
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
+    public void analyseCoverage(MitreAttackFramework mitre) {
+        CoverageAnalyser analyser = new CoverageAnalyser();
+        analyser.analyse();
+    }
 }

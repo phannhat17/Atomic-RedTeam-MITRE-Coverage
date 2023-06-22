@@ -1,118 +1,110 @@
 package hust.cybersec.data.collector;
 
-import java.io.*;
-import java.net.*;
-import java.nio.file.*;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLException;
+import javax.net.ssl.SSLPeerUnverifiedException;
+import javax.net.ssl.SSLSocketFactory;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.zip.GZIPInputStream;
 
-import javax.net.ssl.*;
+public class DataRetriever {
+    private final String dataURL;
+    private final String directoryPath;
+    private final String[] filesPath;
 
-public class DataRetriever
-{
-	private String dataURL;
-	private String directoryPath;
-	private String[] filesPath;
+    public DataRetriever(String dataURL, String directoryPath, String[] filesPath) {
+        this.dataURL = dataURL;
+        this.directoryPath = directoryPath;
+        this.filesPath = filesPath;
+    }
 
-	public DataRetriever(String dataURL, String directoryPath, String[] filesPath)
-	{
-		this.dataURL = dataURL;
-		this.directoryPath = directoryPath;
-		this.filesPath = filesPath;
-	}
+    public void download() throws URISyntaxException {
+        download("");
+    }
 
-	public void download() throws URISyntaxException
-	{
-		download("");
-	}
+    public void download(String fileName) throws URISyntaxException {
+        File directory = new File(directoryPath);
 
-	public void download(String fileName) throws URISyntaxException
-	{
-		File directory = new File(directoryPath);
+        // Create the directory if it doesn't exist
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+        Path directoryPathObj = Paths.get(directoryPath);
 
-		// Create the directory if it doesn't exist
-		if (!directory.exists())
-		{
-			directory.mkdirs();
-		}
-		Path directoryPathObj = Paths.get(directoryPath);
+        for (String path : filesPath) {
+            String finalFileName = fileName;
+            try {
+                if (fileName.isEmpty()) {
+                    finalFileName = path.substring(path.lastIndexOf('/') + 1);
+                }
+                Path filePathObj = directoryPathObj.resolve(finalFileName);
+                downloadUsingNIO(dataURL + path, filePathObj.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-		for (String path : filesPath)
-		{
-			String finalFileName = fileName;
-			try
-			{
-				if (fileName.isEmpty())
-				{
-					finalFileName = path.substring(path.lastIndexOf('/') + 1);
-				}
-				Path filePathObj = directoryPathObj.resolve(finalFileName);
-				downloadUsingNIO(dataURL + path, filePathObj.toString());
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-	}
+    // Downloads a file using NIO (non-blocking I/O)
+    protected void downloadUsingNIO(String urlStr, String file) throws IOException, URISyntaxException {
 
-	// Downloads a file using NIO (non-blocking I/O)
-	protected void downloadUsingNIO(String urlStr, String file) throws IOException, URISyntaxException
-	{
-		long start = System.currentTimeMillis();
+        System.out.println("Downloading " + file);
 
-		// Create a URL object from the provided URL string
-		URL url = new URI(urlStr).toURL();
+        long start = System.currentTimeMillis();
 
-		// Set up SSL/TLS security
-		HttpsURLConnection httpsConnection = (HttpsURLConnection) url.openConnection();
-		httpsConnection.setSSLSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault());
-		httpsConnection.setHostnameVerifier(HttpsURLConnection.getDefaultHostnameVerifier());
+        // Create a URL object from the provided URL string
+        URL url = new URI(urlStr).toURL();
 
-		// Enable gzip compression
-		httpsConnection.setRequestProperty("Accept-Encoding", "gzip");
+        // Set up SSL/TLS security
+        HttpsURLConnection httpsConnection = (HttpsURLConnection) url.openConnection();
+        httpsConnection.setSSLSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault());
+        httpsConnection.setHostnameVerifier(HttpsURLConnection.getDefaultHostnameVerifier());
 
-		// Check the server's certificate chain validity
-		try
-		{
-			httpsConnection.connect();
-			validateCertificate(httpsConnection);
-		} catch (SSLException e)
-		{
-			e.printStackTrace();
-			return;
-		}
+        // Enable gzip compression
+        httpsConnection.setRequestProperty("Accept-Encoding", "gzip");
 
-		// Open a readable byte channel for the URL stream
-		try (InputStream inputStream = new GZIPInputStream(httpsConnection.getInputStream());
-				FileOutputStream fileOutputStream = new FileOutputStream(file))
-		{
-			byte[] buffer = new byte[8192];
-			int bytesRead;
-			while ((bytesRead = inputStream.read(buffer)) != -1)
-			{
-				fileOutputStream.write(buffer, 0, bytesRead);
-			}
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		} finally
-		{
-			httpsConnection.disconnect();
-		}
+        // Check the server's certificate chain validity
+        try {
+            httpsConnection.connect();
+            validateCertificate(httpsConnection);
+        } catch (SSLException e) {
+            e.printStackTrace();
+            return;
+        }
 
-		long stop = System.currentTimeMillis();
-		System.out.println("Run time: " + (stop - start));
-	}
+        // Open a readable byte channel for the URL stream
+        try (InputStream inputStream = new GZIPInputStream(httpsConnection.getInputStream());
+             FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            httpsConnection.disconnect();
+        }
 
-	private void validateCertificate(HttpsURLConnection connection) throws SSLException
-	{
-		try
-		{
-			// Implement additional validation logic if required
-			// Verify certificate chain, expiration, revocation, etc.
-			connection.getServerCertificates();
-		} catch (SSLPeerUnverifiedException e)
-		{
-			throw new SSLException("Certificate verification failed", e);
-		}
-	}
+        long stop = System.currentTimeMillis();
+        System.out.println("Run time: " + (stop - start));
+    }
+
+    private void validateCertificate(HttpsURLConnection connection) throws SSLException {
+        try {
+            // Implement additional validation logic if required
+            // Verify certificate chain, expiration, revocation, etc.
+            connection.getServerCertificates();
+        } catch (SSLPeerUnverifiedException e) {
+            throw new SSLException("Certificate verification failed", e);
+        }
+    }
 }
