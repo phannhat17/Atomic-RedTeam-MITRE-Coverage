@@ -16,7 +16,7 @@ public class App {
 //        mitre.downloadData();
 //        atomic.downloadData();
 //        atomic.exportExcel();
-        HelloApplication.main(args);
+        HelloApplication.LaunchScene();
     }
 
 }
