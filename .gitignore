@@ -25,12 +25,10 @@ replay_pid*
 
 atomic-redteam-mitre-coverage/target
 atomic-redteam-mitre-coverage/.vscode
-atomic-redteam-mitre-coverage/.idea
 
 atomic-redteam-mitre-coverage/.classpath
 atomic-redteam-mitre-coverage/.project
 atomic-redteam-mitre-coverage/.settings*
-
 
 /.metadata/
 
