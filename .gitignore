@@ -23,12 +23,12 @@
 hs_err_pid*
 replay_pid*
 
-atomic-data-collector/target
-atomic-data-collector/.vscode
+atomic-redteam-mitre-coverage/target
+atomic-redteam-mitre-coverage/.vscode
 
-atomic-data-collector/.classpath
-atomic-data-collector/.project
-atomic-data-collector/.settings*
+atomic-redteam-mitre-coverage/.classpath
+atomic-redteam-mitre-coverage/.project
+atomic-redteam-mitre-coverage/.settings*
 
 /.metadata/
 
