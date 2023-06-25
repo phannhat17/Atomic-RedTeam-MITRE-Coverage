@@ -30,6 +30,10 @@ atomic-redteam-mitre-coverage/.classpath
 atomic-redteam-mitre-coverage/.project
 atomic-redteam-mitre-coverage/.settings*
 
+mvnw.cmd
+mvnw
+.mvn
+
 /.metadata/
 
 .idea
