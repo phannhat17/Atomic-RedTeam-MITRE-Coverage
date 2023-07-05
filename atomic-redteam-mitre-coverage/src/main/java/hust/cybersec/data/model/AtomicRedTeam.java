@@ -3,8 +3,8 @@ package hust.cybersec.data.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import hust.cybersec.data.collector.DataRetriever;
 import hust.cybersec.data.process.YamlToJsonConverter;
-import hust.cybersec.functional.CoverageAnalyser;
 import hust.cybersec.functional.ExcelExporter;
+import hust.cybersec.screen.ChartScreen;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -148,9 +148,8 @@ public class AtomicRedTeam extends MitreAttackFramework
 		exporter.export();
 	}
 
-	public void analyseCoverage(MitreAttackFramework mitre)
+	public void analyseCoverage()
 	{
-		CoverageAnalyser analyser = new CoverageAnalyser();
-		analyser.analyse();
+		ChartScreen.LaunchScene();
 	}
 }
