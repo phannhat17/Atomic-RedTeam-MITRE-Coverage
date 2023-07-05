@@ -20,6 +20,8 @@ import javafx.stage.FileChooser;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 import javafx.embed.swing.SwingFXUtils;
@@ -817,26 +819,41 @@ public class ChartScreenController
 	@FXML
 	void saveButtonPressed(ActionEvent event)
 	{
+		String firstChoice = firstChoiceBox.getSelectionModel().getSelectedItem();
+		String secondChoice = secondChoiceBox.getSelectionModel().getSelectedItem();
+		String thirdChoice = thirdChoiceBox.getSelectionModel().getSelectedItem();
+
+		if (secondChoice.equals(ALL))
+		{
+			secondChoice = "ALL";
+		}
+
+		String directoryPath = "./data/coverage-analysis";
+
+		File directory = new File(directoryPath);
+
+		// Create the directory if it doesn't exist
+		if (!directory.exists())
+		{
+			directory.mkdirs();
+		}
+
+		String filePath = directoryPath + "/" + firstChoice + "-" + secondChoice + "-" + thirdChoice + ".png";
+
 		// Capture the screen image
 		WritableImage image = screenBorder.snapshot(null, null);
 
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Save Chart Image");
-		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG Image", "*.png"));
+		File file = new File(filePath);
 
-		File file = fileChooser.showSaveDialog(saveButton.getScene().getWindow());
-		if (file != null)
+		try
 		{
-			try
-			{
-				ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
-				System.out.println("Chart image saved successfully.");
-				openFile(file.getAbsolutePath());
-			}
-			catch (IOException e)
-			{
-				System.out.println("Error saving chart image: " + e.getMessage());
-			}
+			ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+			System.out.println("Chart image saved successfully.");
+			openFile(file.getAbsolutePath());
+		}
+		catch (IOException e)
+		{
+			System.out.println("Error saving chart image: " + e.getMessage());
 		}
 	}
 

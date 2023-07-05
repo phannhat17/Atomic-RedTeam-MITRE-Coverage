@@ -6,9 +6,12 @@ import hust.cybersec.data.model.AtomicRedTeam;
 import hust.cybersec.data.model.MitreAttackFramework;
 import hust.cybersec.data.process.JsonNodeHandler;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.awt.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -62,6 +65,8 @@ public class ExcelExporter
 
 		writeWorkbook(workbook);
 		System.out.println("Excel file exported successfully to " + excelFilePath);
+
+		openFile(excelFilePath);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Run time: " + (stop - start));
@@ -118,7 +123,6 @@ public class ExcelExporter
 				}
 			}
 		}
-		//		System.out.println(atomicTests.size());
 		return atomicTests;
 	}
 
@@ -413,6 +417,26 @@ public class ExcelExporter
 		try (FileOutputStream outputStream = new FileOutputStream(excelFilePath))
 		{
 			workbook.write(outputStream);
+		}
+	}
+
+	private void openFile(String filePath)
+	{
+		try
+		{
+			File file = new File(filePath);
+			if (file.exists())
+			{
+				Desktop.getDesktop().open(file);
+			}
+			else
+			{
+				System.err.println("File not found: " + filePath);
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
 		}
 	}
 }

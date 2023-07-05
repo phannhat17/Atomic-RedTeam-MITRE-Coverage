@@ -5,7 +5,6 @@ import hust.cybersec.data.collector.DataRetriever;
 import hust.cybersec.data.process.YamlToJsonConverter;
 import hust.cybersec.functional.ExcelExporter;
 import hust.cybersec.screen.ChartScreen;
-import hust.cybersec.screen.ExcelScreen;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -141,9 +140,12 @@ public class AtomicRedTeam extends MitreAttackFramework
 		converter.convert();
 	}
 
-	public void exportExcel()
+	public void exportExcel() throws IOException
 	{
-		ExcelScreen.LaunchScene();
+		String JSON_FILE_PATH = "./data/atomic/atomic-all.json";
+		String EXCEL_FILE_PATH = "./data/atomic/atomic-all.xlsx";
+		ExcelExporter exporter = new ExcelExporter(JSON_FILE_PATH, EXCEL_FILE_PATH);
+		exporter.export();
 	}
 
 	public void analyseCoverage()
