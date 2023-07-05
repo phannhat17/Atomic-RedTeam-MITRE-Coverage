@@ -1,14 +1,19 @@
-package hust.cybersec.functional;
+package hust.cybersec.screen;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hust.cybersec.data.model.AtomicRedTeam;
 import hust.cybersec.data.model.MitreAttackFramework;
 import hust.cybersec.data.process.JsonNodeHandler;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,28 +22,69 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-public class ExcelExporter
+import java.awt.Desktop;
+
+public class ExcelScreen extends Application
 {
 	private static final String[] HEADERS = { "No.", "Technique ID", "Technique Name", "Technique Description",
 			"Technique Platforms", "Technique Domains", "Technique URL", "Technique Tactics", "Technique Detection",
 			"Is Subtechnique", "Test #", "Test Name", "Test GUID", "Test Description", "Test Supported Platforms",
 			"Test Input Arguments", "Test Executor", "Test Dependency Executor Name", "Test Dependencies" };
-	private final String jsonFilePath;
-	private final String excelFilePath;
+	private String excelFilePath;
 
 	private final JsonNodeHandler jsonHandler = new JsonNodeHandler();
 
-	public ExcelExporter(String jsonFilePath, String excelFilePath)
+	@Override
+	public void start(Stage stage)
 	{
-		this.jsonFilePath = jsonFilePath;
-		this.excelFilePath = excelFilePath;
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Choose Excel File Location");
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+
+		File excelFile = fileChooser.showSaveDialog(stage);
+		if (excelFile != null)
+		{
+			excelFilePath = excelFile.getAbsolutePath();
+			try
+			{
+				export();
+				System.out.println("Export completed successfully.");
+				openFile(excelFilePath);
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		Platform.exit();
+	}
+
+	private void openFile(String filePath)
+	{
+		try
+		{
+			File file = new File(filePath);
+			if (file.exists())
+			{
+				Desktop.getDesktop().open(file);
+			}
+			else
+			{
+				System.err.println("File not found: " + filePath);
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public void export() throws IOException
 	{
 		long start = System.currentTimeMillis();
 
-		String jsonData = new String(Files.readAllBytes(Paths.get(jsonFilePath)));
+		String JSON_FILE_PATH = "./data/atomic/atomic-all.json";
+		String jsonData = new String(Files.readAllBytes(Paths.get(JSON_FILE_PATH)));
 		List<AtomicRedTeam> atomicTests = mapJsonToAtomicTests(jsonData);
 
 		Workbook workbook = new XSSFWorkbook();
@@ -61,7 +107,6 @@ public class ExcelExporter
 		applyFilter(sheet);
 
 		writeWorkbook(workbook);
-		System.out.println("Excel file exported successfully to " + excelFilePath);
 
 		long stop = System.currentTimeMillis();
 		System.out.println("Run time: " + (stop - start));
@@ -414,5 +459,10 @@ public class ExcelExporter
 		{
 			workbook.write(outputStream);
 		}
+	}
+
+	public static void LaunchScene()
+	{
+		launch();
 	}
 }

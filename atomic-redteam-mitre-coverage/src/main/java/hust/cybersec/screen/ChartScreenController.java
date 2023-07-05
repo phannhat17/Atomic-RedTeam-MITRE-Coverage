@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
@@ -12,8 +13,24 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.WritableImage;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
+
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.WritableImage;
+
+import javax.imageio.ImageIO;
+
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ChartScreenController
 {
@@ -44,6 +61,9 @@ public class ChartScreenController
 
 	@FXML
 	private NumberAxis yAxis;
+
+	@FXML
+	private BorderPane screenBorder;
 
 	private final ObservableList<String> PLATFORMS = FXCollections.observableArrayList(Constants.PLATFORMS);
 	private final ObservableList<String> TACTICS = FXCollections.observableArrayList(Constants.TACTICS);
@@ -640,30 +660,30 @@ public class ChartScreenController
 		Triple selectedNode;
 		int numMitreTechnique = 0, numAtomicTechnique = 0, numAtomicTest = 0;
 
-        if (secondChoice.equals(ALL))
-        {
-            for (int i = 0; i < 3; ++i)
-            {
-                path[0] = Constants.DOMAINS[i];
+		if (secondChoice.equals(ALL))
+		{
+			for (int i = 0; i < 3; ++i)
+			{
+				path[0] = Constants.DOMAINS[i];
 
-                if (i == 0)
-                {
-                    selectedTree = enterpriseTree;
-                }
-                else if (i == 1)
-                {
-                    selectedTree = mobileTree;
-                }
-                else
-                {
-                    selectedTree = icsTree;
-                }
-                selectedNode = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 1));
-                numMitreTechnique += selectedNode.getMitreNode();
-                numAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
-                numAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
-            }
-        }
+				if (i == 0)
+				{
+					selectedTree = enterpriseTree;
+				}
+				else if (i == 1)
+				{
+					selectedTree = mobileTree;
+				}
+				else
+				{
+					selectedTree = icsTree;
+				}
+				selectedNode = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 1));
+				numMitreTechnique += selectedNode.getMitreNode();
+				numAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
+				numAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
+			}
+		}
 
 		if (firstChoice.equals(TAXONOMIES.get(0)))
 		{
@@ -753,32 +773,32 @@ public class ChartScreenController
 			else
 			{
 				selectedTaxonomyString = secondChoice.toUpperCase();
-                path[2] = secondChoice;
-                for (int i = 0; i < 3; ++i)
-                {
-                    path[0] = Constants.DOMAINS[i];
+				path[2] = secondChoice;
+				for (int i = 0; i < 3; ++i)
+				{
+					path[0] = Constants.DOMAINS[i];
 
-                    if (i == 0)
-                    {
-                        selectedTree = enterpriseTree;
-                    }
-                    else if (i == 1)
-                    {
-                        selectedTree = mobileTree;
-                    }
-                    else
-                    {
-                        selectedTree = icsTree;
-                    }
-                    for (String tactic : Constants.TACTICS)
-                    {
-                        path[1] = tactic;
-                        selectedNode = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 3));
-                        numMitreTechnique += selectedNode.getMitreNode();
-                        numAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
-                        numAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
-                    }
-                }
+					if (i == 0)
+					{
+						selectedTree = enterpriseTree;
+					}
+					else if (i == 1)
+					{
+						selectedTree = mobileTree;
+					}
+					else
+					{
+						selectedTree = icsTree;
+					}
+					for (String tactic : Constants.TACTICS)
+					{
+						path[1] = tactic;
+						selectedNode = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 3));
+						numMitreTechnique += selectedNode.getMitreNode();
+						numAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
+						numAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
+					}
+				}
 			}
 			if (thirdChoice.equals(TAXONOMIES.get(0)))
 			{
@@ -797,6 +817,46 @@ public class ChartScreenController
 	@FXML
 	void saveButtonPressed(ActionEvent event)
 	{
-		// Logic for saving the current analysis chart as an image
+		// Capture the screen image
+		WritableImage image = screenBorder.snapshot(null, null);
+
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Save Chart Image");
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG Image", "*.png"));
+
+		File file = fileChooser.showSaveDialog(saveButton.getScene().getWindow());
+		if (file != null)
+		{
+			try
+			{
+				ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", file);
+				System.out.println("Chart image saved successfully.");
+				openFile(file.getAbsolutePath());
+			}
+			catch (IOException e)
+			{
+				System.out.println("Error saving chart image: " + e.getMessage());
+			}
+		}
+	}
+
+	private void openFile(String filePath)
+	{
+		try
+		{
+			File file = new File(filePath);
+			if (file.exists())
+			{
+				Desktop.getDesktop().open(file);
+			}
+			else
+			{
+				System.err.println("File not found: " + filePath);
+			}
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
