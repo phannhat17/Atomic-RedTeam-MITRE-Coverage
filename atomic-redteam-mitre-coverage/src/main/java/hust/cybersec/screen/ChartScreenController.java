@@ -24,10 +24,8 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.text.Font;
 
 import javax.imageio.ImageIO;
-import javax.swing.text.Style;
 
 public class ChartScreenController
 {
@@ -147,17 +145,20 @@ public class ChartScreenController
 		chart.setAnimated(false);
 	}
 
-	private double calculateCoverageRate(int numMitreTechnique, int numAtomicTechnique)
+	private String getCoverageRatio(int totalAtomicTechnique, int totalMitreTechnique)
 	{
-		return (double) numAtomicTechnique / numMitreTechnique * 100;
+		if (totalMitreTechnique == 0)
+		{
+			return "NaN";
+		}
+		return String.format("%.2f", (double) totalAtomicTechnique / totalMitreTechnique * 100);
 	}
 
-	private void writeAnalyseResult(int numAtomicTest, int numAtomicTechnique, int numMitreTechnique,
-			double coverageRate)
+	private void writeAnalyseResult(int totalAtomicTest, int totalAtomicTechnique, int totalMitreTechnique)
 	{
-		String resultString = "Atomic Red Team has tests for " + numAtomicTechnique + " of the " + numMitreTechnique
-				+ " MITRE ATT&CK® Techniques for " + selectedTaxonomyString + "! (" + coverageRate
-				+ "%)\nThe community has created " + numAtomicTest + " Atomic Tests for " + selectedTaxonomyString
+		String resultString = "Atomic Red Team has tests for " + totalAtomicTechnique + " of the " + totalMitreTechnique
+				+ " MITRE ATT&CK® Techniques for " + selectedTaxonomyString + "! (" + getCoverageRatio(totalAtomicTechnique, totalMitreTechnique)
+				+ "%)\nThe community has created " + totalAtomicTest + " Atomic Tests for " + selectedTaxonomyString
 				+ ".";
 
 		analyseResult.setText(resultString);
@@ -166,19 +167,22 @@ public class ChartScreenController
 	private void addTooltip()
 	{
 		String style = "-fx-font-weight: bold; -fx-font-size: 15px;";
-		for (XYChart.Data<String, Number> data : coveredSeries.getData())
+		int totalCoveredTechnique = 0, totalUncoveredTechnique = 0;
+		for (int i = 0; i < coveredSeries.getData().size(); ++i)
 		{
-			Tooltip tooltip = new Tooltip(COVERED + ": " + data.getYValue());
-			tooltip.setStyle(style);
-			data.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
-					(EventHandler<MouseEvent>) event -> Tooltip.install(data.getNode(), tooltip));
-		}
-		for (XYChart.Data<String, Number> data : uncoveredSeries.getData())
-		{
-			Tooltip tooltip = new Tooltip(UNCOVERED + ": " + data.getYValue());
-			tooltip.setStyle(style);
-			data.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
-					(EventHandler<MouseEvent>) event -> Tooltip.install(data.getNode(), tooltip));
+			XYChart.Data<String, Number> coveredNode = coveredSeries.getData().get(i);
+			XYChart.Data<String, Number> uncoveredNode = uncoveredSeries.getData().get(i);
+			totalCoveredTechnique = (Integer) coveredNode.getYValue();
+			totalUncoveredTechnique = (Integer) uncoveredNode.getYValue();
+			String coverageRatio = "\nCOVERAGE RATIO: " + getCoverageRatio(totalCoveredTechnique, totalCoveredTechnique + totalUncoveredTechnique) + "%";
+			Tooltip coveredTooltip = new Tooltip(COVERED + ": " + totalCoveredTechnique + " techniques" + coverageRatio);
+			Tooltip uncoveredTooltip = new Tooltip(UNCOVERED + ": " + totalUncoveredTechnique + " techniques" + coverageRatio);
+			coveredTooltip.setStyle(style);
+			uncoveredTooltip.setStyle(style);
+			coveredNode.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
+					(EventHandler<MouseEvent>) event -> Tooltip.install(coveredNode.getNode(), coveredTooltip));
+			uncoveredNode.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
+					(EventHandler<MouseEvent>) event -> Tooltip.install(uncoveredNode.getNode(), uncoveredTooltip));
 		}
 	}
 
@@ -484,7 +488,7 @@ public class ChartScreenController
 
 		// Generate new data based on the selected choices
 		Triple selectedNode;
-		int numMitreTechnique = 0, numAtomicTechnique = 0, numAtomicTest = 0;
+		int totalMitreTechnique = 0, totalAtomicTechnique = 0, totalAtomicTest = 0;
 
 		if (secondChoice.equals(ALL))
 		{
@@ -493,9 +497,9 @@ public class ChartScreenController
 				path[0] = domain;
 				selectedTree = getSelectedTree(domain);
 				selectedNode = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 1));
-				numMitreTechnique += selectedNode.getMitreNode();
-				numAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
-				numAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
+				totalMitreTechnique += selectedNode.getMitreNode();
+				totalAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
+				totalAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
 			}
 		}
 
@@ -511,9 +515,9 @@ public class ChartScreenController
 				selectedTree = getSelectedTree(secondChoice);
 
 				selectedNode = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 1));
-				numMitreTechnique = selectedNode.getMitreNode();
-				numAtomicTechnique = selectedNode.getAtomicNode().getAtomicTechnique();
-				numAtomicTest = selectedNode.getAtomicNode().getAtomicTest();
+				totalMitreTechnique = selectedNode.getMitreNode();
+				totalAtomicTechnique = selectedNode.getAtomicNode().getAtomicTechnique();
+				totalAtomicTest = selectedNode.getAtomicNode().getAtomicTest();
 			}
 			if (thirdChoice.equals(TAXONOMIES.get(1)))
 			{
@@ -540,9 +544,9 @@ public class ChartScreenController
 					path[0] = domain;
 					selectedTree = getSelectedTree(domain);
 					selectedNode = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 2));
-					numMitreTechnique += selectedNode.getMitreNode();
-					numAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
-					numAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
+					totalMitreTechnique += selectedNode.getMitreNode();
+					totalAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
+					totalAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
 				}
 			}
 			if (thirdChoice.equals(TAXONOMIES.get(0)))
@@ -573,9 +577,9 @@ public class ChartScreenController
 					{
 						path[1] = tactic;
 						selectedNode = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 3));
-						numMitreTechnique += selectedNode.getMitreNode();
-						numAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
-						numAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
+						totalMitreTechnique += selectedNode.getMitreNode();
+						totalAtomicTechnique += selectedNode.getAtomicNode().getAtomicTechnique();
+						totalAtomicTest += selectedNode.getAtomicNode().getAtomicTest();
 					}
 				}
 			}
@@ -589,8 +593,7 @@ public class ChartScreenController
 			}
 		}
 
-		writeAnalyseResult(numAtomicTest, numAtomicTechnique, numMitreTechnique,
-				calculateCoverageRate(numMitreTechnique, numAtomicTechnique));
+		writeAnalyseResult(totalAtomicTest, totalAtomicTechnique, totalMitreTechnique);
 	}
 
 	@FXML
