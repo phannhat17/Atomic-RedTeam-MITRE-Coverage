@@ -70,9 +70,9 @@ public class ChartScreenController
 		uncoveredSeries.setName("Uncovered");
 	}
 
-	private final DataTree enterpriseTree = processor.getEnterpriseTree();
-	private final DataTree mobileTree = processor.getMobileTree();
-	private final DataTree icsTree = processor.getIcsTree();
+	private final DataTree ENTERPRISE_TREE = processor.getEnterpriseTree();
+	private final DataTree MOBILE_TREE = processor.getMobileTree();
+	private final DataTree ICS_TREE = processor.getIcsTree();
 	private final String[] path = new String[4];
 	private final String MITRE_TOTAL = "Mitre.Total";
 	private final String ATOMIC_TOTAL = "Atomic.Total";
@@ -158,9 +158,9 @@ public class ChartScreenController
 	{
 		return switch (selectedDomain)
 		{
-			case "enterprise-attack" -> enterpriseTree;
-			case "mobile-attack" -> mobileTree;
-			case "ics-attack" -> icsTree;
+			case "enterprise-attack" -> ENTERPRISE_TREE;
+			case "mobile-attack" -> MOBILE_TREE;
+			case "ics-attack" -> ICS_TREE;
 			default -> null;
 		};
 
