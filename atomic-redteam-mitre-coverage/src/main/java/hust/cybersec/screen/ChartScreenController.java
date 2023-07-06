@@ -4,14 +4,18 @@ import hust.cybersec.data.process.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.StackedBarChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.awt.*;
@@ -20,8 +24,10 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.text.Font;
 
 import javax.imageio.ImageIO;
+import javax.swing.text.Style;
 
 public class ChartScreenController
 {
@@ -59,6 +65,9 @@ public class ChartScreenController
 	private final ObservableList<String> TAXONOMIES = FXCollections.observableArrayList("domain", "tactic", "platform");
 	private final String ALL = "---------- ALL ------------";
 
+	private final String COVERED = "Covered";
+	private final String UNCOVERED = "Uncovered";
+
 	private final JsonToTreeProcessor processor = new JsonToTreeProcessor();
 
 	{
@@ -66,8 +75,8 @@ public class ChartScreenController
 		TACTICS.add(ALL);
 		PLATFORMS.add(ALL);
 		processor.buildDataTree();
-		coveredSeries.setName("Covered");
-		uncoveredSeries.setName("Uncovered");
+		coveredSeries.setName(COVERED);
+		uncoveredSeries.setName(UNCOVERED);
 	}
 
 	private final DataTree ENTERPRISE_TREE = processor.getEnterpriseTree();
@@ -148,10 +157,30 @@ public class ChartScreenController
 		analyseResult.setText(resultString);
 	}
 
+	private void addTooltip()
+	{
+		String style = "-fx-font-weight: bold; -fx-font-size: 15px;";
+		for (XYChart.Data<String, Number> data : coveredSeries.getData())
+		{
+			Tooltip tooltip = new Tooltip(COVERED + ": " + data.getYValue());
+			tooltip.setStyle(style);
+			data.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
+					(EventHandler<MouseEvent>) event -> Tooltip.install(data.getNode(), tooltip));
+		}
+		for (XYChart.Data<String, Number> data : uncoveredSeries.getData())
+		{
+			Tooltip tooltip = new Tooltip(UNCOVERED + ": " + data.getYValue());
+			tooltip.setStyle(style);
+			data.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
+					(EventHandler<MouseEvent>) event -> Tooltip.install(data.getNode(), tooltip));
+		}
+	}
+
 	private void generateChart()
 	{
 		chart.getData().add(coveredSeries);
 		chart.getData().add(uncoveredSeries);
+		addTooltip();
 	}
 
 	private DataTree getSelectedTree(String selectedDomain)
