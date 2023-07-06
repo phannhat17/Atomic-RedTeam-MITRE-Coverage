@@ -125,6 +125,12 @@ public class ChartScreenController
 		thirdChoiceBox.getSelectionModel().selectFirst();
 	}
 
+	public void addDataToChart(String category, int atomicTechnique, int mitreTechnique)
+	{
+		coveredSeries.getData().add(new XYChart.Data<>(category, atomicTechnique));
+		uncoveredSeries.getData().add(new XYChart.Data<>(category, mitreTechnique - atomicTechnique));
+	}
+
 	public void initialize()
 	{
 		firstStage();
@@ -202,19 +208,18 @@ public class ChartScreenController
 			for (String tactic : Constants.TACTICS)
 			{
 				path[1] = tactic;
-				int mitreTotal = 0, atomicTechnique = 0;
+				int mitreTechnique = 0, atomicTechnique = 0;
 				for (String domain : Constants.DOMAINS)
 				{
 					path[0] = domain;
 					selectedTree = getSelectedTree(domain);
 
 					tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 2));
-					mitreTotal += tripleValue.getMitreNode();
+					mitreTechnique += tripleValue.getMitreNode();
 					atomicTechnique += tripleValue.getAtomicNode().getAtomicTechnique();
 				}
 
-				coveredSeries.getData().add(new XYChart.Data<>(tactic, atomicTechnique));
-				uncoveredSeries.getData().add(new XYChart.Data<>(tactic, mitreTotal - atomicTechnique));
+				addDataToChart(tactic, atomicTechnique, mitreTechnique);
 			}
 		}
 		else
@@ -226,10 +231,8 @@ public class ChartScreenController
 			{
 				path[1] = tactic;
 				tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 2));
-				coveredSeries.getData()
-						.add(new XYChart.Data<>(tactic, tripleValue.getAtomicNode().getAtomicTechnique()));
-				uncoveredSeries.getData().add(new XYChart.Data<>(tactic,
-						tripleValue.getMitreNode() - tripleValue.getAtomicNode().getAtomicTechnique()));
+
+				addDataToChart(tactic, tripleValue.getAtomicNode().getAtomicTechnique(), tripleValue.getMitreNode());
 			}
 		}
 
@@ -243,7 +246,7 @@ public class ChartScreenController
 			for (String platform : Constants.PLATFORMS)
 			{
 				path[2] = platform;
-				int mitreTotal = 0, atomicTechnique = 0;
+				int mitreTechnique = 0, atomicTechnique = 0;
 				for (String domain : Constants.DOMAINS)
 				{
 					path[0] = domain;
@@ -254,13 +257,12 @@ public class ChartScreenController
 						path[1] = tactic;
 						tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 3));
 
-						mitreTotal += tripleValue.getMitreNode();
+						mitreTechnique += tripleValue.getMitreNode();
 						atomicTechnique += tripleValue.getAtomicNode().getAtomicTechnique();
 					}
 				}
 
-				coveredSeries.getData().add(new XYChart.Data<>(platform, atomicTechnique));
-				uncoveredSeries.getData().add(new XYChart.Data<>(platform, mitreTotal - atomicTechnique));
+				addDataToChart(platform, atomicTechnique, mitreTechnique);
 			}
 		}
 		else
@@ -270,17 +272,16 @@ public class ChartScreenController
 			for (String platform : Constants.PLATFORMS)
 			{
 				path[2] = platform;
-				int mitreTotal = 0, atomicTechnique = 0;
+				int mitreTechnique = 0, atomicTechnique = 0;
 				for (String tactic : Constants.TACTICS)
 				{
 					path[1] = tactic;
 					tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 3));
-					mitreTotal += tripleValue.getMitreNode();
+					mitreTechnique += tripleValue.getMitreNode();
 					atomicTechnique += tripleValue.getAtomicNode().getAtomicTechnique();
 				}
 
-				coveredSeries.getData().add(new XYChart.Data<>(platform, atomicTechnique));
-				uncoveredSeries.getData().add(new XYChart.Data<>(platform, mitreTotal - atomicTechnique));
+				addDataToChart(platform, atomicTechnique, mitreTechnique);
 			}
 		}
 
@@ -297,10 +298,7 @@ public class ChartScreenController
 				selectedTree = getSelectedTree(domain);
 				tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 1));
 
-				coveredSeries.getData()
-						.add(new XYChart.Data<>(path[0], tripleValue.getAtomicNode().getAtomicTechnique()));
-				uncoveredSeries.getData().add(new XYChart.Data<>(path[0],
-						tripleValue.getMitreNode() - tripleValue.getAtomicNode().getAtomicTechnique()));
+				addDataToChart(domain, tripleValue.getAtomicNode().getAtomicTechnique(), tripleValue.getMitreNode());
 			}
 		}
 		else
@@ -311,10 +309,7 @@ public class ChartScreenController
 				path[0] = domain;
 				selectedTree = getSelectedTree(domain);
 				tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 2));
-				coveredSeries.getData()
-						.add(new XYChart.Data<>(path[0], tripleValue.getAtomicNode().getAtomicTechnique()));
-				uncoveredSeries.getData().add(new XYChart.Data<>(path[0],
-						tripleValue.getMitreNode() - tripleValue.getAtomicNode().getAtomicTechnique()));
+				addDataToChart(domain, tripleValue.getAtomicNode().getAtomicTechnique(), tripleValue.getMitreNode());
 			}
 		}
 		generateChart();
@@ -327,7 +322,7 @@ public class ChartScreenController
 			for (String platform : Constants.PLATFORMS)
 			{
 				path[2] = platform;
-				int mitreTotal = 0, atomicTechnique = 0;
+				int mitreTechnique = 0, atomicTechnique = 0;
 				for (String domain : Constants.DOMAINS)
 				{
 					path[0] = domain;
@@ -337,13 +332,12 @@ public class ChartScreenController
 					{
 						path[1] = tactic;
 						tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 3));
-						mitreTotal += tripleValue.getMitreNode();
+						mitreTechnique += tripleValue.getMitreNode();
 						atomicTechnique += tripleValue.getAtomicNode().getAtomicTechnique();
 					}
 				}
 
-				coveredSeries.getData().add(new XYChart.Data<>(platform, atomicTechnique));
-				uncoveredSeries.getData().add(new XYChart.Data<>(platform, mitreTotal - atomicTechnique));
+				addDataToChart(platform, atomicTechnique, mitreTechnique);
 			}
 		}
 		else
@@ -353,20 +347,20 @@ public class ChartScreenController
 			for (String platform : Constants.PLATFORMS)
 			{
 				path[2] = platform;
-				int mitreTotal = 0, atomicTechnique = 0;
+				int mitreTechnique = 0, atomicTechnique = 0;
 				for (String domain : Constants.DOMAINS)
 				{
 					path[0] = domain;
 					selectedTree = getSelectedTree(domain);
 					path[3] = MITRE_TOTAL;
 					value = selectedTree.getValue(path);
-					mitreTotal += (Integer) value;
+					mitreTechnique += (Integer) value;
 					path[3] = ATOMIC_TOTAL;
 					value = selectedTree.getValue(path);
 					atomicTechnique += ((Pair) value).getAtomicTechnique();
 				}
-				coveredSeries.getData().add(new XYChart.Data<>(platform, atomicTechnique));
-				uncoveredSeries.getData().add(new XYChart.Data<>(platform, mitreTotal - atomicTechnique));
+
+				addDataToChart(platform, atomicTechnique, mitreTechnique);
 			}
 		}
 
@@ -380,17 +374,16 @@ public class ChartScreenController
 			for (String tactic : Constants.TACTICS)
 			{
 				path[1] = tactic;
-				int mitreTotal = 0, atomicTechnique = 0;
+				int mitreTechnique = 0, atomicTechnique = 0;
 				for (String domain : Constants.DOMAINS)
 				{
 					path[0] = domain;
 					selectedTree = getSelectedTree(domain);
 					tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 2));
-					mitreTotal += tripleValue.getMitreNode();
+					mitreTechnique += tripleValue.getMitreNode();
 					atomicTechnique += tripleValue.getAtomicNode().getAtomicTechnique();
 				}
-				coveredSeries.getData().add(new XYChart.Data<>(tactic, atomicTechnique));
-				uncoveredSeries.getData().add(new XYChart.Data<>(tactic, mitreTotal - atomicTechnique));
+				addDataToChart(tactic, atomicTechnique, mitreTechnique);
 			}
 		}
 		else
@@ -400,21 +393,20 @@ public class ChartScreenController
 			for (String tactic : Constants.TACTICS)
 			{
 				path[1] = tactic;
-				int mitreTotal = 0, atomicTechnique = 0;
+				int mitreTechnique = 0, atomicTechnique = 0;
 				for (String domain : Constants.DOMAINS)
 				{
 					path[0] = domain;
 					selectedTree = getSelectedTree(domain);
 					path[3] = MITRE_TOTAL;
 					value = selectedTree.getValue(path);
-					mitreTotal += (Integer) value;
+					mitreTechnique += (Integer) value;
 					path[3] = ATOMIC_TOTAL;
 					value = selectedTree.getValue(path);
 					atomicTechnique += ((Pair) value).getAtomicTechnique();
 				}
 
-				coveredSeries.getData().add(new XYChart.Data<>(tactic, atomicTechnique));
-				uncoveredSeries.getData().add(new XYChart.Data<>(tactic, mitreTotal - atomicTechnique));
+				addDataToChart(tactic, atomicTechnique, mitreTechnique);
 			}
 		}
 
@@ -430,10 +422,7 @@ public class ChartScreenController
 				path[0] = domain;
 				selectedTree = getSelectedTree(domain);
 				tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 1));
-				coveredSeries.getData()
-						.add(new XYChart.Data<>(path[0], tripleValue.getAtomicNode().getAtomicTechnique()));
-				uncoveredSeries.getData().add(new XYChart.Data<>(path[0],
-						tripleValue.getMitreNode() - tripleValue.getAtomicNode().getAtomicTechnique()));
+				addDataToChart(domain, tripleValue.getAtomicNode().getAtomicTechnique(), tripleValue.getMitreNode());
 			}
 		}
 		else
@@ -443,17 +432,16 @@ public class ChartScreenController
 			{
 				path[0] = domain;
 				selectedTree = getSelectedTree(domain);
-				int mitreTotal = 0, atomicTechnique = 0;
+				int mitreTechnique = 0, atomicTechnique = 0;
 				for (String tactic : Constants.TACTICS)
 				{
 					path[1] = tactic;
 					tripleValue = (Triple) selectedTree.getValue(Arrays.copyOfRange(path, 0, 3));
 
-					mitreTotal += tripleValue.getMitreNode();
+					mitreTechnique += tripleValue.getMitreNode();
 					atomicTechnique += tripleValue.getAtomicNode().getAtomicTechnique();
 				}
-				coveredSeries.getData().add(new XYChart.Data<>(path[0], atomicTechnique));
-				uncoveredSeries.getData().add(new XYChart.Data<>(path[0], mitreTotal - atomicTechnique));
+				addDataToChart(domain, atomicTechnique, mitreTechnique);
 			}
 		}
 
