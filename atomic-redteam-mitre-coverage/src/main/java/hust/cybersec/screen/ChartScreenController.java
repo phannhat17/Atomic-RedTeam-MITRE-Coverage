@@ -162,10 +162,10 @@ public class ChartScreenController {
             Tooltip uncoveredTooltip = new Tooltip(UNCOVERED + ": " + totalUncoveredTechnique + " techniques" + coverageRatio);
 
             coveredTooltip.setStyle(style);
-            coveredTooltip.setShowDelay(Duration.seconds(0.01));
+            coveredTooltip.setShowDelay(Duration.seconds(0.05));
 
             uncoveredTooltip.setStyle(style);
-            uncoveredTooltip.setShowDelay(Duration.seconds(0.01));
+            uncoveredTooltip.setShowDelay(Duration.seconds(0.05));
 
             coveredNode.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
 					event -> Tooltip.install(coveredNode.getNode(), coveredTooltip));
