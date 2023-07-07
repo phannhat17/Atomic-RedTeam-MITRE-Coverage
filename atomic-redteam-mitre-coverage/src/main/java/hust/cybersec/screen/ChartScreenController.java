@@ -185,7 +185,7 @@ public class ChartScreenController {
             case "enterprise-attack" -> ENTERPRISE_TREE;
             case "mobile-attack" -> MOBILE_TREE;
             case "ics-attack" -> ICS_TREE;
-            default -> null;
+            default -> ENTERPRISE_TREE;
         };
 
     }
