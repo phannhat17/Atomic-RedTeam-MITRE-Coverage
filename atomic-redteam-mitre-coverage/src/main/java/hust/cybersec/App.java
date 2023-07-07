@@ -17,9 +17,16 @@ public class App {
 
         System.out.println("Welcome to the Atomic RedTeam - MITRE Coverage app!");
 
+        System.out.println("\n==============================");
+        mitre.downloadData();
+        atomic.downloadData();
+        System.out.println("==============================\n");
+
+
         while (true) {
+            System.out.println("==============================");
             System.out.println("Choose an option:");
-            System.out.println("1. Download Data");
+            System.out.println("1. Update Data");
             System.out.println("2. Export Excel");
             System.out.println("3. View Analysis Chart");
             System.out.println("0. Exit");
@@ -30,8 +37,10 @@ public class App {
 
                 switch (option) {
                     case 1:
+                        System.out.println("\n========= Updating ==========");
                         mitre.downloadData();
                         atomic.downloadData();
+                        System.out.println("==============================\n");
                         break;
                     case 2:
                         atomic.exportExcel();
@@ -40,24 +49,16 @@ public class App {
                         atomic.analyseCoverage();
                         break;
                     case 0:
+                        scanner.close();
                         System.out.println("Exiting...");
                         return;
                     default:
+                        scanner.close();
                         System.out.println("Invalid option. Please try again.");
-                        continue;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.nextLine(); // Consume the invalid input
-                continue;
-            }
-
-            System.out.println("Do you want to perform another action? (Enter 'y' to continue or any other key to exit)");
-            String continueOption = scanner.nextLine();
-
-            if (!continueOption.equalsIgnoreCase("y")) {
-                System.out.println("Exiting...");
-                break;
             }
         }
     }

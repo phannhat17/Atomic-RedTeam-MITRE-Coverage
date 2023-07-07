@@ -48,7 +48,7 @@ public class DataRetriever {
                 Path filePathObj = directoryPathObj.resolve(finalFileName);
                 downloadUsingNIO(dataURL + path, filePathObj.toString());
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -76,7 +76,7 @@ public class DataRetriever {
             httpsConnection.connect();
             validateCertificate(httpsConnection);
         } catch (SSLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return;
         }
 
@@ -89,7 +89,7 @@ public class DataRetriever {
                 fileOutputStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             httpsConnection.disconnect();
         }
