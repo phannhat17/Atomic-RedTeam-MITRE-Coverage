@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.StackedBarChart?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<BorderPane fx:id="screenBorder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hust.cybersec.screen.ChartScreenController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<BorderPane fx:id="screenBorder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+            minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hust.cybersec.screen.ChartScreenController">
     <center>
         <StackedBarChart fx:id="chart" prefHeight="573.0" prefWidth="1120.0" BorderPane.alignment="CENTER">
             <xAxis>
-                <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+                <CategoryAxis side="BOTTOM" fx:id="xAxis"/>
             </xAxis>
             <yAxis>
-                <NumberAxis fx:id="yAxis" side="LEFT" />
+                <NumberAxis fx:id="yAxis" side="LEFT"/>
             </yAxis>
             <BorderPane.margin>
-                <Insets left="40.0" right="40.0" />
+                <Insets left="40.0" right="40.0"/>
             </BorderPane.margin>
         </StackedBarChart>
     </center>
@@ -31,68 +29,70 @@
             <children>
                 <Label alignment="CENTER" prefHeight="90.0" prefWidth="270.0" text="ATOMIC ANALYTICS">
                     <font>
-                        <Font name="System Bold" size="28.0" />
+                        <Font name="System Bold" size="28.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets left="50.0" />
+                        <Insets left="50.0"/>
                     </VBox.margin>
                 </Label>
                 <HBox prefHeight="42.0" prefWidth="1200.0">
                     <children>
                         <Label alignment="CENTER" prefHeight="21.0" text="Group by">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="15.0"/>
                             </font>
                             <HBox.margin>
-                                <Insets left="50.0" right="8.0" />
+                                <Insets left="50.0" right="8.0"/>
                             </HBox.margin>
                         </Label>
-                        <ChoiceBox fx:id="firstChoiceBox" prefWidth="142.0" />
+                        <ChoiceBox fx:id="firstChoiceBox" prefWidth="142.0"/>
                         <Label alignment="CENTER" prefHeight="21.0" text="Show">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="15.0"/>
                             </font>
                             <HBox.margin>
-                                <Insets left="30.0" right="8.0" />
+                                <Insets left="30.0" right="8.0"/>
                             </HBox.margin>
                         </Label>
-                        <ChoiceBox fx:id="secondChoiceBox" prefWidth="150.0" />
+                        <ChoiceBox fx:id="secondChoiceBox" prefWidth="150.0"/>
                         <Label alignment="CENTER" prefHeight="21.0" text="then Group by">
                             <font>
-                                <Font size="15.0" />
+                                <Font size="15.0"/>
                             </font>
                             <padding>
-                                <Insets right="8.0" />
+                                <Insets right="8.0"/>
                             </padding>
                             <HBox.margin>
-                                <Insets left="30.0" right="8.0" />
+                                <Insets left="30.0" right="8.0"/>
                             </HBox.margin>
                         </Label>
-                        <ChoiceBox fx:id="thirdChoiceBox" prefWidth="150.0" />
+                        <ChoiceBox fx:id="thirdChoiceBox" prefWidth="150.0"/>
                         <Button fx:id="analyseButton" onAction="#analyseButtonPressed" text="Analyse">
                             <HBox.margin>
-                                <Insets left="20.0" />
+                                <Insets left="20.0"/>
                             </HBox.margin>
                             <font>
-                                <Font name="System Bold" size="14.0" />
+                                <Font name="System Bold" size="14.0"/>
                             </font>
                         </Button>
-                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonPressed" text="Save Current Analysis">
+                        <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveButtonPressed"
+                                text="Save Current Analysis">
                             <font>
-                                <Font name="System Bold" size="14.0" />
+                                <Font name="System Bold" size="14.0"/>
                             </font>
                             <HBox.margin>
-                                <Insets left="120.0" />
+                                <Insets left="120.0"/>
                             </HBox.margin>
                         </Button>
                     </children>
                 </HBox>
-                <Label fx:id="analyseResult" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="49.0" prefWidth="1100.0">
+                <Label fx:id="analyseResult" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="49.0"
+                       prefWidth="1100.0">
                     <font>
-                        <Font name="System Bold Italic" size="16.0" />
+                        <Font name="System Bold Italic" size="16.0"/>
                     </font>
                     <VBox.margin>
-                        <Insets left="50.0" />
+                        <Insets left="50.0"/>
                     </VBox.margin>
                 </Label>
             </children>
