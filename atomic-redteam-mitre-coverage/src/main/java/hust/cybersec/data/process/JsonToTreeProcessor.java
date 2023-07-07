@@ -250,8 +250,7 @@ public class JsonToTreeProcessor {
                     }
                 }
             } catch (IOException e) {
-                System.out.println("Path not found!");
-                e.printStackTrace();
+                System.err.println("Path not found!");
             }
         }
     }
@@ -388,8 +387,7 @@ public class JsonToTreeProcessor {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Path not found!");
-            e.printStackTrace();
+            System.err.println("Path not found!");
         }
     }
 

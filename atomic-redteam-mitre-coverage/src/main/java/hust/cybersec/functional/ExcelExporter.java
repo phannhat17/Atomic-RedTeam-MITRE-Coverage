@@ -395,7 +395,7 @@ public class ExcelExporter {
                 System.err.println("File not found: " + filePath);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 }

@@ -36,7 +36,6 @@ public class YamlToJsonConverter {
             writeJsonToFile(json);
         } catch (IOException e) {
             System.err.println("An error occurred during YAML to JSON conversion.");
-            e.printStackTrace();
         }
 
         long stop = System.currentTimeMillis();
@@ -64,7 +63,6 @@ public class YamlToJsonConverter {
             return yamlObjectMapper.readValue(yamlBytes, Object.class);
         } catch (IOException ex) {
             System.err.println("Error occurred while converting YAML to JSON.");
-            ex.printStackTrace();
         }
         return null;
     }

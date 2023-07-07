@@ -546,7 +546,7 @@ public class ChartScreenController {
                 System.err.println("File not found: " + filePath);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 }
