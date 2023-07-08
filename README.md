@@ -18,8 +18,8 @@ A project for Project 1 course of SoICT - HUST
 Clone this repo and open folder [atomic-redteam-mitre-coverage](./atomic-redteam-mitre-coverage/) in your ide and run the main of [hust.cybersec.App](./atomic-redteam-mitre-coverage/src/main/java/hust/cybersec/App.java). Or you can just download the zip version of [atomic-redteam-mitre-coverage](./atomic-redteam-mitre-coverage/) folder from Releases section.
 
 ## Some images
-![](https://cdn.discordapp.com/attachments/940990932814282806/1127178185889550396/image.png)
+![](./assets/console.png)
 
-![](https://cdn.discordapp.com/attachments/940990932814282806/1127178314977652808/image.png)
+![](./assets/excel.png)
 
-![](https://cdn.discordapp.com/attachments/940990932814282806/1127179034959290368/image.png)
+![](./assets/chart.png)
