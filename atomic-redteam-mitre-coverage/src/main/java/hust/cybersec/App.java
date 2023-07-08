@@ -53,7 +53,6 @@ public class App {
                         System.out.println("Exiting...");
                         return;
                     default:
-                        scanner.close();
                         System.out.println("Invalid option. Please try again.");
                 }
             } catch (InputMismatchException e) {
