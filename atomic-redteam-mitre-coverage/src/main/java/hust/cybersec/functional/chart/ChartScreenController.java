@@ -112,6 +112,7 @@ public class ChartScreenController {
 
     /**
      * Sets the choice boxes based on the selected taxonomy.
+     *
      * @param selectedFirstChoice The selected taxonomy.
      */
     public void setChoiceBoxes(String selectedFirstChoice) {
@@ -131,9 +132,10 @@ public class ChartScreenController {
 
     /**
      * Adds data to the chart for the specified category.
-     * @param category The category to add data for.
+     *
+     * @param category        The category to add data for.
      * @param atomicTechnique The number of atomic techniques.
-     * @param mitreTechnique The number of Mitre techniques.
+     * @param mitreTechnique  The number of Mitre techniques.
      */
     public void addDataToChart(String category, int atomicTechnique, int mitreTechnique) {
         coveredSeries.getData().add(new XYChart.Data<>(category, atomicTechnique));
@@ -172,7 +174,7 @@ public class ChartScreenController {
     /**
      * Writes the analysis result to the UI label.
      *
-     * @param totalAtomicTest     The total number of atomic tests.
+     * @param totalAtomicTest      The total number of atomic tests.
      * @param totalAtomicTechnique The total number of atomic techniques.
      * @param totalMitreTechnique  The total number of Mitre techniques.
      */
@@ -207,9 +209,9 @@ public class ChartScreenController {
             uncoveredTooltip.setShowDelay(Duration.seconds(0.05));
 
             coveredNode.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
-					event -> Tooltip.install(coveredNode.getNode(), coveredTooltip));
+                    event -> Tooltip.install(coveredNode.getNode(), coveredTooltip));
             uncoveredNode.getNode().addEventHandler(MouseEvent.MOUSE_MOVED,
-					event -> Tooltip.install(uncoveredNode.getNode(), uncoveredTooltip));
+                    event -> Tooltip.install(uncoveredNode.getNode(), uncoveredTooltip));
         }
     }
 

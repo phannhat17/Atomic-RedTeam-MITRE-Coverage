@@ -51,14 +51,14 @@ public class AtomicRedTeam extends MitreAttackFramework {
     /**
      * Constructor for the AtomicRedTeam class.
      *
-     * @param testName                  The name of the test.
-     * @param testGuid                  The auto-generated GUID for the test.
-     * @param testDescription           The description of the test.
-     * @param testSupportedPlatforms    The supported platforms for the test.
-     * @param testInputArguments        The input arguments for the test.
-     * @param testExecutor              The executor for the test.
+     * @param testName                   The name of the test.
+     * @param testGuid                   The auto-generated GUID for the test.
+     * @param testDescription            The description of the test.
+     * @param testSupportedPlatforms     The supported platforms for the test.
+     * @param testInputArguments         The input arguments for the test.
+     * @param testExecutor               The executor for the test.
      * @param testDependencyExecutorName The name of the dependency executor.
-     * @param testDependencies          The dependencies of the test.
+     * @param testDependencies           The dependencies of the test.
      */
     public AtomicRedTeam(String testName, String testGuid, String testDescription, String[] testSupportedPlatforms,
                          String[] testInputArguments, String[] testExecutor, String testDependencyExecutorName,
@@ -77,15 +77,15 @@ public class AtomicRedTeam extends MitreAttackFramework {
     /**
      * Constructor for the AtomicRedTeam class.
      *
-     * @param testNumber                The number of the test.
-     * @param testName                  The name of the test.
-     * @param testGuid                  The auto-generated GUID for the test.
-     * @param testDescription           The description of the test.
-     * @param testSupportedPlatforms    The supported platforms for the test.
-     * @param testInputArguments        The input arguments for the test.
-     * @param testExecutor              The executor for the test.
+     * @param testNumber                 The number of the test.
+     * @param testName                   The name of the test.
+     * @param testGuid                   The auto-generated GUID for the test.
+     * @param testDescription            The description of the test.
+     * @param testSupportedPlatforms     The supported platforms for the test.
+     * @param testInputArguments         The input arguments for the test.
+     * @param testExecutor               The executor for the test.
      * @param testDependencyExecutorName The name of the dependency executor.
-     * @param testDependencies          The dependencies of the test.
+     * @param testDependencies           The dependencies of the test.
      */
     public AtomicRedTeam(int testNumber, String testName, String testGuid, String testDescription,
                          String[] testSupportedPlatforms, String[] testInputArguments, String[] testExecutor,

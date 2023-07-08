@@ -196,8 +196,8 @@ public class Deserializer extends JsonDeserializer<Object> {
      *
      * @param node The JSON node to deserialize.
      * @return The deserialized MitreAttackFramework object.
-     * @throws JsonProcessingException       If there is an error during JSON processing.
-     * @throws IllegalArgumentException     If the JSON node is invalid or missing required fields.
+     * @throws JsonProcessingException  If there is an error during JSON processing.
+     * @throws IllegalArgumentException If the JSON node is invalid or missing required fields.
      */
     private MitreAttackFramework deserializeMitreAttackFramework(JsonNode node)
             throws JsonProcessingException, IllegalArgumentException {
@@ -233,8 +233,8 @@ public class Deserializer extends JsonDeserializer<Object> {
      *
      * @param node The JSON node to deserialize.
      * @return The deserialized AtomicRedTeam object.
-     * @throws JsonProcessingException       If there is an error during JSON processing.
-     * @throws IllegalArgumentException     If the JSON node is invalid or missing required fields.
+     * @throws JsonProcessingException  If there is an error during JSON processing.
+     * @throws IllegalArgumentException If the JSON node is invalid or missing required fields.
      */
     private AtomicRedTeam deserializeAtomicRedTeam(JsonNode node)
             throws JsonProcessingException, IllegalArgumentException {

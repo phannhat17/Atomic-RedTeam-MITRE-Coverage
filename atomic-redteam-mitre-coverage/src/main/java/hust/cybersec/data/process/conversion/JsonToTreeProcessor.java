@@ -111,10 +111,10 @@ public class JsonToTreeProcessor {
     /**
      * Assigns a value to a specific node in the data tree.
      *
-     * @param domainInt   The index of the domain.
-     * @param pathNode    The path to the node.
-     * @param elementInt  The element index of the node.
-     * @param valueAdd    The value to add to the node.
+     * @param domainInt  The index of the domain.
+     * @param pathNode   The path to the node.
+     * @param elementInt The element index of the node.
+     * @param valueAdd   The value to add to the node.
      */
     private void assignNodeValue(int domainInt, String[] pathNode, int elementInt, int valueAdd) {
         Object value;
@@ -149,11 +149,11 @@ public class JsonToTreeProcessor {
     /**
      * Assigns a value to a specific node in the data tree.
      *
-     * @param domainInt      The index of the domain.
-     * @param pathNode       The path to the node.
-     * @param elementInt     The element index of the node.
-     * @param elementSubInt  The sub-element index of the node.
-     * @param valueAdd       The value to add to the node.
+     * @param domainInt     The index of the domain.
+     * @param pathNode      The path to the node.
+     * @param elementInt    The element index of the node.
+     * @param elementSubInt The sub-element index of the node.
+     * @param valueAdd      The value to add to the node.
      */
     private void assignNodeValue(int domainInt, String[] pathNode, int elementInt, int elementSubInt, int valueAdd) {
         Object value;
@@ -236,10 +236,10 @@ public class JsonToTreeProcessor {
     /**
      * Assigns a value to a specific node in the atomic tree.
      *
-     * @param domainInt The index of the domain.
-     * @param pathNode  The path to the node.
+     * @param domainInt  The index of the domain.
+     * @param pathNode   The path to the node.
      * @param elementInt The element index of the node.
-     * @param valueAdd  The value to add to the node.
+     * @param valueAdd   The value to add to the node.
      */
     private void assignAtomicValue(int domainInt, String[] pathNode, int elementInt, int valueAdd) {
         Object value;

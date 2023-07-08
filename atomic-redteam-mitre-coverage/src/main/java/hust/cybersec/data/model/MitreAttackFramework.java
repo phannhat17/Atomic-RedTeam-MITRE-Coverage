@@ -48,14 +48,14 @@ public class MitreAttackFramework {
     /**
      * Constructor for the MitreAttackFramework class.
      *
-     * @param techniqueId           The ID of the technique.
-     * @param techniqueName         The name of the technique.
-     * @param techniqueDescription  The description of the technique.
-     * @param techniquePlatforms    The platforms associated with the technique.
-     * @param techniqueDomains      The domains associated with the technique.
-     * @param techniqueUrl          The URL of the technique.
-     * @param techniqueTactics      The tactics associated with the technique.
-     * @param techniqueDetection    The detection information for the technique.
+     * @param techniqueId             The ID of the technique.
+     * @param techniqueName           The name of the technique.
+     * @param techniqueDescription    The description of the technique.
+     * @param techniquePlatforms      The platforms associated with the technique.
+     * @param techniqueDomains        The domains associated with the technique.
+     * @param techniqueUrl            The URL of the technique.
+     * @param techniqueTactics        The tactics associated with the technique.
+     * @param techniqueDetection      The detection information for the technique.
      * @param techniqueIsSubtechnique Indicates if the technique is a subtechnique.
      */
     public MitreAttackFramework(String techniqueId, String techniqueName, String techniqueDescription,

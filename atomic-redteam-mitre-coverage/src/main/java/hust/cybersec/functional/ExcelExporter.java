@@ -242,10 +242,10 @@ public class ExcelExporter {
     /**
      * Creates a data cell in the specified row and column with the given style and value.
      *
-     * @param row     The row to create the data cell in.
-     * @param column  The column index of the data cell.
-     * @param style   The style to apply to the data cell.
-     * @param value   The value to set in the data cell.
+     * @param row    The row to create the data cell in.
+     * @param column The column index of the data cell.
+     * @param style  The style to apply to the data cell.
+     * @param value  The value to set in the data cell.
      */
     private void createDataCell(Row row, int column, CellStyle style, Object value) {
         Cell dataCell = row.createCell(column);
