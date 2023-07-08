@@ -31,7 +31,7 @@ Clone this repo and open folder [atomic-redteam-mitre-coverage](./atomic-redteam
 ### 3. Chart analysis
 ![](./assets/chart.png)
 
-## Sonar
+## Sonar Analysis
 
 When running Sonar analysis, please make sure to exclude the folder `atomic-redteam-mitre-coverage/data/` from the analysis.
 
