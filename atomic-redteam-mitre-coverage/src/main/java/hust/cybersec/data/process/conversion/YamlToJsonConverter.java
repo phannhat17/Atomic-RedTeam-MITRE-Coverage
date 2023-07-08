@@ -1,4 +1,4 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.conversion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -14,6 +14,12 @@ public class YamlToJsonConverter {
     private final ObjectMapper yamlObjectMapper;
     private final ObjectMapper jsonObjectMapper;
 
+    /**
+     * Create a new YamlToJsonConverter.
+     *
+     * @param yamlFilePath The path to the YAML file to convert
+     * @param jsonFilePath The path to the JSON file to write
+     */
     public YamlToJsonConverter(String yamlFilePath, String jsonFilePath) {
         this.yamlFilePath = yamlFilePath;
         this.jsonFilePath = jsonFilePath;
@@ -26,6 +32,9 @@ public class YamlToJsonConverter {
         this.jsonObjectMapper = new ObjectMapper();
     }
 
+    /**
+     * Convert YAML file to JSON and write the result to a file.
+     */
     public void convert() {
         System.out.println("Converting atomic-all.yaml to atomic-all.json");
         long start = System.currentTimeMillis();
@@ -36,13 +45,18 @@ public class YamlToJsonConverter {
             writeJsonToFile(json);
         } catch (IOException e) {
             System.err.println("An error occurred during YAML to JSON conversion.");
-            e.printStackTrace();
         }
 
         long stop = System.currentTimeMillis();
         System.out.println("Run time: " + (stop - start));
     }
 
+    /**
+     * Read the YAML file and return its contents as a byte array.
+     *
+     * @return The contents of the YAML file as a byte array
+     * @throws IOException If an I/O error occurs while reading the file
+     */
     private byte[] readYamlFile() throws IOException {
         try {
             Path file = Path.of(yamlFilePath).normalize();
@@ -59,16 +73,27 @@ public class YamlToJsonConverter {
         }
     }
 
+    /**
+     * Convert the given YAML byte array to a JSON object.
+     *
+     * @param yamlBytes The YAML byte array to convert
+     * @return The resulting JSON object
+     */
     private Object convertYamlToJson(byte[] yamlBytes) {
         try {
             return yamlObjectMapper.readValue(yamlBytes, Object.class);
         } catch (IOException ex) {
             System.err.println("Error occurred while converting YAML to JSON.");
-            ex.printStackTrace();
         }
         return null;
     }
 
+    /**
+     * Write the given JSON object to a file.
+     *
+     * @param json The JSON object to write
+     * @throws IOException If an I/O error occurs while writing the file
+     */
     private void writeJsonToFile(Object json) throws IOException {
         try (OutputStream outputStream = new FileOutputStream(jsonFilePath);
              BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(outputStream)) {

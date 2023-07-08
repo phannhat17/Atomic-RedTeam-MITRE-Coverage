@@ -20,16 +20,34 @@ public class DataRetriever {
     private final String directoryPath;
     private final String[] filesPath;
 
+    /**
+     * Constructs a DataRetriever object with the specified data URL, directory path, and file paths.
+     *
+     * @param dataURL       The URL for the data.
+     * @param directoryPath The path where the files will be saved.
+     * @param filesPath     An array of file paths to download.
+     */
     public DataRetriever(String dataURL, String directoryPath, String[] filesPath) {
         this.dataURL = dataURL;
         this.directoryPath = directoryPath;
         this.filesPath = filesPath;
     }
 
+    /**
+     * Downloads a files specified by filesPath into the directoryPath.
+     *
+     * @throws URISyntaxException If the URL syntax is invalid.
+     */
     public void download() throws URISyntaxException {
         download("");
     }
 
+    /**
+     * Downloads a specific file specified by fileName into the directoryPath.
+     *
+     * @param fileName The name of the file to be downloaded.
+     * @throws URISyntaxException If the URL syntax is invalid.
+     */
     public void download(String fileName) throws URISyntaxException {
         File directory = new File(directoryPath);
 
@@ -48,12 +66,19 @@ public class DataRetriever {
                 Path filePathObj = directoryPathObj.resolve(finalFileName);
                 downloadUsingNIO(dataURL + path, filePathObj.toString());
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
     }
 
-    // Downloads a file using NIO (non-blocking I/O)
+    /**
+     * Downloads a file using NIO (non-blocking I/O) from the given URL and saves it to the specified file path.
+     *
+     * @param urlStr The URL of the file to download.
+     * @param file   The path where the file will be saved.
+     * @throws IOException        If an I/O error occurs during the download.
+     * @throws URISyntaxException If the URL syntax is invalid.
+     */
     protected void downloadUsingNIO(String urlStr, String file) throws IOException, URISyntaxException {
 
         System.out.println("Downloading " + file);
@@ -76,7 +101,7 @@ public class DataRetriever {
             httpsConnection.connect();
             validateCertificate(httpsConnection);
         } catch (SSLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return;
         }
 
@@ -89,7 +114,7 @@ public class DataRetriever {
                 fileOutputStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         } finally {
             httpsConnection.disconnect();
         }
@@ -98,6 +123,12 @@ public class DataRetriever {
         System.out.println("Run time: " + (stop - start));
     }
 
+    /**
+     * Validates the server's certificate chain.
+     *
+     * @param connection The HTTPS connection used to download the file.
+     * @throws SSLException If the certificate verification fails.
+     */
     private void validateCertificate(HttpsURLConnection connection) throws SSLException {
         try {
             // Implement additional validation logic if required

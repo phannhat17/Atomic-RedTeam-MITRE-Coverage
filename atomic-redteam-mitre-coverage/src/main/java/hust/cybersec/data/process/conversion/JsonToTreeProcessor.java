@@ -1,7 +1,12 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.conversion;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hust.cybersec.data.process.structure.Constants;
+import hust.cybersec.data.process.structure.DataTree;
+import hust.cybersec.data.process.structure.Pair;
+import hust.cybersec.data.process.structure.Triple;
+import hust.cybersec.data.process.validation.JsonNodeHandler;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,18 +23,36 @@ public class JsonToTreeProcessor {
     private final String[] path = new String[4];
     private final JsonNodeHandler jsonHandler = new JsonNodeHandler();
 
+    /**
+     * Retrieves data tree for the enterprise domain.
+     *
+     * @return Data tree for the enterprise domain.
+     */
     public DataTree getEnterpriseTree() {
         return enterpriseTree;
     }
 
+    /**
+     * Retrieves data tree for the mobile domain.
+     *
+     * @return Data tree for the mobile domain.
+     */
     public DataTree getMobileTree() {
         return mobileTree;
     }
 
+    /**
+     * Retrieves data tree for the ICS domain.
+     *
+     * @return Data tree for the ICS domain.
+     */
     public DataTree getIcsTree() {
         return icsTree;
     }
 
+    /**
+     * Initializes the data trees for each domain.
+     */
     private void initialDataTree() {
         for (int i = 0; i < Constants.DOMAINS.length; ++i) {
             if (i == 0) {
@@ -42,6 +65,13 @@ public class JsonToTreeProcessor {
         }
     }
 
+    /**
+     * Retrieves list of tactics from the provided JSON node based on the specified domain.
+     *
+     * @param root   JSON node to extract tactics from.
+     * @param domain Domain used to filter tactics.
+     * @return An array of distinct tactics.
+     */
     private String[] getTacticList(JsonNode root, String domain) {
         List<String> tacticSubList = new ArrayList<>();
         if (root.has("kill_chain_phases")) {
@@ -59,6 +89,12 @@ public class JsonToTreeProcessor {
         return tacticSubList.toArray(new String[0]);
     }
 
+    /**
+     * Retrieves list of platforms from the provided JSON node.
+     *
+     * @param root JSON node to extract platforms from.
+     * @return An array of distinct platforms.
+     */
     private String[] getPlatformList(JsonNode root) {
         List<String> platformSubList = new ArrayList<>();
         if (root.has("x_mitre_platforms")) {
@@ -72,16 +108,18 @@ public class JsonToTreeProcessor {
         return platformSubList.toArray(new String[0]);
     }
 
+    /**
+     * Assigns a value to a specific node in the data tree.
+     *
+     * @param domainInt  The index of the domain.
+     * @param pathNode   The path to the node.
+     * @param elementInt The element index of the node.
+     * @param valueAdd   The value to add to the node.
+     */
     private void assignNodeValue(int domainInt, String[] pathNode, int elementInt, int valueAdd) {
+        Object value;
+        Triple tripleValue;
         switch (domainInt) {
-            case 0:
-                Object value = enterpriseTree.getValue(pathNode);
-                if (value == null || elementInt != 1)
-                    return;
-                Triple tripleValue = (Triple) value;
-                tripleValue.setMitreNode(tripleValue.getMitreNode() + valueAdd);
-                enterpriseTree.setValue(pathNode, tripleValue);
-                return;
             case 1:
                 value = mobileTree.getValue(pathNode);
                 if (value == null || elementInt != 1)
@@ -97,26 +135,31 @@ public class JsonToTreeProcessor {
                 tripleValue = (Triple) value;
                 tripleValue.setMitreNode(tripleValue.getMitreNode() + valueAdd);
                 icsTree.setValue(pathNode, tripleValue);
+                return;
+            default:
+                value = enterpriseTree.getValue(pathNode);
+                if (value == null || elementInt != 1)
+                    return;
+                tripleValue = (Triple) value;
+                tripleValue.setMitreNode(tripleValue.getMitreNode() + valueAdd);
+                enterpriseTree.setValue(pathNode, tripleValue);
         }
     }
 
+    /**
+     * Assigns a value to a specific node in the data tree.
+     *
+     * @param domainInt     The index of the domain.
+     * @param pathNode      The path to the node.
+     * @param elementInt    The element index of the node.
+     * @param elementSubInt The sub-element index of the node.
+     * @param valueAdd      The value to add to the node.
+     */
     private void assignNodeValue(int domainInt, String[] pathNode, int elementInt, int elementSubInt, int valueAdd) {
+        Object value;
+        Triple tripleValue;
+        Pair pairValue;
         switch (domainInt) {
-            case 0:
-                Object value = enterpriseTree.getValue(pathNode);
-                if (value == null || elementInt != 2)
-                    return;
-                Triple tripleValue = (Triple) value;
-                Pair pairValue = tripleValue.getAtomicNode();
-                if (elementSubInt == 1) {
-                    pairValue.setAtomicTechnique(pairValue.getAtomicTechnique() + valueAdd);
-                    tripleValue.setAtomicNode(pairValue);
-                } else {
-                    pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
-                    tripleValue.setAtomicNode(pairValue);
-                }
-                enterpriseTree.setValue(pathNode, tripleValue);
-                return;
             case 1:
                 value = mobileTree.getValue(pathNode);
                 if (value == null || elementInt != 2)
@@ -146,17 +189,33 @@ public class JsonToTreeProcessor {
                     tripleValue.setAtomicNode(pairValue);
                 }
                 icsTree.setValue(pathNode, tripleValue);
-
+                return;
+            default:
+                value = enterpriseTree.getValue(pathNode);
+                if (value == null || elementInt != 2)
+                    return;
+                tripleValue = (Triple) value;
+                pairValue = tripleValue.getAtomicNode();
+                if (elementSubInt == 1) {
+                    pairValue.setAtomicTechnique(pairValue.getAtomicTechnique() + valueAdd);
+                    tripleValue.setAtomicNode(pairValue);
+                } else {
+                    pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
+                    tripleValue.setAtomicNode(pairValue);
+                }
+                enterpriseTree.setValue(pathNode, tripleValue);
         }
     }
 
+    /**
+     * Assigns a value to a specific node in the MITRE tree.
+     *
+     * @param domainInt The index of the domain.
+     * @param pathNode  The path to the node.
+     */
     private void assignMitreValue(int domainInt, String[] pathNode) {
+        Object value;
         switch (domainInt) {
-            case 0:
-                Object value = enterpriseTree.getValue(pathNode);
-                value = (value == null) ? null : (Integer) value + 1;
-                enterpriseTree.setValue(pathNode, value);
-                return;
             case 1:
                 value = mobileTree.getValue(pathNode);
                 value = (value == null) ? null : (Integer) value + 1;
@@ -166,23 +225,26 @@ public class JsonToTreeProcessor {
                 value = icsTree.getValue(pathNode);
                 value = (value == null) ? null : (Integer) value + 1;
                 icsTree.setValue(pathNode, value);
+                return;
+            default:
+                value = enterpriseTree.getValue(pathNode);
+                value = (value == null) ? null : (Integer) value + 1;
+                enterpriseTree.setValue(pathNode, value);
         }
     }
 
+    /**
+     * Assigns a value to a specific node in the atomic tree.
+     *
+     * @param domainInt  The index of the domain.
+     * @param pathNode   The path to the node.
+     * @param elementInt The element index of the node.
+     * @param valueAdd   The value to add to the node.
+     */
     private void assignAtomicValue(int domainInt, String[] pathNode, int elementInt, int valueAdd) {
+        Object value;
+        Pair pairValue;
         switch (domainInt) {
-            case 0:
-                Object value = enterpriseTree.getValue(pathNode);
-                if (value == null || elementInt > 2 || elementInt < 1)
-                    return;
-                Pair pairValue = (Pair) value;
-                if (elementInt == 1) {
-                    pairValue.setAtomicTechnique(pairValue.getAtomicTechnique() + valueAdd);
-                } else {
-                    pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
-                }
-                enterpriseTree.setValue(pathNode, pairValue);
-                return;
             case 1:
                 value = mobileTree.getValue(pathNode);
                 if (value == null || elementInt > 2 || elementInt < 1)
@@ -206,9 +268,24 @@ public class JsonToTreeProcessor {
                     pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
                 }
                 icsTree.setValue(pathNode, pairValue);
+                return;
+            default:
+                value = enterpriseTree.getValue(pathNode);
+                if (value == null || elementInt > 2 || elementInt < 1)
+                    return;
+                pairValue = (Pair) value;
+                if (elementInt == 1) {
+                    pairValue.setAtomicTechnique(pairValue.getAtomicTechnique() + valueAdd);
+                } else {
+                    pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
+                }
+                enterpriseTree.setValue(pathNode, pairValue);
         }
     }
 
+    /**
+     * Maps MITRE data to the data tree.
+     */
     private void mapMitreData() {
         String JSON_DIRECTORY_PATH = "./data/mitre-attack/";
         path[3] = "Mitre.Total";
@@ -250,12 +327,17 @@ public class JsonToTreeProcessor {
                     }
                 }
             } catch (IOException e) {
-                System.out.println("Path not found!");
-                e.printStackTrace();
+                System.err.println("Path not found!");
             }
         }
     }
 
+    /**
+     * Retrieves the list of domains from the provided JSON node.
+     *
+     * @param root The JSON node to extract domains from.
+     * @return An array of distinct domains.
+     */
     private String[] getDomainList(JsonNode root) {
         List<String> platformSubList = new ArrayList<>();
         if (root.has("x_mitre_domains")) {
@@ -269,6 +351,12 @@ public class JsonToTreeProcessor {
         return platformSubList.toArray(new String[0]);
     }
 
+    /**
+     * Retrieves the index of the domain in the Constants.DOMAINS array based on the given domain string.
+     *
+     * @param domain The domain string.
+     * @return The index of the domain if found, or null if not found.
+     */
     private Integer getDomainInt(String domain) {
         for (int i = 0; i < Constants.DOMAINS.length; ++i) {
             if (domain.toLowerCase().equals(Constants.DOMAINS[i])) {
@@ -278,6 +366,12 @@ public class JsonToTreeProcessor {
         return null;
     }
 
+    /**
+     * Retrieves the list of supported platforms from the provided JSON node.
+     *
+     * @param root The JSON node containing the supported platforms.
+     * @return An array of supported platform names in lowercase.
+     */
     private String[] getSupportedPlatformList(JsonNode root) {
         List<String> platformSubList = new ArrayList<>();
         if (root.has("supported_platforms")) {
@@ -291,6 +385,12 @@ public class JsonToTreeProcessor {
         return platformSubList.toArray(new String[0]);
     }
 
+    /**
+     * Converts the platform name to a readable format.
+     *
+     * @param atomicPlatform The platform name to be converted.
+     * @return The converted platform name.
+     */
     private String convertPlatformName(String atomicPlatform) {
         if (atomicPlatform.contains("-")) {
             String[] words = atomicPlatform.split("-");
@@ -303,6 +403,9 @@ public class JsonToTreeProcessor {
         return atomicPlatform;
     }
 
+    /**
+     * Maps the atomic data to the data tree.
+     */
     private void mapAtomicData() {
         HashSet<String> testID = new HashSet<>();
         HashSet<String> techniqueID = new HashSet<>();
@@ -388,11 +491,13 @@ public class JsonToTreeProcessor {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Path not found!");
-            e.printStackTrace();
+            System.err.println("Path not found!");
         }
     }
 
+    /**
+     * Builds the data tree by initializing it, mapping MITRE data, and mapping atomic data.
+     */
     public void buildDataTree() {
         initialDataTree();
         mapMitreData();

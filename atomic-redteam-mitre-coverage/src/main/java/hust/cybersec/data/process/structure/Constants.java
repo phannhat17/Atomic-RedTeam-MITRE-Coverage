@@ -1,5 +1,10 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.structure;
 
+import hust.cybersec.data.process.conversion.DistinctParser;
+
+/**
+ * The Constants class provides static constants related to data processing and structure.
+ */
 public class Constants {
     public static final String[] DOMAINS = {"enterprise-attack", "mobile-attack", "ics-attack"};
 

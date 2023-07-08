@@ -4,10 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import hust.cybersec.data.collector.DataRetriever;
-import hust.cybersec.data.process.Deserializer;
+import hust.cybersec.data.process.conversion.Deserializer;
 
 import java.net.URISyntaxException;
 
+/**
+ * Represents the Mitre Attack Framework class.
+ */
 @JsonDeserialize(using = Deserializer.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MitreAttackFramework {
@@ -35,10 +38,26 @@ public class MitreAttackFramework {
     @JsonProperty("x_mitre_is_subtechnique")
     private boolean techniqueIsSubtechnique;
 
+    /**
+     * Default constructor for the MitreAttackFramework class.
+     */
     public MitreAttackFramework() {
 
     }
 
+    /**
+     * Constructor for the MitreAttackFramework class.
+     *
+     * @param techniqueId             The ID of the technique.
+     * @param techniqueName           The name of the technique.
+     * @param techniqueDescription    The description of the technique.
+     * @param techniquePlatforms      The platforms associated with the technique.
+     * @param techniqueDomains        The domains associated with the technique.
+     * @param techniqueUrl            The URL of the technique.
+     * @param techniqueTactics        The tactics associated with the technique.
+     * @param techniqueDetection      The detection information for the technique.
+     * @param techniqueIsSubtechnique Indicates if the technique is a subtechnique.
+     */
     public MitreAttackFramework(String techniqueId, String techniqueName, String techniqueDescription,
                                 String[] techniquePlatforms, String[] techniqueDomains, String techniqueUrl, String[] techniqueTactics,
                                 String techniqueDetection, boolean techniqueIsSubtechnique) {
@@ -53,6 +72,7 @@ public class MitreAttackFramework {
         this.techniqueIsSubtechnique = techniqueIsSubtechnique;
     }
 
+    // Getter and Setter
     public String getTechniqueId() {
         return techniqueId;
     }
@@ -121,10 +141,20 @@ public class MitreAttackFramework {
         return techniqueDetection;
     }
 
+    /**
+     * Checks if the technique is a subtechnique.
+     *
+     * @return True if the technique is a subtechnique, false otherwise.
+     */
     public boolean isTechniqueIsSubtechnique() {
         return techniqueIsSubtechnique;
     }
 
+    /**
+     * Downloads Mitre Attack data.
+     *
+     * @throws URISyntaxException If there is an error in the URI syntax.
+     */
     public void downloadData() throws URISyntaxException {
         String MITRE_URL = "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/";
         String MITRE_DIRECTORY = "./data/mitre-attack";

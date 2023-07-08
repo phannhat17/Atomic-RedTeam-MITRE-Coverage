@@ -1,4 +1,4 @@
-package hust.cybersec.screen;
+package hust.cybersec.functional.chart;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +18,9 @@ public class ChartScreen extends Application {
         stage.show();
     }
 
+    /**
+     * Launches the chart scene.
+     */
     public static void LaunchScene() {
         launch();
     }

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hust.cybersec.data.model.AtomicRedTeam;
 import hust.cybersec.data.model.MitreAttackFramework;
-import hust.cybersec.data.process.JsonNodeHandler;
+import hust.cybersec.data.process.validation.JsonNodeHandler;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -30,11 +30,22 @@ public class ExcelExporter {
 
     private final JsonNodeHandler jsonHandler = new JsonNodeHandler();
 
+    /**
+     * Constructs for ExcelExporter.
+     *
+     * @param jsonFilePath  Path of the JSON file containing the data.
+     * @param excelFilePath Path of the Excel file to export the data to.
+     */
     public ExcelExporter(String jsonFilePath, String excelFilePath) {
         this.jsonFilePath = jsonFilePath;
         this.excelFilePath = excelFilePath;
     }
 
+    /**
+     * Exports data from JSON file to an Excel file.
+     *
+     * @throws IOException If an I/O error occurs while reading or writing the files.
+     */
     public void export() throws IOException {
         long start = System.currentTimeMillis();
 
@@ -69,6 +80,13 @@ public class ExcelExporter {
         System.out.println("Run time: " + (stop - start));
     }
 
+    /**
+     * Maps JSON data to a list of AtomicRedTeam objects.
+     *
+     * @param jsonData The JSON data to map.
+     * @return The list of mapped AtomicRedTeam objects.
+     * @throws IOException If an I/O error occurs while parsing the JSON data.
+     */
     private List<AtomicRedTeam> mapJsonToAtomicTests(String jsonData) throws IOException {
         HashSet<String> testID = new HashSet<>();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -115,6 +133,11 @@ public class ExcelExporter {
         return atomicTests;
     }
 
+    /**
+     * Creates the title row in the sheet.
+     *
+     * @param sheet The sheet to create the title row in.
+     */
     private void createTitleRow(Sheet sheet) {
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 18));
         Row row = sheet.createRow(0);
@@ -141,6 +164,11 @@ public class ExcelExporter {
         }
     }
 
+    /**
+     * Creates the header row in the sheet.
+     *
+     * @param sheet The sheet to create the header row in.
+     */
     private void createHeaderRow(Sheet sheet) {
         Row headerRow = sheet.createRow(2);
         headerRow.setHeightInPoints((short) 30);
@@ -183,6 +211,11 @@ public class ExcelExporter {
         }
     }
 
+    /**
+     * Creates the sub-header row in the sheet.
+     *
+     * @param sheet The sheet to create the sub-header row in.
+     */
     private void createSubHeaderRow(Sheet sheet) {
         Row subHeaderRow = sheet.createRow(3);
         subHeaderRow.setHeight((short) -1);
@@ -206,6 +239,14 @@ public class ExcelExporter {
         }
     }
 
+    /**
+     * Creates a data cell in the specified row and column with the given style and value.
+     *
+     * @param row    The row to create the data cell in.
+     * @param column The column index of the data cell.
+     * @param style  The style to apply to the data cell.
+     * @param value  The value to set in the data cell.
+     */
     private void createDataCell(Row row, int column, CellStyle style, Object value) {
         Cell dataCell = row.createCell(column);
         dataCell.setCellStyle(style);
@@ -220,6 +261,12 @@ public class ExcelExporter {
         }
     }
 
+    /**
+     * Creates the data rows in the sheet.
+     *
+     * @param sheet       The sheet to populate with data rows.
+     * @param atomicTests The list of AtomicRedTeam objects containing the data.
+     */
     private void createDataRows(Sheet sheet, List<AtomicRedTeam> atomicTests) {
         int rowNum = 4;
         CellStyle contentCellStyle = sheet.getWorkbook().createCellStyle();
@@ -307,6 +354,11 @@ public class ExcelExporter {
         }
     }
 
+    /**
+     * Auto-sizes the columns in the sheet based on the content.
+     *
+     * @param sheet The sheet to auto-size the columns.
+     */
     private void autoSizeColumns(Sheet sheet) {
         sheet.setColumnWidth(0, 3000);
 
@@ -365,12 +417,22 @@ public class ExcelExporter {
         sheet.setColumnWidth(18, 11500);
     }
 
+    /**
+     * Hides the technique columns (columns 3-9) in the sheet.
+     *
+     * @param sheet The sheet to hide the technique columns.
+     */
     private void hideTechniqueColumns(Sheet sheet) {
         for (int i = 3; i < 10; i++) {
             sheet.setColumnHidden(i, true);
         }
     }
 
+    /**
+     * Applies a filter to the sheet based on the data range.
+     *
+     * @param sheet The sheet to apply the filter to.
+     */
     private void applyFilter(Sheet sheet) {
         // Determine the last row and column with data
         int lastRowNum = sheet.getLastRowNum();
@@ -380,12 +442,23 @@ public class ExcelExporter {
         sheet.setAutoFilter(usedRange);
     }
 
+    /**
+     * Writes the workbook to the Excel file.
+     *
+     * @param workbook The workbook to write.
+     * @throws IOException If an I/O error occurs while writing the workbook.
+     */
     private void writeWorkbook(Workbook workbook) throws IOException {
         try (FileOutputStream outputStream = new FileOutputStream(excelFilePath)) {
             workbook.write(outputStream);
         }
     }
 
+    /**
+     * Opens the specified file.
+     *
+     * @param filePath The path of the file to open.
+     */
     private void openFile(String filePath) {
         try {
             File file = new File(filePath);
@@ -395,7 +468,7 @@ public class ExcelExporter {
                 System.err.println("File not found: " + filePath);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 }
