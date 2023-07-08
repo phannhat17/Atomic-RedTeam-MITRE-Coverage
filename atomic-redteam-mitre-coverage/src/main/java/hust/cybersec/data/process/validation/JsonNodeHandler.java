@@ -2,7 +2,18 @@ package hust.cybersec.data.process.validation;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+/**
+ * Provides methods for handling and validating JsonNode objects.
+ */
 public class JsonNodeHandler {
+
+    /**
+     * Retrieves the value of the specified field from the JsonNode as a string.
+     *
+     * @param node      The JsonNode object.
+     * @param fieldName The name of the field.
+     * @return The value of the field as a string, or an empty string if the field is not found.
+     */
     public String getNodeValue(JsonNode node, String fieldName) {
         if (node.has(fieldName)) {
             return node.get(fieldName).asText();
@@ -10,6 +21,12 @@ public class JsonNodeHandler {
         return "";
     }
 
+    /**
+     * Checks if the given JsonNode represents a valid attack pattern based on specific criteria.
+     *
+     * @param root The root JsonNode object to validate.
+     * @return true if the JsonNode is valid, false otherwise.
+     */
     public boolean checkValid(JsonNode root) {
         if (!getNodeValue(root, "type").equals("attack-pattern")) {
             return false;

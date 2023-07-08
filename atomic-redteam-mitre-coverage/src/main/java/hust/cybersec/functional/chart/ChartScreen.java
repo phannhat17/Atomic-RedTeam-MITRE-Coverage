@@ -18,6 +18,9 @@ public class ChartScreen extends Application {
         stage.show();
     }
 
+    /**
+     * Launches the chart scene.
+     */
     public static void LaunchScene() {
         launch();
     }

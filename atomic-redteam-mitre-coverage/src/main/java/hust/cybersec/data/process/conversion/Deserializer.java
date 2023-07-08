@@ -16,10 +16,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The Deserializer class is responsible for deserializing JSON data into objects of type AtomicRedTeam or MitreAttackFramework.
+ */
 public class Deserializer extends JsonDeserializer<Object> {
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     private final JsonNodeHandler jsonHandler = new JsonNodeHandler();
+
 
     @Override
     public Object deserialize(JsonParser jsonParser, DeserializationContext deserializationContext) throws IOException {
@@ -32,6 +36,12 @@ public class Deserializer extends JsonDeserializer<Object> {
         }
     }
 
+    /**
+     * Finds the external node with the source name "mitre-attack" from the external references' node.
+     *
+     * @param externalReferencesNode The JSON node containing external references.
+     * @return The external node with the source name "mitre-attack", or null if not found.
+     */
     private JsonNode findExternalNode(JsonNode externalReferencesNode) {
         JsonNode externalNode = null;
         if (externalReferencesNode != null && externalReferencesNode.isArray()) {
@@ -46,6 +56,15 @@ public class Deserializer extends JsonDeserializer<Object> {
         return externalNode;
     }
 
+    /**
+     * Parses a string array from a JSON node.
+     *
+     * @param objectMapper The ObjectMapper to use for JSON processing.
+     * @param node         The JSON node containing the string array.
+     * @param fieldName    The name of the field containing the string array.
+     * @return The parsed string array.
+     * @throws JsonProcessingException If there is an error during JSON processing.
+     */
     private String[] parseStringArray(ObjectMapper objectMapper, JsonNode node, String fieldName)
             throws JsonProcessingException, IllegalArgumentException {
         if (node.has(fieldName)) {
@@ -54,6 +73,12 @@ public class Deserializer extends JsonDeserializer<Object> {
         return new String[0];
     }
 
+    /**
+     * Parses the tactics from a JSON node.
+     *
+     * @param node The JSON node containing the tactics.
+     * @return The parsed tactics as a string array.
+     */
     private String[] parseTactics(JsonNode node) {
         if (!node.has("kill_chain_phases")) {
             return new String[0];
@@ -71,6 +96,12 @@ public class Deserializer extends JsonDeserializer<Object> {
         return phaseNames.toArray(new String[0]);
     }
 
+    /**
+     * Parses the input arguments from a JSON node.
+     *
+     * @param node The JSON node containing the input arguments.
+     * @return The parsed input arguments as a string array.
+     */
     private String[] parseInputArguments(JsonNode node) {
         if (!node.has("input_arguments")) {
             return new String[0];
@@ -100,6 +131,12 @@ public class Deserializer extends JsonDeserializer<Object> {
         return inputArgumentsList.toArray(new String[0]);
     }
 
+    /**
+     * Parses the executor from a JSON node.
+     *
+     * @param node The JSON node containing the executor.
+     * @return The parsed executor as a string array.
+     */
     private String[] parseExecutor(JsonNode node) {
         if (!node.has("executor")) {
             return new String[0];
@@ -123,6 +160,12 @@ public class Deserializer extends JsonDeserializer<Object> {
         return executorList.toArray(new String[0]);
     }
 
+    /**
+     * Parses the dependencies from a JSON node.
+     *
+     * @param node The JSON node containing the dependencies.
+     * @return The parsed dependencies as a string array.
+     */
     private String[] parseDependencies(JsonNode node) {
         if (!node.has("dependencies")) {
             return new String[0];
@@ -148,6 +191,14 @@ public class Deserializer extends JsonDeserializer<Object> {
         return dependenciesList.toArray(new String[0]);
     }
 
+    /**
+     * Deserializes a JSON node into a MitreAttackFramework object.
+     *
+     * @param node The JSON node to deserialize.
+     * @return The deserialized MitreAttackFramework object.
+     * @throws JsonProcessingException       If there is an error during JSON processing.
+     * @throws IllegalArgumentException     If the JSON node is invalid or missing required fields.
+     */
     private MitreAttackFramework deserializeMitreAttackFramework(JsonNode node)
             throws JsonProcessingException, IllegalArgumentException {
 
@@ -177,6 +228,14 @@ public class Deserializer extends JsonDeserializer<Object> {
                 techniqueDomains, techniqueUrl, techniqueTactics, techniqueDetection, techniqueIsSubtechnique);
     }
 
+    /**
+     * Deserializes a JSON node into an AtomicRedTeam object.
+     *
+     * @param node The JSON node to deserialize.
+     * @return The deserialized AtomicRedTeam object.
+     * @throws JsonProcessingException       If there is an error during JSON processing.
+     * @throws IllegalArgumentException     If the JSON node is invalid or missing required fields.
+     */
     private AtomicRedTeam deserializeAtomicRedTeam(JsonNode node)
             throws JsonProcessingException, IllegalArgumentException {
         String testName = jsonHandler.getNodeValue(node, "name");

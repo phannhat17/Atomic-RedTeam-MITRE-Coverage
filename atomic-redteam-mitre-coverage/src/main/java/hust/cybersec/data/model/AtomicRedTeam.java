@@ -9,6 +9,10 @@ import hust.cybersec.functional.chart.ChartScreen;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
+/**
+ * Represents the Atomic Red Team class, extending the MitreAttackFramework.
+ * Provides functionality related to Atomic Red Team tests.
+ */
 public class AtomicRedTeam extends MitreAttackFramework {
     private int testNumber;
 
@@ -36,10 +40,26 @@ public class AtomicRedTeam extends MitreAttackFramework {
     @JsonProperty("dependencies")
     private String[] testDependencies;
 
+    /**
+     * Default constructor for the AtomicRedTeam class.
+     * Initializes the class with default values.
+     */
     public AtomicRedTeam() {
         super();
     }
 
+    /**
+     * Constructor for the AtomicRedTeam class.
+     *
+     * @param testName                  The name of the test.
+     * @param testGuid                  The auto-generated GUID for the test.
+     * @param testDescription           The description of the test.
+     * @param testSupportedPlatforms    The supported platforms for the test.
+     * @param testInputArguments        The input arguments for the test.
+     * @param testExecutor              The executor for the test.
+     * @param testDependencyExecutorName The name of the dependency executor.
+     * @param testDependencies          The dependencies of the test.
+     */
     public AtomicRedTeam(String testName, String testGuid, String testDescription, String[] testSupportedPlatforms,
                          String[] testInputArguments, String[] testExecutor, String testDependencyExecutorName,
                          String[] testDependencies) {
@@ -54,6 +74,19 @@ public class AtomicRedTeam extends MitreAttackFramework {
         this.testDependencies = testDependencies;
     }
 
+    /**
+     * Constructor for the AtomicRedTeam class.
+     *
+     * @param testNumber                The number of the test.
+     * @param testName                  The name of the test.
+     * @param testGuid                  The auto-generated GUID for the test.
+     * @param testDescription           The description of the test.
+     * @param testSupportedPlatforms    The supported platforms for the test.
+     * @param testInputArguments        The input arguments for the test.
+     * @param testExecutor              The executor for the test.
+     * @param testDependencyExecutorName The name of the dependency executor.
+     * @param testDependencies          The dependencies of the test.
+     */
     public AtomicRedTeam(int testNumber, String testName, String testGuid, String testDescription,
                          String[] testSupportedPlatforms, String[] testInputArguments, String[] testExecutor,
                          String testDependencyExecutorName, String[] testDependencies) {
@@ -69,6 +102,7 @@ public class AtomicRedTeam extends MitreAttackFramework {
         this.testDependencies = testDependencies;
     }
 
+    // Setter and  Getter
     public void setTestNumber(int testNumber) {
         this.testNumber = testNumber;
     }
@@ -109,6 +143,11 @@ public class AtomicRedTeam extends MitreAttackFramework {
         return testDependencies;
     }
 
+    /**
+     * Downloads Atomic Red Team data.
+     *
+     * @throws URISyntaxException If there is an error in the URI syntax.
+     */
     @Override
     public void downloadData() throws URISyntaxException {
         String ATOMIC_URL = "https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/Indexes/";
@@ -125,6 +164,11 @@ public class AtomicRedTeam extends MitreAttackFramework {
         converter.convert();
     }
 
+    /**
+     * Exports Atomic Red Team data to an Excel file.
+     *
+     * @throws IOException If there is an I/O error.
+     */
     public void exportExcel() throws IOException {
         String JSON_FILE_PATH = "./data/atomic/atomic-all.json";
         String EXCEL_FILE_PATH = "./data/atomic/atomic-all.xlsx";
@@ -132,6 +176,9 @@ public class AtomicRedTeam extends MitreAttackFramework {
         exporter.export();
     }
 
+    /**
+     * Launch the analyses coverage of the Atomic Red Team data scene.
+     */
     public void analyseCoverage() {
         ChartScreen.LaunchScene();
     }

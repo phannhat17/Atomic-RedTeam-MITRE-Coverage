@@ -16,6 +16,12 @@ public class DistinctParser {
 
     private final JsonNodeHandler jsonHandler = new JsonNodeHandler();
 
+    /**
+     * Retrieves the list of tactics from the provided JSON node based on the specified domain.
+     *
+     * @param root   The JSON node to extract tactics from.
+     * @param domain The domain used to filter tactics.
+     */
     private void getTacticList(JsonNode root, String domain) {
         if (root.has("kill_chain_phases")) {
             root = root.get("kill_chain_phases");
@@ -31,6 +37,11 @@ public class DistinctParser {
         }
     }
 
+    /**
+     * Retrieves the list of platforms from the provided JSON node.
+     *
+     * @param root The JSON node to extract platforms from.
+     */
     private void getPlatformList(JsonNode root) {
         if (root.has("x_mitre_platforms")) {
             root = root.get("x_mitre_platforms");
@@ -42,6 +53,9 @@ public class DistinctParser {
         }
     }
 
+    /**
+     * Parses the JSON data from files and extracts distinct tactics and platforms.
+     */
     private void parseData() {
         String JSON_DIRECTORY_PATH = "./data/mitre-attack/";
         for (int i = 0; i < Constants.DOMAINS.length; ++i) {
@@ -67,6 +81,11 @@ public class DistinctParser {
         }
     }
 
+    /**
+     * Parses and returns the distinct tactics as an array.
+     *
+     * @return An array of distinct tactics.
+     */
     public String[] parseDistinctTactic() {
         if (tacticList.isEmpty()) {
             parseData();
@@ -74,6 +93,11 @@ public class DistinctParser {
         return tacticList.toArray(new String[0]);
     }
 
+    /**
+     * Parses and returns the distinct platforms as an array.
+     *
+     * @return An array of distinct platforms.
+     */
     public String[] parseDistinctPlatform() {
         if (platformList.isEmpty()) {
             parseData();

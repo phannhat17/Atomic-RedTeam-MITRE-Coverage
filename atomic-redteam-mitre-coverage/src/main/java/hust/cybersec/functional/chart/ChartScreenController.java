@@ -53,10 +53,12 @@ public class ChartScreenController {
     @FXML
     private BorderPane screenBorder;
 
+    // Series for covered and uncovered data
     private final XYChart.Series<String, Number> coveredSeries = new XYChart.Series<>();
 
     private final XYChart.Series<String, Number> uncoveredSeries = new XYChart.Series<>();
 
+    // Observable lists for choice boxes
     private final ObservableList<String> PLATFORMS = FXCollections.observableArrayList(Constants.PLATFORMS);
     private final ObservableList<String> TACTICS = FXCollections.observableArrayList(Constants.TACTICS);
     private final ObservableList<String> DOMAINS = FXCollections.observableArrayList(Constants.DOMAINS);
@@ -68,6 +70,7 @@ public class ChartScreenController {
 
     private final JsonToTreeProcessor processor = new JsonToTreeProcessor();
 
+    // Initialize DOMAINS, TACTICS, and PLATFORMS with "ALL" option and build data tree
     {
         DOMAINS.add(ALL);
         TACTICS.add(ALL);
@@ -77,19 +80,25 @@ public class ChartScreenController {
         uncoveredSeries.setName(UNCOVERED);
     }
 
+    // Data trees for different domains
     private final DataTree ENTERPRISE_TREE = processor.getEnterpriseTree();
     private final DataTree MOBILE_TREE = processor.getMobileTree();
     private final DataTree ICS_TREE = processor.getIcsTree();
+
+    // Path for tree traversal
     private final String[] path = new String[4];
     private final String MITRE_TOTAL = "Mitre.Total";
     private final String ATOMIC_TOTAL = "Atomic.Total";
 
-    private DataTree selectedTree;
+    private DataTree selectedTree; // Selected data tree for traversal
 
-    private Triple tripleValue;
+    private Triple tripleValue; // Value of the current tree node
 
-    private String selectedTaxonomyString = "";
+    private String selectedTaxonomyString = ""; // Selected taxonomy string
 
+    /**
+     * Sets up the initial stage by populating the choice boxes and triggering the analysis.
+     */
     public void firstStage() {
         // Set for initial stage
         ObservableList<String> firstChoices = FXCollections.observableArrayList(TAXONOMIES);
@@ -101,6 +110,10 @@ public class ChartScreenController {
         analyseButtonPressed(new ActionEvent());
     }
 
+    /**
+     * Sets the choice boxes based on the selected taxonomy.
+     * @param selectedFirstChoice The selected taxonomy.
+     */
     public void setChoiceBoxes(String selectedFirstChoice) {
         if (selectedFirstChoice.equals(TAXONOMIES.get(0))) {
             secondChoiceBox.setItems(DOMAINS.sorted());
@@ -116,6 +129,12 @@ public class ChartScreenController {
         thirdChoiceBox.getSelectionModel().selectFirst();
     }
 
+    /**
+     * Adds data to the chart for the specified category.
+     * @param category The category to add data for.
+     * @param atomicTechnique The number of atomic techniques.
+     * @param mitreTechnique The number of Mitre techniques.
+     */
     public void addDataToChart(String category, int atomicTechnique, int mitreTechnique) {
         coveredSeries.getData().add(new XYChart.Data<>(category, atomicTechnique));
         uncoveredSeries.getData().add(new XYChart.Data<>(category, mitreTechnique - atomicTechnique));
@@ -136,6 +155,13 @@ public class ChartScreenController {
         chart.setAnimated(false);
     }
 
+    /**
+     * Calculates the coverage ratio.
+     *
+     * @param totalAtomicTechnique The total number of atomic techniques.
+     * @param totalMitreTechnique  The total number of Mitre techniques.
+     * @return The coverage ratio as a formatted string.
+     */
     private String getCoverageRatio(int totalAtomicTechnique, int totalMitreTechnique) {
         if (totalMitreTechnique == 0) {
             return "NaN";
@@ -143,6 +169,13 @@ public class ChartScreenController {
         return String.format("%.2f", (double) totalAtomicTechnique / totalMitreTechnique * 100);
     }
 
+    /**
+     * Writes the analysis result to the UI label.
+     *
+     * @param totalAtomicTest     The total number of atomic tests.
+     * @param totalAtomicTechnique The total number of atomic techniques.
+     * @param totalMitreTechnique  The total number of Mitre techniques.
+     */
     private void writeAnalyseResult(int totalAtomicTest, int totalAtomicTechnique, int totalMitreTechnique) {
         String resultString = "Atomic Red Team has tests for " + totalAtomicTechnique + " of the " + totalMitreTechnique
                 + " MITRE ATT&CK® Techniques for " + selectedTaxonomyString + "! (" + getCoverageRatio(totalAtomicTechnique, totalMitreTechnique)
@@ -152,6 +185,9 @@ public class ChartScreenController {
         analyseResult.setText(resultString);
     }
 
+    /**
+     * Adds tooltips to the chart nodes.
+     */
     private void addTooltip() {
         String style = "-fx-font-weight: bold; -fx-font-size: 15px;";
         int totalCoveredTechnique = 0, totalUncoveredTechnique = 0;
@@ -177,12 +213,21 @@ public class ChartScreenController {
         }
     }
 
+    /**
+     * Generates the chart.
+     */
     private void generateChart() {
         chart.getData().add(coveredSeries);
         chart.getData().add(uncoveredSeries);
         addTooltip();
     }
 
+    /**
+     * Retrieves the selected data tree based on the selected domain.
+     *
+     * @param selectedDomain The selected domain.
+     * @return The selected data tree.
+     */
     private DataTree getSelectedTree(String selectedDomain) {
         return switch (selectedDomain) {
             case "enterprise-attack" -> ENTERPRISE_TREE;
@@ -192,6 +237,11 @@ public class ChartScreenController {
         };
     }
 
+    /**
+     * Generates chart data for the domain-then-tactic taxonomy.
+     *
+     * @param selectedDomain The selected domain.
+     */
     private void domainThenTactic(String selectedDomain) {
         if (selectedDomain.equals(ALL)) {
             for (String tactic : Constants.TACTICS) {
@@ -223,6 +273,11 @@ public class ChartScreenController {
         generateChart();
     }
 
+    /**
+     * Generates chart data for the domain-then-platform taxonomy.
+     *
+     * @param selectedDomain The selected domain.
+     */
     private void domainThenPlatform(String selectedDomain) {
         if (selectedDomain.equals(ALL)) {
             for (String platform : Constants.PLATFORMS) {
@@ -263,6 +318,11 @@ public class ChartScreenController {
         generateChart();
     }
 
+    /**
+     * Generates chart data for the tactic-then-domain taxonomy.
+     *
+     * @param selectedTactic The selected tactic.
+     */
     private void tacticThenDomain(String selectedTactic) {
         if (selectedTactic.equals(ALL)) {
             for (String domain : Constants.DOMAINS) {
@@ -284,6 +344,11 @@ public class ChartScreenController {
         generateChart();
     }
 
+    /**
+     * Generates chart data for the tactic-then-platform taxonomy.
+     *
+     * @param selectedTactic The selected tactic.
+     */
     private void tacticThenPlatform(String selectedTactic) {
         if (selectedTactic.equals(ALL)) {
             for (String platform : Constants.PLATFORMS) {
@@ -327,6 +392,11 @@ public class ChartScreenController {
         generateChart();
     }
 
+    /**
+     * Generates chart data for the platform-then-tactic taxonomy.
+     *
+     * @param selectedPlatform The selected platform.
+     */
     private void platformThenTactic(String selectedPlatform) {
         if (selectedPlatform.equals(ALL)) {
             for (String tactic : Constants.TACTICS) {
@@ -365,6 +435,11 @@ public class ChartScreenController {
         generateChart();
     }
 
+    /**
+     * Generates chart data for the platform-then-domain taxonomy.
+     *
+     * @param selectedPlatform The selected platform.
+     */
     private void platformThenDomain(String selectedPlatform) {
         if (selectedPlatform.equals(ALL)) {
             for (String domain : Constants.DOMAINS) {
@@ -393,6 +468,9 @@ public class ChartScreenController {
         generateChart();
     }
 
+    /**
+     * Handles the button click event for the "Analyse" button.
+     */
     @FXML
     void analyseButtonPressed(ActionEvent event) {
         // Get the selected choices
@@ -504,6 +582,9 @@ public class ChartScreenController {
         writeAnalyseResult(totalAtomicTest, totalAtomicTechnique, totalMitreTechnique);
     }
 
+    /**
+     * Handles the button click event for the "Save" button.
+     */
     @FXML
     void saveButtonPressed(ActionEvent event) {
         String firstChoice = firstChoiceBox.getSelectionModel().getSelectedItem();
@@ -539,6 +620,11 @@ public class ChartScreenController {
         }
     }
 
+    /**
+     * Opens the specified file.
+     *
+     * @param filePath The path of the file to open.
+     */
     private void openFile(String filePath) {
         try {
             File file = new File(filePath);
