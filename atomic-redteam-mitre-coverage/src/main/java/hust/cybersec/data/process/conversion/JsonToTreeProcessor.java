@@ -1,7 +1,12 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.conversion;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hust.cybersec.data.process.structure.Constants;
+import hust.cybersec.data.process.structure.DataTree;
+import hust.cybersec.data.process.structure.Pair;
+import hust.cybersec.data.process.structure.Triple;
+import hust.cybersec.data.process.validation.JsonNodeHandler;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -73,15 +78,9 @@ public class JsonToTreeProcessor {
     }
 
     private void assignNodeValue(int domainInt, String[] pathNode, int elementInt, int valueAdd) {
+        Object value;
+        Triple tripleValue;
         switch (domainInt) {
-            case 0:
-                Object value = enterpriseTree.getValue(pathNode);
-                if (value == null || elementInt != 1)
-                    return;
-                Triple tripleValue = (Triple) value;
-                tripleValue.setMitreNode(tripleValue.getMitreNode() + valueAdd);
-                enterpriseTree.setValue(pathNode, tripleValue);
-                return;
             case 1:
                 value = mobileTree.getValue(pathNode);
                 if (value == null || elementInt != 1)
@@ -97,26 +96,22 @@ public class JsonToTreeProcessor {
                 tripleValue = (Triple) value;
                 tripleValue.setMitreNode(tripleValue.getMitreNode() + valueAdd);
                 icsTree.setValue(pathNode, tripleValue);
+                return;
+            default:
+                value = enterpriseTree.getValue(pathNode);
+                if (value == null || elementInt != 1)
+                    return;
+                tripleValue = (Triple) value;
+                tripleValue.setMitreNode(tripleValue.getMitreNode() + valueAdd);
+                enterpriseTree.setValue(pathNode, tripleValue);
         }
     }
 
     private void assignNodeValue(int domainInt, String[] pathNode, int elementInt, int elementSubInt, int valueAdd) {
+        Object value;
+        Triple tripleValue;
+        Pair pairValue;
         switch (domainInt) {
-            case 0:
-                Object value = enterpriseTree.getValue(pathNode);
-                if (value == null || elementInt != 2)
-                    return;
-                Triple tripleValue = (Triple) value;
-                Pair pairValue = tripleValue.getAtomicNode();
-                if (elementSubInt == 1) {
-                    pairValue.setAtomicTechnique(pairValue.getAtomicTechnique() + valueAdd);
-                    tripleValue.setAtomicNode(pairValue);
-                } else {
-                    pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
-                    tripleValue.setAtomicNode(pairValue);
-                }
-                enterpriseTree.setValue(pathNode, tripleValue);
-                return;
             case 1:
                 value = mobileTree.getValue(pathNode);
                 if (value == null || elementInt != 2)
@@ -146,17 +141,27 @@ public class JsonToTreeProcessor {
                     tripleValue.setAtomicNode(pairValue);
                 }
                 icsTree.setValue(pathNode, tripleValue);
-
+                return;
+            default:
+                value = enterpriseTree.getValue(pathNode);
+                if (value == null || elementInt != 2)
+                    return;
+                tripleValue = (Triple) value;
+                pairValue = tripleValue.getAtomicNode();
+                if (elementSubInt == 1) {
+                    pairValue.setAtomicTechnique(pairValue.getAtomicTechnique() + valueAdd);
+                    tripleValue.setAtomicNode(pairValue);
+                } else {
+                    pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
+                    tripleValue.setAtomicNode(pairValue);
+                }
+                enterpriseTree.setValue(pathNode, tripleValue);
         }
     }
 
     private void assignMitreValue(int domainInt, String[] pathNode) {
+        Object value;
         switch (domainInt) {
-            case 0:
-                Object value = enterpriseTree.getValue(pathNode);
-                value = (value == null) ? null : (Integer) value + 1;
-                enterpriseTree.setValue(pathNode, value);
-                return;
             case 1:
                 value = mobileTree.getValue(pathNode);
                 value = (value == null) ? null : (Integer) value + 1;
@@ -166,23 +171,18 @@ public class JsonToTreeProcessor {
                 value = icsTree.getValue(pathNode);
                 value = (value == null) ? null : (Integer) value + 1;
                 icsTree.setValue(pathNode, value);
+                return;
+            default:
+                value = enterpriseTree.getValue(pathNode);
+                value = (value == null) ? null : (Integer) value + 1;
+                enterpriseTree.setValue(pathNode, value);
         }
     }
 
     private void assignAtomicValue(int domainInt, String[] pathNode, int elementInt, int valueAdd) {
+        Object value;
+        Pair pairValue;
         switch (domainInt) {
-            case 0:
-                Object value = enterpriseTree.getValue(pathNode);
-                if (value == null || elementInt > 2 || elementInt < 1)
-                    return;
-                Pair pairValue = (Pair) value;
-                if (elementInt == 1) {
-                    pairValue.setAtomicTechnique(pairValue.getAtomicTechnique() + valueAdd);
-                } else {
-                    pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
-                }
-                enterpriseTree.setValue(pathNode, pairValue);
-                return;
             case 1:
                 value = mobileTree.getValue(pathNode);
                 if (value == null || elementInt > 2 || elementInt < 1)
@@ -206,6 +206,18 @@ public class JsonToTreeProcessor {
                     pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
                 }
                 icsTree.setValue(pathNode, pairValue);
+                return;
+            default:
+                value = enterpriseTree.getValue(pathNode);
+                if (value == null || elementInt > 2 || elementInt < 1)
+                    return;
+                pairValue = (Pair) value;
+                if (elementInt == 1) {
+                    pairValue.setAtomicTechnique(pairValue.getAtomicTechnique() + valueAdd);
+                } else {
+                    pairValue.setAtomicTest(pairValue.getAtomicTest() + valueAdd);
+                }
+                enterpriseTree.setValue(pathNode, pairValue);
         }
     }
 

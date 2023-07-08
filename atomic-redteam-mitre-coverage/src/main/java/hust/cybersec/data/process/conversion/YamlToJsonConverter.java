@@ -1,4 +1,4 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.conversion;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;

@@ -10,7 +10,7 @@
 <BorderPane fx:id="screenBorder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
             minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="hust.cybersec.screen.ChartScreenController">
+            fx:controller="hust.cybersec.functional.chart.ChartScreenController">
     <center>
         <StackedBarChart fx:id="chart" prefHeight="573.0" prefWidth="1120.0" BorderPane.alignment="CENTER">
             <xAxis>

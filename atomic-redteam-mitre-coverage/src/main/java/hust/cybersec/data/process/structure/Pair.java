@@ -1,4 +1,4 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.structure;
 
 public class Pair {
     private Integer atomicTechnique;

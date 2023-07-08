@@ -1,4 +1,4 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.structure;
 
 import java.util.HashMap;
 import java.util.Map;

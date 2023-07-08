@@ -2,9 +2,9 @@ package hust.cybersec.data.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import hust.cybersec.data.collector.DataRetriever;
-import hust.cybersec.data.process.YamlToJsonConverter;
+import hust.cybersec.data.process.conversion.YamlToJsonConverter;
 import hust.cybersec.functional.ExcelExporter;
-import hust.cybersec.screen.ChartScreen;
+import hust.cybersec.functional.chart.ChartScreen;
 
 import java.io.IOException;
 import java.net.URISyntaxException;

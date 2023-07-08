@@ -1,4 +1,4 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.validation;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

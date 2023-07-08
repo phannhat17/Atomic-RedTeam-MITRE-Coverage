@@ -1,4 +1,4 @@
-package hust.cybersec.screen;
+package hust.cybersec.functional.chart;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.conversion;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hust.cybersec.data.model.AtomicRedTeam;
 import hust.cybersec.data.model.MitreAttackFramework;
+import hust.cybersec.data.process.validation.JsonNodeHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;

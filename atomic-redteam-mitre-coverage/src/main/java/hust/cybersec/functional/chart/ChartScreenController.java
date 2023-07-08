@@ -1,11 +1,14 @@
-package hust.cybersec.screen;
+package hust.cybersec.functional.chart;
 
-import hust.cybersec.data.process.*;
+import hust.cybersec.data.process.conversion.JsonToTreeProcessor;
+import hust.cybersec.data.process.structure.Constants;
+import hust.cybersec.data.process.structure.DataTree;
+import hust.cybersec.data.process.structure.Pair;
+import hust.cybersec.data.process.structure.Triple;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -187,7 +190,6 @@ public class ChartScreenController {
             case "ics-attack" -> ICS_TREE;
             default -> ENTERPRISE_TREE;
         };
-
     }
 
     private void domainThenTactic(String selectedDomain) {

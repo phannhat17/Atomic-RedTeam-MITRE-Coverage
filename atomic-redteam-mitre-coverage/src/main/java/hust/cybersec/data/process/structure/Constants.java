@@ -1,4 +1,6 @@
-package hust.cybersec.data.process;
+package hust.cybersec.data.process.structure;
+
+import hust.cybersec.data.process.conversion.DistinctParser;
 
 public class Constants {
     public static final String[] DOMAINS = {"enterprise-attack", "mobile-attack", "ics-attack"};

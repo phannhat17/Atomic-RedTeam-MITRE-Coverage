@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import hust.cybersec.data.collector.DataRetriever;
-import hust.cybersec.data.process.Deserializer;
+import hust.cybersec.data.process.conversion.Deserializer;
 
 import java.net.URISyntaxException;
 
